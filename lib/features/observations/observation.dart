@@ -21,6 +21,7 @@ class Observation {
     this.scientificName,
     this.commonNameHu,
     this.vernacularNames = const {},
+    this.iconicTaxon,
     this.observedAt,
     this.photoPath,
   });
@@ -36,6 +37,10 @@ class Observation {
   /// Nyelvenkénti népies nevek (GBIF-kód kulccsal):
   /// {"hun": "...", "eng": "...", "deu": "...", ...}
   final Map<String, String> vernacularNames;
+
+  /// A faj fő csoportja (pl. "Plantae", "Animalia", "Insecta", "Fungi") —
+  /// a `species.taxonomy_json.iconic_taxon` mezőből.
+  final String? iconicTaxon;
 
   final DateTime? observedAt;
   final String? photoPath;
@@ -74,6 +79,7 @@ class Observation {
     final species = json['species'];
     String? scientificName;
     String? commonNameHu;
+    String? iconicTaxon;
     final vernacular = <String, String>{};
 
     if (species is Map) {
@@ -85,6 +91,12 @@ class Observation {
         raw.forEach((k, v) {
           if (v is String && v.isNotEmpty) vernacular[k.toString()] = v;
         });
+      }
+
+      final tax = species['taxonomy_json'];
+      if (tax is Map) {
+        final icon = tax['iconic_taxon'];
+        if (icon is String && icon.isNotEmpty) iconicTaxon = icon;
       }
     }
 
@@ -103,6 +115,7 @@ class Observation {
       scientificName: scientificName,
       commonNameHu: commonNameHu,
       vernacularNames: vernacular,
+      iconicTaxon: iconicTaxon,
       observedAt: json['observed_at'] != null
           ? DateTime.parse(json['observed_at'] as String)
           : null,

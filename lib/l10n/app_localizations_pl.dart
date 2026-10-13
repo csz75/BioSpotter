@@ -149,6 +149,41 @@ class AppLocalizationsPl extends AppLocalizations {
   String get searchLanguage => 'Język:';
 
   @override
+  String get searchFieldHint => 'Szukaj według nazwy gatunku...';
+
+  @override
+  String get searchClear => 'Wyczyść filtry';
+
+  @override
+  String searchResultCount(int count) {
+    return '$count wyników';
+  }
+
+  @override
+  String get searchGroupPlants => 'Rośliny';
+
+  @override
+  String get searchGroupAnimals => 'Zwierzęta';
+
+  @override
+  String get searchGroupInsects => 'Owady';
+
+  @override
+  String get searchGroupFungi => 'Grzyby';
+
+  @override
+  String get searchIdentified => 'Zidentyfikowane';
+
+  @override
+  String get searchUnidentified => 'Niezidentyfikowane';
+
+  @override
+  String get searchFromDate => 'Od';
+
+  @override
+  String get searchToDate => 'Do';
+
+  @override
   String get obsSetSpecies => 'Ustaw / zmień gatunek';
 
   @override

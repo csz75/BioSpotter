@@ -8,6 +8,7 @@ import 'camera_screen.dart';
 import 'login_screen.dart';
 import 'map_screen.dart';
 import 'observation_list_screen.dart';
+import 'search_screen.dart';
 import 'settings_screen.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -74,6 +75,14 @@ class HomeScreen extends ConsumerWidget {
               label: Text(l.homeMap),
               onPressed: () => Navigator.of(context).push(
                 MaterialPageRoute(builder: (_) => const MapScreen()),
+              ),
+            ),
+            const SizedBox(height: 16),
+            OutlinedButton.icon(
+              icon: const Icon(Icons.search),
+              label: Text(l.searchTitle),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const SearchScreen()),
               ),
             ),
           ],

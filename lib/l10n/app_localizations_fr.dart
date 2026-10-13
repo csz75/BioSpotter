@@ -150,6 +150,41 @@ class AppLocalizationsFr extends AppLocalizations {
   String get searchLanguage => 'Langue :';
 
   @override
+  String get searchFieldHint => 'Rechercher par nom d\'espèce...';
+
+  @override
+  String get searchClear => 'Effacer les filtres';
+
+  @override
+  String searchResultCount(int count) {
+    return '$count résultats';
+  }
+
+  @override
+  String get searchGroupPlants => 'Plantes';
+
+  @override
+  String get searchGroupAnimals => 'Animaux';
+
+  @override
+  String get searchGroupInsects => 'Insectes';
+
+  @override
+  String get searchGroupFungi => 'Champignons';
+
+  @override
+  String get searchIdentified => 'Identifié';
+
+  @override
+  String get searchUnidentified => 'Non identifié';
+
+  @override
+  String get searchFromDate => 'Du';
+
+  @override
+  String get searchToDate => 'Au';
+
+  @override
   String get obsSetSpecies => 'Définir / modifier l\'espèce';
 
   @override

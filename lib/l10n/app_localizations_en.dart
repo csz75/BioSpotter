@@ -148,6 +148,41 @@ class AppLocalizationsEn extends AppLocalizations {
   String get searchLanguage => 'Language:';
 
   @override
+  String get searchFieldHint => 'Search by species name...';
+
+  @override
+  String get searchClear => 'Clear filters';
+
+  @override
+  String searchResultCount(int count) {
+    return '$count results';
+  }
+
+  @override
+  String get searchGroupPlants => 'Plants';
+
+  @override
+  String get searchGroupAnimals => 'Animals';
+
+  @override
+  String get searchGroupInsects => 'Insects';
+
+  @override
+  String get searchGroupFungi => 'Fungi';
+
+  @override
+  String get searchIdentified => 'Identified';
+
+  @override
+  String get searchUnidentified => 'Unidentified';
+
+  @override
+  String get searchFromDate => 'From';
+
+  @override
+  String get searchToDate => 'To';
+
+  @override
   String get obsSetSpecies => 'Set / change species';
 
   @override

@@ -149,6 +149,41 @@ class AppLocalizationsHu extends AppLocalizations {
   String get searchLanguage => 'Nyelv:';
 
   @override
+  String get searchFieldHint => 'Keresés fajnév alapján...';
+
+  @override
+  String get searchClear => 'Szűrők törlése';
+
+  @override
+  String searchResultCount(int count) {
+    return '$count találat';
+  }
+
+  @override
+  String get searchGroupPlants => 'Növények';
+
+  @override
+  String get searchGroupAnimals => 'Állatok';
+
+  @override
+  String get searchGroupInsects => 'Rovarok';
+
+  @override
+  String get searchGroupFungi => 'Gombák';
+
+  @override
+  String get searchIdentified => 'Azonosított';
+
+  @override
+  String get searchUnidentified => 'Azonosítatlan';
+
+  @override
+  String get searchFromDate => 'Ettől';
+
+  @override
+  String get searchToDate => 'Eddig';
+
+  @override
   String get obsSetSpecies => 'Faj megadása / módosítása';
 
   @override

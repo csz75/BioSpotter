@@ -20,10 +20,11 @@ class ObservationRepository {
         .select(
           'id, user_id, species_id, observed_at, latitude, longitude, '
           'photos(storage_path, thumbnail_path), '
-          'species(scientific_name, common_name_hu, vernacular_names)',
+          'species(scientific_name, common_name_hu, vernacular_names, taxonomy_json)',
         )
         .eq('user_id', user.id)
         .order('observed_at', ascending: false);
+
 
     return (res as List)
         .map((e) => Observation.fromJson(e as Map<String, dynamic>))

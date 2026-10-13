@@ -82,6 +82,24 @@
   "searchNoResults": "Nincs találat",
   "searchTryOtherLanguage": "Próbáld másik nyelven, vagy add meg a tudományos nevet.",
   "searchLanguage": "Nyelv:",
+  "searchFieldHint": "Keresés fajnév alapján...",
+  "searchClear": "Szűrők törlése",
+  "searchNoResults": "Nincs találat",
+  "searchResultCount": "{count} találat",
+  "@searchResultCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "searchGroupPlants": "Növények",
+  "searchGroupAnimals": "Állatok",
+  "searchGroupInsects": "Rovarok",
+  "searchGroupFungi": "Gombák",
+  "searchIdentified": "Azonosított",
+  "searchUnidentified": "Azonosítatlan",
+  "searchFromDate": "Ettől",
+  "searchToDate": "Eddig",
+
 
   "obsSetSpecies": "Faj megadása / módosítása",
   "obsReidentify": "Újra-azonosítás",

@@ -348,6 +348,72 @@ abstract class AppLocalizations {
   /// **'Nyelv:'**
   String get searchLanguage;
 
+  /// No description provided for @searchFieldHint.
+  ///
+  /// In hu, this message translates to:
+  /// **'Keresés fajnév alapján...'**
+  String get searchFieldHint;
+
+  /// No description provided for @searchClear.
+  ///
+  /// In hu, this message translates to:
+  /// **'Szűrők törlése'**
+  String get searchClear;
+
+  /// No description provided for @searchResultCount.
+  ///
+  /// In hu, this message translates to:
+  /// **'{count} találat'**
+  String searchResultCount(int count);
+
+  /// No description provided for @searchGroupPlants.
+  ///
+  /// In hu, this message translates to:
+  /// **'Növények'**
+  String get searchGroupPlants;
+
+  /// No description provided for @searchGroupAnimals.
+  ///
+  /// In hu, this message translates to:
+  /// **'Állatok'**
+  String get searchGroupAnimals;
+
+  /// No description provided for @searchGroupInsects.
+  ///
+  /// In hu, this message translates to:
+  /// **'Rovarok'**
+  String get searchGroupInsects;
+
+  /// No description provided for @searchGroupFungi.
+  ///
+  /// In hu, this message translates to:
+  /// **'Gombák'**
+  String get searchGroupFungi;
+
+  /// No description provided for @searchIdentified.
+  ///
+  /// In hu, this message translates to:
+  /// **'Azonosított'**
+  String get searchIdentified;
+
+  /// No description provided for @searchUnidentified.
+  ///
+  /// In hu, this message translates to:
+  /// **'Azonosítatlan'**
+  String get searchUnidentified;
+
+  /// No description provided for @searchFromDate.
+  ///
+  /// In hu, this message translates to:
+  /// **'Ettől'**
+  String get searchFromDate;
+
+  /// No description provided for @searchToDate.
+  ///
+  /// In hu, this message translates to:
+  /// **'Eddig'**
+  String get searchToDate;
+
   /// No description provided for @obsSetSpecies.
   ///
   /// In hu, this message translates to:
