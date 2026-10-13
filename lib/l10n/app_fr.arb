@@ -1,0 +1,76 @@
+{
+  "@@locale": "fr",
+
+  "appTitle": "BioSpotter",
+
+  "loginTitle": "BioSpotter",
+  "loginEmail": "E-mail",
+  "loginPassword": "Mot de passe",
+  "loginDisplayName": "Nom affiché",
+  "loginSignIn": "Se connecter",
+  "loginSignUp": "S'inscrire",
+  "loginSwitchToSignUp": "Pas encore de compte ? Inscrivez-vous",
+  "loginSwitchToSignIn": "Vous avez déjà un compte ? Connectez-vous",
+  "loginEmailRequired": "Veuillez saisir votre adresse e-mail",
+  "loginEmailInvalid": "Adresse e-mail invalide",
+  "loginPasswordTooShort": "Le mot de passe doit comporter au moins 6 caractères",
+  "loginError": "Une erreur est survenue : {error}",
+
+  "homeGreeting": "Bonjour, {email} !",
+  "homeNewObservation": "Nouvelle observation",
+  "homeMyObservations": "Mes observations",
+  "homeMap": "Carte",
+  "homeLogout": "Déconnexion",
+
+  "cameraTitle": "Nouvelle observation",
+  "cameraNoCamera": "Aucune caméra trouvée sur cet appareil.",
+  "cameraInitFailed": "La caméra n'a pas pu démarrer : {error}",
+  "cameraRetry": "Réessayer",
+  "cameraSaved": "Observation enregistrée !",
+  "cameraError": "Erreur : {error}",
+  "locationServiceDisabled": "Les services de localisation sont désactivés. Activez-les dans Réglages → Confidentialité → Service de localisation.",
+  "locationPermissionDenied": "Vous avez refusé l'autorisation de localisation.",
+  "locationPermissionDeniedForever": "L'accès à la localisation est définitivement bloqué. Réglages → BioSpotter → Localisation.",
+  "locationUnavailable": "Impossible de déterminer votre position. Sortez ou attendez quelques secondes, puis réessayez.",
+
+  "observationsTitle": "Mes observations",
+  "observationsEmpty": "Vous n'avez pas encore d'observations",
+  "observationsUnknownSpecies": "Espèce non identifiée",
+  "observationsError": "Erreur : {error}",
+  "observationsGps": "GPS : {lat}, {lng}",
+  "observationsDateTime": "Date : {date}",
+
+  "searchTitle": "Rechercher une espèce",
+  "searchHint": "Saisissez un nom d'espèce...",
+  "searchStartHint": "Commencez à taper pour rechercher une espèce.\nVous pouvez saisir un nom scientifique ou vernaculaire.",
+  "searchNoResults": "Aucun résultat",
+  "searchTryOtherLanguage": "Essayez une autre langue ou saisissez le nom scientifique.",
+  "searchLanguage": "Langue :",
+
+  "obsSetSpecies": "Définir / modifier l'espèce",
+  "obsReidentify": "Réidentifier",
+  "obsDelete": "Supprimer l'observation",
+  "obsDeleteConfirmTitle": "Supprimer cette observation ?",
+  "obsDeleteConfirmBody": "L'observation et sa photo seront définitivement supprimées.",
+  "obsDeleted": "Observation supprimée.",
+  "obsSpeciesSaved": "Nom d'espèce enregistré.",
+  "tapForFullSize": "Touchez pour la taille réelle",
+
+  "confirmTitle": "Enregistrer cette observation ?",
+  "confirmSave": "Enregistrer",
+  "confirmDiscard": "Rejeter",
+
+  "identifyTitle": "Qu'as-tu photographié ?",
+  "identifyManual": "Aucune — recherche manuelle",
+  "identifyManualHint": "Rechercher une espèce dans la base Catalogue of Life",
+  "identifySkip": "Je ne sais pas / passer",
+  "identifyNone": "Impossible d'identifier",
+
+  "mapTitle": "Carte",
+  "mapObservationCount": "{count, plural, =0{Aucune observation} =1{1 observation} other{{count} observations}}",
+  "mapEmpty": "Vous n'avez pas encore d'observations. Faites-en une et elle apparaîtra ici sur la carte.",
+
+  "settingsTitle": "Réglages",
+  "settingsLanguage": "Langue",
+  "settingsSystemLanguage": "Langue du système"
+}

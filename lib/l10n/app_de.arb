@@ -1,0 +1,76 @@
+{
+  "@@locale": "de",
+
+  "appTitle": "BioSpotter",
+
+  "loginTitle": "BioSpotter",
+  "loginEmail": "E-Mail",
+  "loginPassword": "Passwort",
+  "loginDisplayName": "Anzeigename",
+  "loginSignIn": "Anmelden",
+  "loginSignUp": "Registrieren",
+  "loginSwitchToSignUp": "Noch kein Konto? Registrieren",
+  "loginSwitchToSignIn": "Schon ein Konto? Anmelden",
+  "loginEmailRequired": "Bitte gib deine E-Mail-Adresse ein",
+  "loginEmailInvalid": "Ungültige E-Mail-Adresse",
+  "loginPasswordTooShort": "Das Passwort muss mindestens 6 Zeichen haben",
+  "loginError": "Ein Fehler ist aufgetreten: {error}",
+
+  "homeGreeting": "Hallo, {email}!",
+  "homeNewObservation": "Neue Beobachtung",
+  "homeMyObservations": "Meine Beobachtungen",
+  "homeMap": "Karte",
+  "homeLogout": "Abmelden",
+
+  "cameraTitle": "Neue Beobachtung",
+  "cameraNoCamera": "Auf diesem Gerät wurde keine Kamera gefunden.",
+  "cameraInitFailed": "Die Kamera konnte nicht gestartet werden: {error}",
+  "cameraRetry": "Erneut versuchen",
+  "cameraSaved": "Beobachtung gespeichert!",
+  "cameraError": "Fehler: {error}",
+  "locationServiceDisabled": "Die Ortungsdienste sind ausgeschaltet. Aktiviere sie unter Einstellungen → Datenschutz → Ortungsdienste.",
+  "locationPermissionDenied": "Du hast die Standortberechtigung verweigert.",
+  "locationPermissionDeniedForever": "Der Standortzugriff ist dauerhaft gesperrt. Einstellungen → BioSpotter → Standort.",
+  "locationUnavailable": "Dein Standort konnte nicht bestimmt werden. Geh nach draußen oder warte ein paar Sekunden und versuche es erneut.",
+
+  "observationsTitle": "Meine Beobachtungen",
+  "observationsEmpty": "Du hast noch keine Beobachtungen",
+  "observationsUnknownSpecies": "Unbestimmte Art",
+  "observationsError": "Fehler: {error}",
+  "observationsGps": "GPS: {lat}, {lng}",
+  "observationsDateTime": "Zeitpunkt: {date}",
+
+  "searchTitle": "Art suchen",
+  "searchHint": "Artnamen eingeben...",
+  "searchStartHint": "Beginne zu tippen, um eine Art zu suchen.\nDu kannst einen wissenschaftlichen oder Trivialnamen eingeben.",
+  "searchNoResults": "Keine Treffer",
+  "searchTryOtherLanguage": "Versuche eine andere Sprache oder gib den wissenschaftlichen Namen ein.",
+  "searchLanguage": "Sprache:",
+
+  "obsSetSpecies": "Art angeben / ändern",
+  "obsReidentify": "Neu bestimmen",
+  "obsDelete": "Beobachtung löschen",
+  "obsDeleteConfirmTitle": "Beobachtung löschen?",
+  "obsDeleteConfirmBody": "Die Beobachtung und ihr Foto werden dauerhaft gelöscht.",
+  "obsDeleted": "Beobachtung gelöscht.",
+  "obsSpeciesSaved": "Artname gespeichert.",
+  "tapForFullSize": "Tippen für volle Größe",
+
+  "confirmTitle": "Beobachtung speichern?",
+  "confirmSave": "Speichern",
+  "confirmDiscard": "Verwerfen",
+
+  "identifyTitle": "Was hast du fotografiert?",
+  "identifyManual": "Keine davon — manuell suchen",
+  "identifyManualHint": "Art in der Catalogue of Life-Datenbank suchen",
+  "identifySkip": "Ich weiß nicht / überspringen",
+  "identifyNone": "Konnte nicht identifiziert werden",
+
+  "mapTitle": "Karte",
+  "mapObservationCount": "{count, plural, =0{Keine Beobachtungen} =1{1 Beobachtung} other{{count} Beobachtungen}}",
+  "mapEmpty": "Du hast noch keine Beobachtungen. Mach eine, und sie erscheint hier auf der Karte.",
+
+  "settingsTitle": "Einstellungen",
+  "settingsLanguage": "Sprache",
+  "settingsSystemLanguage": "Systemsprache"
+}

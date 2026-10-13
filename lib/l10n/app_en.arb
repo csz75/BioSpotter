@@ -1,0 +1,76 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "BioSpotter",
+
+  "loginTitle": "BioSpotter",
+  "loginEmail": "Email",
+  "loginPassword": "Password",
+  "loginDisplayName": "Display name",
+  "loginSignIn": "Sign in",
+  "loginSignUp": "Sign up",
+  "loginSwitchToSignUp": "No account yet? Sign up",
+  "loginSwitchToSignIn": "Already have an account? Sign in",
+  "loginEmailRequired": "Please enter your email address",
+  "loginEmailInvalid": "Invalid email address",
+  "loginPasswordTooShort": "Password must be at least 6 characters",
+  "loginError": "Something went wrong: {error}",
+
+  "homeGreeting": "Hi, {email}!",
+  "homeNewObservation": "New observation",
+  "homeMyObservations": "My observations",
+  "homeMap": "Map",
+  "homeLogout": "Log out",
+
+  "cameraTitle": "New observation",
+  "cameraNoCamera": "No camera found on this device.",
+  "cameraInitFailed": "The camera could not start: {error}",
+  "cameraRetry": "Try again",
+  "cameraSaved": "Observation saved!",
+  "cameraError": "Error: {error}",
+  "locationServiceDisabled": "Location services are turned off. Enable them in Settings → Privacy → Location Services.",
+  "locationPermissionDenied": "You denied the location permission.",
+  "locationPermissionDeniedForever": "Location access is permanently denied. Settings → BioSpotter → Location.",
+  "locationUnavailable": "Could not determine your location. Go outside or wait a few seconds and try again.",
+
+  "observationsTitle": "My observations",
+  "observationsEmpty": "You have no observations yet",
+  "observationsUnknownSpecies": "Unidentified species",
+  "observationsError": "Error: {error}",
+  "observationsGps": "GPS: {lat}, {lng}",
+  "observationsDateTime": "Time: {date}",
+
+  "searchTitle": "Search species",
+  "searchHint": "Type a species name...",
+  "searchStartHint": "Start typing to search for a species.\nYou can enter a scientific or common name.",
+  "searchNoResults": "No results",
+  "searchTryOtherLanguage": "Try another language, or enter the scientific name.",
+  "searchLanguage": "Language:",
+
+  "obsSetSpecies": "Set / change species",
+  "obsReidentify": "Re-identify",
+  "obsDelete": "Delete observation",
+  "obsDeleteConfirmTitle": "Delete this observation?",
+  "obsDeleteConfirmBody": "The observation and its photo will be permanently deleted.",
+  "obsDeleted": "Observation deleted.",
+  "obsSpeciesSaved": "Species name saved.",
+  "tapForFullSize": "Tap for full size",
+
+  "confirmTitle": "Save this observation?",
+  "confirmSave": "Save",
+  "confirmDiscard": "Discard",
+
+  "identifyTitle": "What did you photograph?",
+  "identifyManual": "None of these — search manually",
+  "identifyManualHint": "Search species in the Catalogue of Life database",
+  "identifySkip": "I don't know / skip",
+  "identifyNone": "Could not be identified",
+
+  "mapTitle": "Map",
+  "mapObservationCount": "{count, plural, =0{No observations} =1{1 observation} other{{count} observations}}",
+  "mapEmpty": "You have no observations yet. Take one and it will appear here on the map.",
+
+  "settingsTitle": "Settings",
+  "settingsLanguage": "Language",
+  "settingsSystemLanguage": "System language"
+}

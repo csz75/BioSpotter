@@ -1,0 +1,229 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for French (`fr`).
+class AppLocalizationsFr extends AppLocalizations {
+  AppLocalizationsFr([String locale = 'fr']) : super(locale);
+
+  @override
+  String get appTitle => 'BioSpotter';
+
+  @override
+  String get loginTitle => 'BioSpotter';
+
+  @override
+  String get loginEmail => 'E-mail';
+
+  @override
+  String get loginPassword => 'Mot de passe';
+
+  @override
+  String get loginDisplayName => 'Nom affiché';
+
+  @override
+  String get loginSignIn => 'Se connecter';
+
+  @override
+  String get loginSignUp => 'S\'inscrire';
+
+  @override
+  String get loginSwitchToSignUp => 'Pas encore de compte ? Inscrivez-vous';
+
+  @override
+  String get loginSwitchToSignIn => 'Vous avez déjà un compte ? Connectez-vous';
+
+  @override
+  String get loginEmailRequired => 'Veuillez saisir votre adresse e-mail';
+
+  @override
+  String get loginEmailInvalid => 'Adresse e-mail invalide';
+
+  @override
+  String get loginPasswordTooShort =>
+      'Le mot de passe doit comporter au moins 6 caractères';
+
+  @override
+  String loginError(String error) {
+    return 'Une erreur est survenue : $error';
+  }
+
+  @override
+  String homeGreeting(String email) {
+    return 'Bonjour, $email !';
+  }
+
+  @override
+  String get homeNewObservation => 'Nouvelle observation';
+
+  @override
+  String get homeMyObservations => 'Mes observations';
+
+  @override
+  String get homeMap => 'Carte';
+
+  @override
+  String get homeLogout => 'Déconnexion';
+
+  @override
+  String get cameraTitle => 'Nouvelle observation';
+
+  @override
+  String get cameraNoCamera => 'Aucune caméra trouvée sur cet appareil.';
+
+  @override
+  String cameraInitFailed(String error) {
+    return 'La caméra n\'a pas pu démarrer : $error';
+  }
+
+  @override
+  String get cameraRetry => 'Réessayer';
+
+  @override
+  String get cameraSaved => 'Observation enregistrée !';
+
+  @override
+  String cameraError(String error) {
+    return 'Erreur : $error';
+  }
+
+  @override
+  String get locationServiceDisabled =>
+      'Les services de localisation sont désactivés. Activez-les dans Réglages → Confidentialité → Service de localisation.';
+
+  @override
+  String get locationPermissionDenied =>
+      'Vous avez refusé l\'autorisation de localisation.';
+
+  @override
+  String get locationPermissionDeniedForever =>
+      'L\'accès à la localisation est définitivement bloqué. Réglages → BioSpotter → Localisation.';
+
+  @override
+  String get locationUnavailable =>
+      'Impossible de déterminer votre position. Sortez ou attendez quelques secondes, puis réessayez.';
+
+  @override
+  String get observationsTitle => 'Mes observations';
+
+  @override
+  String get observationsEmpty => 'Vous n\'avez pas encore d\'observations';
+
+  @override
+  String get observationsUnknownSpecies => 'Espèce non identifiée';
+
+  @override
+  String observationsError(String error) {
+    return 'Erreur : $error';
+  }
+
+  @override
+  String observationsGps(String lat, String lng) {
+    return 'GPS : $lat, $lng';
+  }
+
+  @override
+  String observationsDateTime(String date) {
+    return 'Date : $date';
+  }
+
+  @override
+  String get searchTitle => 'Rechercher une espèce';
+
+  @override
+  String get searchHint => 'Saisissez un nom d\'espèce...';
+
+  @override
+  String get searchStartHint =>
+      'Commencez à taper pour rechercher une espèce.\nVous pouvez saisir un nom scientifique ou vernaculaire.';
+
+  @override
+  String get searchNoResults => 'Aucun résultat';
+
+  @override
+  String get searchTryOtherLanguage =>
+      'Essayez une autre langue ou saisissez le nom scientifique.';
+
+  @override
+  String get searchLanguage => 'Langue :';
+
+  @override
+  String get obsSetSpecies => 'Définir / modifier l\'espèce';
+
+  @override
+  String get obsReidentify => 'Réidentifier';
+
+  @override
+  String get obsDelete => 'Supprimer l\'observation';
+
+  @override
+  String get obsDeleteConfirmTitle => 'Supprimer cette observation ?';
+
+  @override
+  String get obsDeleteConfirmBody =>
+      'L\'observation et sa photo seront définitivement supprimées.';
+
+  @override
+  String get obsDeleted => 'Observation supprimée.';
+
+  @override
+  String get obsSpeciesSaved => 'Nom d\'espèce enregistré.';
+
+  @override
+  String get tapForFullSize => 'Touchez pour la taille réelle';
+
+  @override
+  String get confirmTitle => 'Enregistrer cette observation ?';
+
+  @override
+  String get confirmSave => 'Enregistrer';
+
+  @override
+  String get confirmDiscard => 'Rejeter';
+
+  @override
+  String get identifyTitle => 'Qu\'as-tu photographié ?';
+
+  @override
+  String get identifyManual => 'Aucune — recherche manuelle';
+
+  @override
+  String get identifyManualHint =>
+      'Rechercher une espèce dans la base Catalogue of Life';
+
+  @override
+  String get identifySkip => 'Je ne sais pas / passer';
+
+  @override
+  String get identifyNone => 'Impossible d\'identifier';
+
+  @override
+  String get mapTitle => 'Carte';
+
+  @override
+  String mapObservationCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count observations',
+      one: '1 observation',
+      zero: 'Aucune observation',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get mapEmpty =>
+      'Vous n\'avez pas encore d\'observations. Faites-en une et elle apparaîtra ici sur la carte.';
+
+  @override
+  String get settingsTitle => 'Réglages';
+
+  @override
+  String get settingsLanguage => 'Langue';
+
+  @override
+  String get settingsSystemLanguage => 'Langue du système';
+}

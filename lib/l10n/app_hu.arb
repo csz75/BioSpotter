@@ -1,0 +1,118 @@
+{
+  "@@locale": "hu",
+
+  "appTitle": "BioSpotter",
+
+  "loginTitle": "BioSpotter",
+  "loginEmail": "Email",
+  "loginPassword": "Jelszó",
+  "loginDisplayName": "Megjelenített név",
+  "loginSignIn": "Bejelentkezés",
+  "loginSignUp": "Regisztráció",
+  "loginSwitchToSignUp": "Nincs fiókod? Regisztrálj",
+  "loginSwitchToSignIn": "Van már fiókod? Jelentkezz be",
+  "loginEmailRequired": "Add meg az email címedet",
+  "loginEmailInvalid": "Érvénytelen email cím",
+  "loginPasswordTooShort": "A jelszó legalább 6 karakter",
+  "loginError": "Hiba történt: {error}",
+  "@loginError": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "homeGreeting": "Üdv, {email}!",
+  "@homeGreeting": {
+    "placeholders": {
+      "email": { "type": "String" }
+    }
+  },
+  "homeNewObservation": "Új megfigyelés",
+  "homeMyObservations": "Megfigyeléseim",
+  "homeMap": "Térkép",
+  "homeLogout": "Kijelentkezés",
+
+  "cameraTitle": "Új megfigyelés",
+  "cameraNoCamera": "Nem található kamera az eszközön.",
+  "cameraInitFailed": "A kamera nem indult el: {error}",
+  "@cameraInitFailed": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "cameraRetry": "Újrapróbálkozás",
+  "cameraSaved": "Megfigyelés elmentve!",
+  "cameraError": "Hiba: {error}",
+  "@cameraError": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "locationServiceDisabled": "A helymeghatározás ki van kapcsolva. Kapcsold be: Beállítások → Adatvédelem → Helymeghatározás.",
+  "locationPermissionDenied": "A helymeghatározás engedélyt megtagadtad.",
+  "locationPermissionDeniedForever": "A helymeghatározás véglegesen tiltva. Beállítások → BioSpotter → Helymeghatározás.",
+  "locationUnavailable": "Nem sikerült helyzetet meghatározni. Menj ki a szabadba, vagy várj pár másodpercet, majd próbáld újra.",
+
+  "observationsTitle": "Megfigyeléseim",
+  "observationsEmpty": "Még nincs megfigyelésed",
+  "observationsUnknownSpecies": "Azonosítatlan faj",
+  "observationsError": "Hiba: {error}",
+  "@observationsError": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "observationsGps": "GPS: {lat}, {lng}",
+  "@observationsGps": {
+    "placeholders": {
+      "lat": { "type": "String" },
+      "lng": { "type": "String" }
+    }
+  },
+  "observationsDateTime": "Időpont: {date}",
+  "@observationsDateTime": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+
+  "searchTitle": "Faj keresése",
+  "searchHint": "Írd be a faj nevét...",
+  "searchStartHint": "Kezdj el gépelni a faj nevének kereséséhez.\nTudományos vagy népies nevet is beírhatsz.",
+  "searchNoResults": "Nincs találat",
+  "searchTryOtherLanguage": "Próbáld másik nyelven, vagy add meg a tudományos nevet.",
+  "searchLanguage": "Nyelv:",
+
+  "obsSetSpecies": "Faj megadása / módosítása",
+  "obsReidentify": "Újra-azonosítás",
+  "obsDelete": "Megfigyelés törlése",
+  "obsDeleteConfirmTitle": "Biztosan törlöd?",
+  "obsDeleteConfirmBody": "A megfigyelés és a hozzá tartozó fotó véglegesen törlődik.",
+  "obsDeleted": "Megfigyelés törölve.",
+  "obsSpeciesSaved": "A faj neve mentve.",
+  "tapForFullSize": "Koppints a teljes mérethez",
+
+
+  "confirmTitle": "Mentse a megfigyelést?",
+  "confirmSave": "Mentés",
+  "confirmDiscard": "Elvetés",
+
+  "identifyTitle": "Mit fotóztál?",
+  "identifyManual": "Egyik sem — kézi keresés",
+  "identifyManualHint": "Faj keresése a Catalogue of Life adatbázisban",
+  "identifySkip": "Nem tudom / kihagyom",
+  "identifyNone": "Nem sikerült azonosítani",
+
+  "mapTitle": "Térkép",
+  "mapObservationCount": "{count, plural, =0{Nincs megfigyelés} =1{1 megfigyelés} other{{count} megfigyelés}}",
+  "@mapObservationCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "mapEmpty": "Még nincs megfigyelésed. Készíts egyet, és megjelenik itt a térképen.",
+
+  "settingsTitle": "Beállítások",
+  "settingsLanguage": "Nyelv",
+  "settingsSystemLanguage": "Rendszer nyelve"
+}

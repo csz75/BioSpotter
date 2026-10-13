@@ -1,0 +1,39 @@
+name: biospotter
+description: "Citizen science platform — fajazonosítás, megfigyelések, bounty piactér és kutatásfinanszírozás."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  intl: any
+
+  supabase_flutter: ^2.8.0
+  flutter_riverpod: ^2.6.1
+
+  camera: ^0.11.0+2
+  image_picker: ^1.1.2
+
+  geolocator: ^13.0.1
+
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
+
+  cached_network_image: ^3.4.1
+
+  http: ^1.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  generate: true

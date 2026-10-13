@@ -1,0 +1,76 @@
+{
+  "@@locale": "pl",
+
+  "appTitle": "BioSpotter",
+
+  "loginTitle": "BioSpotter",
+  "loginEmail": "E-mail",
+  "loginPassword": "Hasło",
+  "loginDisplayName": "Nazwa wyświetlana",
+  "loginSignIn": "Zaloguj się",
+  "loginSignUp": "Zarejestruj się",
+  "loginSwitchToSignUp": "Nie masz jeszcze konta? Zarejestruj się",
+  "loginSwitchToSignIn": "Masz już konto? Zaloguj się",
+  "loginEmailRequired": "Podaj swój adres e-mail",
+  "loginEmailInvalid": "Nieprawidłowy adres e-mail",
+  "loginPasswordTooShort": "Hasło musi mieć co najmniej 6 znaków",
+  "loginError": "Wystąpił błąd: {error}",
+
+  "homeGreeting": "Cześć, {email}!",
+  "homeNewObservation": "Nowa obserwacja",
+  "homeMyObservations": "Moje obserwacje",
+  "homeMap": "Mapa",
+  "homeLogout": "Wyloguj się",
+
+  "cameraTitle": "Nowa obserwacja",
+  "cameraNoCamera": "Nie znaleziono aparatu na tym urządzeniu.",
+  "cameraInitFailed": "Nie udało się uruchomić aparatu: {error}",
+  "cameraRetry": "Spróbuj ponownie",
+  "cameraSaved": "Obserwacja zapisana!",
+  "cameraError": "Błąd: {error}",
+  "locationServiceDisabled": "Usługi lokalizacyjne są wyłączone. Włącz je w Ustawienia → Prywatność → Usługi lokalizacyjne.",
+  "locationPermissionDenied": "Odmówiłeś uprawnienia do lokalizacji.",
+  "locationPermissionDeniedForever": "Dostęp do lokalizacji jest trwale zablokowany. Ustawienia → BioSpotter → Lokalizacja.",
+  "locationUnavailable": "Nie udało się ustalić Twojej lokalizacji. Wyjdź na zewnątrz lub poczekaj kilka sekund i spróbuj ponownie.",
+
+  "observationsTitle": "Moje obserwacje",
+  "observationsEmpty": "Nie masz jeszcze żadnych obserwacji",
+  "observationsUnknownSpecies": "Nieznany gatunek",
+  "observationsError": "Błąd: {error}",
+  "observationsGps": "GPS: {lat}, {lng}",
+  "observationsDateTime": "Czas: {date}",
+
+  "searchTitle": "Szukaj gatunku",
+  "searchHint": "Wpisz nazwę gatunku...",
+  "searchStartHint": "Zacznij pisać, aby wyszukać gatunek.\nMożesz wpisać nazwę naukową lub potoczną.",
+  "searchNoResults": "Brak wyników",
+  "searchTryOtherLanguage": "Spróbuj innego języka lub wpisz nazwę naukową.",
+  "searchLanguage": "Język:",
+
+  "obsSetSpecies": "Ustaw / zmień gatunek",
+  "obsReidentify": "Zidentyfikuj ponownie",
+  "obsDelete": "Usuń obserwację",
+  "obsDeleteConfirmTitle": "Usunąć tę obserwację?",
+  "obsDeleteConfirmBody": "Obserwacja i jej zdjęcie zostaną trwale usunięte.",
+  "obsDeleted": "Obserwacja usunięta.",
+  "obsSpeciesSaved": "Nazwa gatunku zapisana.",
+  "tapForFullSize": "Dotknij, aby powiększyć",
+
+  "confirmTitle": "Zapisać tę obserwację?",
+  "confirmSave": "Zapisz",
+  "confirmDiscard": "Odrzuć",
+
+  "identifyTitle": "Co sfotografowałeś?",
+  "identifyManual": "Żadna — szukaj ręcznie",
+  "identifyManualHint": "Szukaj gatunku w bazie Catalogue of Life",
+  "identifySkip": "Nie wiem / pomiń",
+  "identifyNone": "Nie udało się zidentyfikować",
+
+  "mapTitle": "Mapa",
+  "mapObservationCount": "{count, plural, =0{Brak obserwacji} =1{1 obserwacja} other{{count} obserwacji}}",
+  "mapEmpty": "Nie masz jeszcze żadnych obserwacji. Zrób jedną, a pojawi się tutaj na mapie.",
+
+  "settingsTitle": "Ustawienia",
+  "settingsLanguage": "Język",
+  "settingsSystemLanguage": "Język systemu"
+}

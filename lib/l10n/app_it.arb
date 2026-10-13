@@ -1,0 +1,76 @@
+{
+  "@@locale": "it",
+
+  "appTitle": "BioSpotter",
+
+  "loginTitle": "BioSpotter",
+  "loginEmail": "Email",
+  "loginPassword": "Password",
+  "loginDisplayName": "Nome visualizzato",
+  "loginSignIn": "Accedi",
+  "loginSignUp": "Registrati",
+  "loginSwitchToSignUp": "Non hai ancora un account? Registrati",
+  "loginSwitchToSignIn": "Hai già un account? Accedi",
+  "loginEmailRequired": "Inserisci il tuo indirizzo email",
+  "loginEmailInvalid": "Indirizzo email non valido",
+  "loginPasswordTooShort": "La password deve contenere almeno 6 caratteri",
+  "loginError": "Si è verificato un errore: {error}",
+
+  "homeGreeting": "Ciao, {email}!",
+  "homeNewObservation": "Nuova osservazione",
+  "homeMyObservations": "Le mie osservazioni",
+  "homeMap": "Mappa",
+  "homeLogout": "Esci",
+
+  "cameraTitle": "Nuova osservazione",
+  "cameraNoCamera": "Nessuna fotocamera trovata su questo dispositivo.",
+  "cameraInitFailed": "Impossibile avviare la fotocamera: {error}",
+  "cameraRetry": "Riprova",
+  "cameraSaved": "Osservazione salvata!",
+  "cameraError": "Errore: {error}",
+  "locationServiceDisabled": "I servizi di localizzazione sono disattivati. Attivali in Impostazioni → Privacy → Localizzazione.",
+  "locationPermissionDenied": "Hai negato il permesso di localizzazione.",
+  "locationPermissionDeniedForever": "L'accesso alla posizione è bloccato definitivamente. Impostazioni → BioSpotter → Posizione.",
+  "locationUnavailable": "Impossibile determinare la tua posizione. Esci all'aperto o attendi qualche secondo e riprova.",
+
+  "observationsTitle": "Le mie osservazioni",
+  "observationsEmpty": "Non hai ancora osservazioni",
+  "observationsUnknownSpecies": "Specie non identificata",
+  "observationsError": "Errore: {error}",
+  "observationsGps": "GPS: {lat}, {lng}",
+  "observationsDateTime": "Data: {date}",
+
+  "searchTitle": "Cerca specie",
+  "searchHint": "Digita il nome di una specie...",
+  "searchStartHint": "Inizia a digitare per cercare una specie.\nPuoi inserire un nome scientifico o comune.",
+  "searchNoResults": "Nessun risultato",
+  "searchTryOtherLanguage": "Prova un'altra lingua o inserisci il nome scientifico.",
+  "searchLanguage": "Lingua:",
+
+  "obsSetSpecies": "Imposta / cambia specie",
+  "obsReidentify": "Ridentifica",
+  "obsDelete": "Elimina osservazione",
+  "obsDeleteConfirmTitle": "Eliminare questa osservazione?",
+  "obsDeleteConfirmBody": "L'osservazione e la sua foto verranno eliminate definitivamente.",
+  "obsDeleted": "Osservazione eliminata.",
+  "obsSpeciesSaved": "Nome della specie salvato.",
+  "tapForFullSize": "Tocca per dimensione reale",
+
+  "confirmTitle": "Salvare questa osservazione?",
+  "confirmSave": "Salva",
+  "confirmDiscard": "Scarta",
+
+  "identifyTitle": "Cosa hai fotografato?",
+  "identifyManual": "Nessuna — ricerca manuale",
+  "identifyManualHint": "Cerca una specie nel database Catalogue of Life",
+  "identifySkip": "Non lo so / salta",
+  "identifyNone": "Impossibile identificare",
+
+  "mapTitle": "Mappa",
+  "mapObservationCount": "{count, plural, =0{Nessuna osservazione} =1{1 osservazione} other{{count} osservazioni}}",
+  "mapEmpty": "Non hai ancora osservazioni. Fanne una e apparirà qui sulla mappa.",
+
+  "settingsTitle": "Impostazioni",
+  "settingsLanguage": "Lingua",
+  "settingsSystemLanguage": "Lingua di sistema"
+}
