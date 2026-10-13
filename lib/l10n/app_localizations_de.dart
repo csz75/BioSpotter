@@ -242,6 +242,62 @@ class AppLocalizationsDe extends AppLocalizations {
   String get premiumDeactivated => 'Auf Free zurückgesetzt.';
 
   @override
+  String get zoneNone => 'Kein Gebietsfilter';
+
+  @override
+  String get zoneHere => 'Gebiet: mein Standort';
+
+  @override
+  String get zoneClear => 'Gebiet löschen';
+
+  @override
+  String zoneActive(int km) {
+    return 'Gebiet: innerhalb $km km';
+  }
+
+  @override
+  String get zoneNoPermission =>
+      'Der Gebietsfilter benötigt Standortberechtigung.';
+
+  @override
+  String get zoneFailed => 'Standort konnte nicht bestimmt werden.';
+
+  @override
+  String get deleteAccountTitle => 'Konto löschen';
+
+  @override
+  String get deleteAccountHeading => 'Möchtest du dein Konto wirklich löschen?';
+
+  @override
+  String get deleteAccountBody1 =>
+      'Dein Name und deine E-Mail-Adresse werden entfernt und durch eine zufällige Kennung ersetzt. Du kannst dich später mit derselben Adresse erneut registrieren.';
+
+  @override
+  String get deleteAccountBody2 =>
+      'Deine Beobachtungen bleiben anonym erhalten: Art, Ort und Datum bleiben, können aber nicht mehr mit dir verknüpft werden. Wenn du das nicht möchtest, lösche zuerst die Beobachtungen, die du nicht hinterlassen willst.';
+
+  @override
+  String get deleteAccountOpenMine => 'Meine Beobachtungen öffnen';
+
+  @override
+  String get deleteAccountConfirm =>
+      'Ich bestätige, dass ich mein Konto löschen möchte';
+
+  @override
+  String get deleteAccountCancel => 'Abbrechen';
+
+  @override
+  String get deleteAccountButton => 'Konto löschen';
+
+  @override
+  String get deleteAccountDone =>
+      'Dein Konto wurde gelöscht. Du kannst dich mit deiner E-Mail-Adresse erneut registrieren.';
+
+  @override
+  String get deleteAccountFailed =>
+      'Kontolöschung fehlgeschlagen. Bitte versuche es erneut.';
+
+  @override
   String get obsSetSpecies => 'Art angeben / ändern';
 
   @override

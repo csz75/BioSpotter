@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../core/locale_controller.dart';
 import '../l10n/app_localizations.dart';
+import 'delete_account_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -47,6 +48,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 setState(() {});
               },
               title: Text('${lang.flag}  ${lang.label}'),
+            ),
+          ),
+
+          const SizedBox(height: 16),
+          const Divider(),
+
+          // Fiók törlése — a review előtt kötelező
+          ListTile(
+            leading:
+                const Icon(Icons.delete_forever, color: Color(0xFFB3261E)),
+            title: Text(
+              l.deleteAccountTitle,
+              style: const TextStyle(color: Color(0xFFB3261E)),
+            ),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const DeleteAccountScreen(),
+              ),
             ),
           ),
         ],

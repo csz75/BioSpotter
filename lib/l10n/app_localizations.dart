@@ -522,6 +522,102 @@ abstract class AppLocalizations {
   /// **'Visszaállítva ingyenesre.'**
   String get premiumDeactivated;
 
+  /// No description provided for @zoneNone.
+  ///
+  /// In hu, this message translates to:
+  /// **'Nincs körzet-szűrő'**
+  String get zoneNone;
+
+  /// No description provided for @zoneHere.
+  ///
+  /// In hu, this message translates to:
+  /// **'Körzet: a jelenlegi helyzetem'**
+  String get zoneHere;
+
+  /// No description provided for @zoneClear.
+  ///
+  /// In hu, this message translates to:
+  /// **'Körzet törlése'**
+  String get zoneClear;
+
+  /// No description provided for @zoneActive.
+  ///
+  /// In hu, this message translates to:
+  /// **'Körzet: {km} km-en belül'**
+  String zoneActive(int km);
+
+  /// No description provided for @zoneNoPermission.
+  ///
+  /// In hu, this message translates to:
+  /// **'A körzet-szűrőhöz helymeghatározás-engedély kell.'**
+  String get zoneNoPermission;
+
+  /// No description provided for @zoneFailed.
+  ///
+  /// In hu, this message translates to:
+  /// **'Nem sikerült meghatározni a helyzetet.'**
+  String get zoneFailed;
+
+  /// No description provided for @deleteAccountTitle.
+  ///
+  /// In hu, this message translates to:
+  /// **'Fiók törlése'**
+  String get deleteAccountTitle;
+
+  /// No description provided for @deleteAccountHeading.
+  ///
+  /// In hu, this message translates to:
+  /// **'Biztosan törlöd a fiókodat?'**
+  String get deleteAccountHeading;
+
+  /// No description provided for @deleteAccountBody1.
+  ///
+  /// In hu, this message translates to:
+  /// **'A neved és az e-mail címed törlődik, és egy véletlen azonosítóra cserélődik. Ezzel a címmel később újra regisztrálhatsz.'**
+  String get deleteAccountBody1;
+
+  /// No description provided for @deleteAccountBody2.
+  ///
+  /// In hu, this message translates to:
+  /// **'A megfigyeléseid anonim formában megmaradnak: a faj, a hely és a dátum bennmarad, de a személyedhez nem köthető. Ha ezt nem szeretnéd, előbb töröld kézzel azokat a megfigyeléseket, amelyeket nem akarsz itt hagyni.'**
+  String get deleteAccountBody2;
+
+  /// No description provided for @deleteAccountOpenMine.
+  ///
+  /// In hu, this message translates to:
+  /// **'Megfigyeléseim megnyitása'**
+  String get deleteAccountOpenMine;
+
+  /// No description provided for @deleteAccountConfirm.
+  ///
+  /// In hu, this message translates to:
+  /// **'Megerősítem, hogy törölni akarom a fiókomat'**
+  String get deleteAccountConfirm;
+
+  /// No description provided for @deleteAccountCancel.
+  ///
+  /// In hu, this message translates to:
+  /// **'Mégsem'**
+  String get deleteAccountCancel;
+
+  /// No description provided for @deleteAccountButton.
+  ///
+  /// In hu, this message translates to:
+  /// **'Fiók törlése'**
+  String get deleteAccountButton;
+
+  /// No description provided for @deleteAccountDone.
+  ///
+  /// In hu, this message translates to:
+  /// **'A fiókod törölve. Az e-mail címeddel újra regisztrálhatsz.'**
+  String get deleteAccountDone;
+
+  /// No description provided for @deleteAccountFailed.
+  ///
+  /// In hu, this message translates to:
+  /// **'A fiók törlése nem sikerült. Próbáld újra.'**
+  String get deleteAccountFailed;
+
   /// No description provided for @obsSetSpecies.
   ///
   /// In hu, this message translates to:

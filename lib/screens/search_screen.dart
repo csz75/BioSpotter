@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../core/locale_controller.dart';
 import '../core/providers.dart';
@@ -35,6 +36,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
   bool _loadingCommunity = false;
   String? _errorCommunity;
   bool? _isPremium;
+
+  // Körzet-szűrő (közösségi fül)
+  double? _zoneLat;
+  double? _zoneLng;
+  double? _zoneRadiusKm;
+  bool _zoneBusy = false;
 
   @override
   void initState() {
@@ -90,8 +97,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
       _errorCommunity = null;
     });
     try {
-      final items =
-          await ref.read(searchRepositoryProvider).loadCommunity(_filter);
+      final items = await ref.read(searchRepositoryProvider).loadCommunity(
+            _filter,
+            lat: _zoneLat,
+            lng: _zoneLng,
+            radiusKm: _zoneRadiusKm,
+          );
       if (!mounted) return;
       setState(() {
         _community = items;
@@ -104,6 +115,64 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
         _loadingCommunity = false;
       });
     }
+  }
+
+  // ── Körzet-szűrő ────────────────────────────────────────────────────
+
+  /// A jelenlegi helyzet lekérése, és a körzet beállítása.
+  Future<void> _setZoneHere() async {
+    setState(() => _zoneBusy = true);
+    try {
+      var permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+      }
+      if (permission == LocationPermission.denied ||
+          permission == LocationPermission.deniedForever) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context).zoneNoPermission),
+          ),
+        );
+        return;
+      }
+
+      final pos = await Geolocator.getCurrentPosition(
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.high,
+          timeLimit: Duration(seconds: 20),
+        ),
+      );
+
+      if (!mounted) return;
+      setState(() {
+        _zoneLat = pos.latitude;
+        _zoneLng = pos.longitude;
+        // Alapértelmezett sugár: 25 km
+        _zoneRadiusKm ??= 25;
+      });
+      await _loadCommunity();
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context).zoneFailed),
+        ),
+      );
+    } finally {
+      if (mounted) setState(() => _zoneBusy = false);
+    }
+  }
+
+  /// A körzet törlése.
+  void _clearZone() {
+    setState(() {
+      _zoneLat = null;
+      _zoneLng = null;
+      _zoneRadiusKm = null;
+    });
+    _loadCommunity();
   }
 
   // ── Segédek ─────────────────────────────────────────────────────────
@@ -230,6 +299,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
       ),
       body: Column(
         children: [
+          // Kereső mező
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
             child: TextField(
@@ -255,6 +325,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
               ),
             ),
           ),
+
+          // Szűrő chipek
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -270,6 +342,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
               ],
             ),
           ),
+
+          // Dátumtartomány
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
             child: Row(
@@ -320,8 +394,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
               ],
             ),
           ),
+
           const SizedBox(height: 8),
           const Divider(height: 1),
+
           Expanded(
             child: TabBarView(
               controller: _tabs,
@@ -424,32 +500,87 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
 
     final lang = _langCode();
 
-    // Fejléc: prémium jelzés + visszaállítás (fejlesztői teszt)
-    final header = Container(
-      color: const Color(0xFFE8EEF7),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-      child: Row(
-        children: [
-          const Icon(Icons.workspace_premium, size: 16, color: Color(0xFF1F3864)),
-          const SizedBox(width: 6),
-          Expanded(
-            child: Text(
-              l.premiumActive,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          ),
-          TextButton(
-            onPressed: _disableTestPremium,
-            child: Text(l.premiumDeactivate),
-          ),
-        ],
-      ),
-    );
-
-
-        return Column(
+    return Column(
       children: [
-        header,
+        // Prémium jelzés + visszaállítás (fejlesztői teszt)
+        Container(
+          color: const Color(0xFFE8EEF7),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          child: Row(
+            children: [
+              const Icon(Icons.workspace_premium,
+                  size: 16, color: Color(0xFF1F3864)),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Text(
+                  l.premiumActive,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ),
+              TextButton(
+                onPressed: _disableTestPremium,
+                child: Text(l.premiumDeactivate),
+              ),
+            ],
+          ),
+        ),
+
+        // Körzet-sáv
+        Container(
+          color: Colors.black.withValues(alpha: 0.04),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+          child: Row(
+            children: [
+              const Icon(Icons.my_location, size: 18),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  _zoneRadiusKm == null
+                      ? l.zoneNone
+                      : l.zoneActive(_zoneRadiusKm!.round()),
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ),
+              if (_zoneRadiusKm != null) ...[
+                DropdownButton<double>(
+                  value: const [5.0, 10.0, 25.0, 50.0, 100.0]
+                          .contains(_zoneRadiusKm)
+                      ? _zoneRadiusKm
+                      : 25.0,
+                  underline: const SizedBox.shrink(),
+                  items: const [5.0, 10.0, 25.0, 50.0, 100.0]
+                      .map((r) => DropdownMenuItem(
+                            value: r,
+                            child: Text('${r.round()} km'),
+                          ))
+                      .toList(),
+                  onChanged: (v) {
+                    if (v == null) return;
+                    setState(() => _zoneRadiusKm = v);
+                    _loadCommunity();
+                  },
+                ),
+                IconButton(
+                  tooltip: l.zoneClear,
+                  icon: const Icon(Icons.close, size: 18),
+                  onPressed: _clearZone,
+                ),
+              ] else
+                TextButton.icon(
+                  icon: _zoneBusy
+                      ? const SizedBox(
+                          width: 14,
+                          height: 14,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : const Icon(Icons.add_location_alt, size: 18),
+                  label: Text(l.zoneHere),
+                  onPressed: _zoneBusy ? null : _setZoneHere,
+                ),
+            ],
+          ),
+        ),
+
         Expanded(
           child: _loadingCommunity
               ? const Center(child: CircularProgressIndicator())
@@ -480,7 +611,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                         )
                       : Column(
                           children: [
-                            _countRow(l.searchResultCount(_community.length)),
+                            _countRow(
+                                l.searchResultCount(_community.length)),
                             Expanded(
                               child: ListView.separated(
                                 itemCount: _community.length,

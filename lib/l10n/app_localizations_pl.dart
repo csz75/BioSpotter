@@ -241,6 +241,61 @@ class AppLocalizationsPl extends AppLocalizations {
   String get premiumDeactivated => 'Przywrócono darmowy.';
 
   @override
+  String get zoneNone => 'Brak filtra obszaru';
+
+  @override
+  String get zoneHere => 'Obszar: moja obecna lokalizacja';
+
+  @override
+  String get zoneClear => 'Wyczyść obszar';
+
+  @override
+  String zoneActive(int km) {
+    return 'Obszar: w promieniu $km km';
+  }
+
+  @override
+  String get zoneNoPermission =>
+      'Filtr obszaru wymaga uprawnień do lokalizacji.';
+
+  @override
+  String get zoneFailed => 'Nie udało się ustalić lokalizacji.';
+
+  @override
+  String get deleteAccountTitle => 'Usuń konto';
+
+  @override
+  String get deleteAccountHeading => 'Czy na pewno chcesz usunąć swoje konto?';
+
+  @override
+  String get deleteAccountBody1 =>
+      'Twoje imię i adres e-mail zostaną usunięte i zastąpione losowym identyfikatorem. Będziesz mógł zarejestrować się ponownie później z tym samym adresem.';
+
+  @override
+  String get deleteAccountBody2 =>
+      'Twoje obserwacje pozostaną w formie anonimowej: gatunek, miejsce i data zostaną, ale nie będzie można ich już powiązać z Tobą. Jeśli tego nie chcesz, najpierw usuń obserwacje, których nie chcesz zostawiać.';
+
+  @override
+  String get deleteAccountOpenMine => 'Otwórz moje obserwacje';
+
+  @override
+  String get deleteAccountConfirm => 'Potwierdzam, że chcę usunąć swoje konto';
+
+  @override
+  String get deleteAccountCancel => 'Anuluj';
+
+  @override
+  String get deleteAccountButton => 'Usuń konto';
+
+  @override
+  String get deleteAccountDone =>
+      'Twoje konto zostało usunięte. Możesz zarejestrować się ponownie ze swoim adresem e-mail.';
+
+  @override
+  String get deleteAccountFailed =>
+      'Usunięcie konta nie powiodło się. Spróbuj ponownie.';
+
+  @override
   String get obsSetSpecies => 'Ustaw / zmień gatunek';
 
   @override

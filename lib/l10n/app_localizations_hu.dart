@@ -241,6 +241,62 @@ class AppLocalizationsHu extends AppLocalizations {
   String get premiumDeactivated => 'Visszaállítva ingyenesre.';
 
   @override
+  String get zoneNone => 'Nincs körzet-szűrő';
+
+  @override
+  String get zoneHere => 'Körzet: a jelenlegi helyzetem';
+
+  @override
+  String get zoneClear => 'Körzet törlése';
+
+  @override
+  String zoneActive(int km) {
+    return 'Körzet: $km km-en belül';
+  }
+
+  @override
+  String get zoneNoPermission =>
+      'A körzet-szűrőhöz helymeghatározás-engedély kell.';
+
+  @override
+  String get zoneFailed => 'Nem sikerült meghatározni a helyzetet.';
+
+  @override
+  String get deleteAccountTitle => 'Fiók törlése';
+
+  @override
+  String get deleteAccountHeading => 'Biztosan törlöd a fiókodat?';
+
+  @override
+  String get deleteAccountBody1 =>
+      'A neved és az e-mail címed törlődik, és egy véletlen azonosítóra cserélődik. Ezzel a címmel később újra regisztrálhatsz.';
+
+  @override
+  String get deleteAccountBody2 =>
+      'A megfigyeléseid anonim formában megmaradnak: a faj, a hely és a dátum bennmarad, de a személyedhez nem köthető. Ha ezt nem szeretnéd, előbb töröld kézzel azokat a megfigyeléseket, amelyeket nem akarsz itt hagyni.';
+
+  @override
+  String get deleteAccountOpenMine => 'Megfigyeléseim megnyitása';
+
+  @override
+  String get deleteAccountConfirm =>
+      'Megerősítem, hogy törölni akarom a fiókomat';
+
+  @override
+  String get deleteAccountCancel => 'Mégsem';
+
+  @override
+  String get deleteAccountButton => 'Fiók törlése';
+
+  @override
+  String get deleteAccountDone =>
+      'A fiókod törölve. Az e-mail címeddel újra regisztrálhatsz.';
+
+  @override
+  String get deleteAccountFailed =>
+      'A fiók törlése nem sikerült. Próbáld újra.';
+
+  @override
   String get obsSetSpecies => 'Faj megadása / módosítása';
 
   @override

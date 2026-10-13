@@ -117,6 +117,28 @@
   "premiumActive": "Prémium előfizetés aktív",
   "premiumDeactivate": "Visszaállítás ingyenesre (teszt)",
   "premiumDeactivated": "Visszaállítva ingyenesre.",
+  "zoneNone": "Nincs körzet-szűrő",
+  "zoneHere": "Körzet: a jelenlegi helyzetem",
+  "zoneClear": "Körzet törlése",
+  "zoneActive": "Körzet: {km} km-en belül",
+  "@zoneActive": {
+    "placeholders": {
+      "km": { "type": "int" }
+    }
+  },
+  "zoneNoPermission": "A körzet-szűrőhöz helymeghatározás-engedély kell.",
+  "zoneFailed": "Nem sikerült meghatározni a helyzetet.",
+
+  "deleteAccountTitle": "Fiók törlése",
+  "deleteAccountHeading": "Biztosan törlöd a fiókodat?",
+  "deleteAccountBody1": "A neved és az e-mail címed törlődik, és egy véletlen azonosítóra cserélődik. Ezzel a címmel később újra regisztrálhatsz.",
+  "deleteAccountBody2": "A megfigyeléseid anonim formában megmaradnak: a faj, a hely és a dátum bennmarad, de a személyedhez nem köthető. Ha ezt nem szeretnéd, előbb töröld kézzel azokat a megfigyeléseket, amelyeket nem akarsz itt hagyni.",
+  "deleteAccountOpenMine": "Megfigyeléseim megnyitása",
+  "deleteAccountConfirm": "Megerősítem, hogy törölni akarom a fiókomat",
+  "deleteAccountCancel": "Mégsem",
+  "deleteAccountButton": "Fiók törlése",
+  "deleteAccountDone": "A fiókod törölve. Az e-mail címeddel újra regisztrálhatsz.",
+  "deleteAccountFailed": "A fiók törlése nem sikerült. Próbáld újra.",
 
   "obsSetSpecies": "Faj megadása / módosítása",
   "obsReidentify": "Újra-azonosítás",

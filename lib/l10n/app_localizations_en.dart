@@ -240,6 +240,61 @@ class AppLocalizationsEn extends AppLocalizations {
   String get premiumDeactivated => 'Reset to free.';
 
   @override
+  String get zoneNone => 'No area filter';
+
+  @override
+  String get zoneHere => 'Area: my current location';
+
+  @override
+  String get zoneClear => 'Clear area';
+
+  @override
+  String zoneActive(int km) {
+    return 'Area: within $km km';
+  }
+
+  @override
+  String get zoneNoPermission => 'The area filter needs location permission.';
+
+  @override
+  String get zoneFailed => 'Could not determine your location.';
+
+  @override
+  String get deleteAccountTitle => 'Delete account';
+
+  @override
+  String get deleteAccountHeading =>
+      'Are you sure you want to delete your account?';
+
+  @override
+  String get deleteAccountBody1 =>
+      'Your name and email will be removed and replaced with a random identifier. You can register again later with the same address.';
+
+  @override
+  String get deleteAccountBody2 =>
+      'Your observations remain in anonymous form: the species, location and date stay, but can no longer be linked to you. If you do not want this, delete the observations you do not want to leave behind first.';
+
+  @override
+  String get deleteAccountOpenMine => 'Open my observations';
+
+  @override
+  String get deleteAccountConfirm => 'I confirm I want to delete my account';
+
+  @override
+  String get deleteAccountCancel => 'Cancel';
+
+  @override
+  String get deleteAccountButton => 'Delete account';
+
+  @override
+  String get deleteAccountDone =>
+      'Your account has been deleted. You can register again with your email address.';
+
+  @override
+  String get deleteAccountFailed =>
+      'Account deletion failed. Please try again.';
+
+  @override
   String get obsSetSpecies => 'Set / change species';
 
   @override

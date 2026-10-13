@@ -244,6 +244,63 @@ class AppLocalizationsIt extends AppLocalizations {
   String get premiumDeactivated => 'Ripristinato a gratuito.';
 
   @override
+  String get zoneNone => 'Nessun filtro zona';
+
+  @override
+  String get zoneHere => 'Zona: la mia posizione attuale';
+
+  @override
+  String get zoneClear => 'Cancella zona';
+
+  @override
+  String zoneActive(int km) {
+    return 'Zona: entro $km km';
+  }
+
+  @override
+  String get zoneNoPermission =>
+      'Il filtro zona richiede il permesso di localizzazione.';
+
+  @override
+  String get zoneFailed => 'Impossibile determinare la posizione.';
+
+  @override
+  String get deleteAccountTitle => 'Elimina account';
+
+  @override
+  String get deleteAccountHeading =>
+      'Sei sicuro di voler eliminare il tuo account?';
+
+  @override
+  String get deleteAccountBody1 =>
+      'Il tuo nome e la tua e-mail saranno rimossi e sostituiti con un identificatore casuale. Potrai registrarti di nuovo più tardi con lo stesso indirizzo.';
+
+  @override
+  String get deleteAccountBody2 =>
+      'Le tue osservazioni rimangono in forma anonima: la specie, il luogo e la data restano, ma non possono più essere collegati a te. Se non lo vuoi, elimina prima le osservazioni che non vuoi lasciare.';
+
+  @override
+  String get deleteAccountOpenMine => 'Apri le mie osservazioni';
+
+  @override
+  String get deleteAccountConfirm =>
+      'Confermo di voler eliminare il mio account';
+
+  @override
+  String get deleteAccountCancel => 'Annulla';
+
+  @override
+  String get deleteAccountButton => 'Elimina account';
+
+  @override
+  String get deleteAccountDone =>
+      'Il tuo account è stato eliminato. Puoi registrarti di nuovo con la tua e-mail.';
+
+  @override
+  String get deleteAccountFailed =>
+      'Eliminazione dell\'account non riuscita. Riprova.';
+
+  @override
   String get obsSetSpecies => 'Imposta / cambia specie';
 
   @override
