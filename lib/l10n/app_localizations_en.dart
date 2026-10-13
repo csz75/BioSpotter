@@ -183,6 +183,63 @@ class AppLocalizationsEn extends AppLocalizations {
   String get searchToDate => 'To';
 
   @override
+  String get searchTabMine => 'Mine';
+
+  @override
+  String get searchTabCommunity => 'Community';
+
+  @override
+  String get searchCommunityEmpty =>
+      'No community observations match the filters.';
+
+  @override
+  String get searchCommunityLoad => 'Load community data';
+
+  @override
+  String get premiumTitle => 'Premium subscription';
+
+  @override
+  String get premiumSubtitle =>
+      'A subscription is required to view community observations.';
+
+  @override
+  String get premiumFeature1 => 'Everyone\'s observations';
+
+  @override
+  String get premiumFeature2 => 'Search by area';
+
+  @override
+  String get premiumFeature3 => 'Species list for the whole region';
+
+  @override
+  String get premiumPrice => '€3 / month';
+
+  @override
+  String get premiumSubscribe => 'Subscribe';
+
+  @override
+  String get premiumTestNote => 'Developer mode — no payment for now.';
+
+  @override
+  String get premiumTestTitle => 'Enable premium?';
+
+  @override
+  String get premiumTestBody =>
+      'This is a developer test: the premium plan activates without payment.';
+
+  @override
+  String get premiumActivated => 'Premium activated (test).';
+
+  @override
+  String get premiumActive => 'Premium subscription active';
+
+  @override
+  String get premiumDeactivate => 'Reset to free (test)';
+
+  @override
+  String get premiumDeactivated => 'Reset to free.';
+
+  @override
   String get obsSetSpecies => 'Set / change species';
 
   @override

@@ -184,6 +184,63 @@ class AppLocalizationsPl extends AppLocalizations {
   String get searchToDate => 'Do';
 
   @override
+  String get searchTabMine => 'Moje';
+
+  @override
+  String get searchTabCommunity => 'Społeczność';
+
+  @override
+  String get searchCommunityEmpty =>
+      'Brak obserwacji społeczności pasujących do filtrów.';
+
+  @override
+  String get searchCommunityLoad => 'Wczytaj dane społeczności';
+
+  @override
+  String get premiumTitle => 'Subskrypcja Premium';
+
+  @override
+  String get premiumSubtitle =>
+      'Do przeglądania obserwacji społeczności wymagana jest subskrypcja.';
+
+  @override
+  String get premiumFeature1 => 'Obserwacje wszystkich';
+
+  @override
+  String get premiumFeature2 => 'Wyszukiwanie według obszaru';
+
+  @override
+  String get premiumFeature3 => 'Lista gatunków z całego regionu';
+
+  @override
+  String get premiumPrice => '3 € / miesiąc';
+
+  @override
+  String get premiumSubscribe => 'Subskrybuj';
+
+  @override
+  String get premiumTestNote => 'Tryb deweloperski — na razie bez płatności.';
+
+  @override
+  String get premiumTestTitle => 'Aktywować Premium?';
+
+  @override
+  String get premiumTestBody =>
+      'To test deweloperski: plan Premium aktywuje się bez płatności.';
+
+  @override
+  String get premiumActivated => 'Premium aktywowane (test).';
+
+  @override
+  String get premiumActive => 'Subskrypcja Premium aktywna';
+
+  @override
+  String get premiumDeactivate => 'Przywróć darmowy (test)';
+
+  @override
+  String get premiumDeactivated => 'Przywrócono darmowy.';
+
+  @override
   String get obsSetSpecies => 'Ustaw / zmień gatunek';
 
   @override

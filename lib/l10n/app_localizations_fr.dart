@@ -185,6 +185,64 @@ class AppLocalizationsFr extends AppLocalizations {
   String get searchToDate => 'Au';
 
   @override
+  String get searchTabMine => 'Mes';
+
+  @override
+  String get searchTabCommunity => 'Communauté';
+
+  @override
+  String get searchCommunityEmpty =>
+      'Aucune observation communautaire ne correspond aux filtres.';
+
+  @override
+  String get searchCommunityLoad => 'Charger les données communautaires';
+
+  @override
+  String get premiumTitle => 'Abonnement Premium';
+
+  @override
+  String get premiumSubtitle =>
+      'Un abonnement est nécessaire pour voir les observations communautaires.';
+
+  @override
+  String get premiumFeature1 => 'Observations de tout le monde';
+
+  @override
+  String get premiumFeature2 => 'Recherche par zone';
+
+  @override
+  String get premiumFeature3 => 'Liste des espèces de toute la région';
+
+  @override
+  String get premiumPrice => '3 € / mois';
+
+  @override
+  String get premiumSubscribe => 'S\'abonner';
+
+  @override
+  String get premiumTestNote =>
+      'Mode développeur — sans paiement pour l\'instant.';
+
+  @override
+  String get premiumTestTitle => 'Activer Premium ?';
+
+  @override
+  String get premiumTestBody =>
+      'Ceci est un test développeur : le forfait Premium s\'active sans paiement.';
+
+  @override
+  String get premiumActivated => 'Premium activé (test).';
+
+  @override
+  String get premiumActive => 'Abonnement Premium actif';
+
+  @override
+  String get premiumDeactivate => 'Réinitialiser en gratuit (test)';
+
+  @override
+  String get premiumDeactivated => 'Réinitialisé en gratuit.';
+
+  @override
   String get obsSetSpecies => 'Définir / modifier l\'espèce';
 
   @override

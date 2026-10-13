@@ -184,6 +184,63 @@ class AppLocalizationsHu extends AppLocalizations {
   String get searchToDate => 'Eddig';
 
   @override
+  String get searchTabMine => 'Saját';
+
+  @override
+  String get searchTabCommunity => 'Közösségi';
+
+  @override
+  String get searchCommunityEmpty =>
+      'Még nincs közösségi megfigyelés a szűrőkkel.';
+
+  @override
+  String get searchCommunityLoad => 'Közösségi adatok betöltése';
+
+  @override
+  String get premiumTitle => 'Prémium előfizetés';
+
+  @override
+  String get premiumSubtitle =>
+      'A közösségi megfigyelések megtekintéséhez előfizetés szükséges.';
+
+  @override
+  String get premiumFeature1 => 'Mindenki megfigyelései';
+
+  @override
+  String get premiumFeature2 => 'Körzet szerinti keresés';
+
+  @override
+  String get premiumFeature3 => 'Fajlista az egész régióról';
+
+  @override
+  String get premiumPrice => '3 € / hó';
+
+  @override
+  String get premiumSubscribe => 'Előfizetek';
+
+  @override
+  String get premiumTestNote => 'Fejlesztői mód — egyelőre fizetés nélkül.';
+
+  @override
+  String get premiumTestTitle => 'Prémium bekapcsolása?';
+
+  @override
+  String get premiumTestBody =>
+      'Ez egy fejlesztői teszt: a prémium csomag fizetés nélkül aktiválódik.';
+
+  @override
+  String get premiumActivated => 'Prémium aktiválva (teszt).';
+
+  @override
+  String get premiumActive => 'Prémium előfizetés aktív';
+
+  @override
+  String get premiumDeactivate => 'Visszaállítás ingyenesre (teszt)';
+
+  @override
+  String get premiumDeactivated => 'Visszaállítva ingyenesre.';
+
+  @override
   String get obsSetSpecies => 'Faj megadása / módosítása';
 
   @override

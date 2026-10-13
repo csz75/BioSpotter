@@ -185,6 +185,63 @@ class AppLocalizationsDe extends AppLocalizations {
   String get searchToDate => 'Bis';
 
   @override
+  String get searchTabMine => 'Meine';
+
+  @override
+  String get searchTabCommunity => 'Gemeinschaft';
+
+  @override
+  String get searchCommunityEmpty =>
+      'Keine Gemeinschaftsbeobachtungen passen zu den Filtern.';
+
+  @override
+  String get searchCommunityLoad => 'Gemeinschaftsdaten laden';
+
+  @override
+  String get premiumTitle => 'Premium-Abo';
+
+  @override
+  String get premiumSubtitle =>
+      'Für die Gemeinschaftsbeobachtungen ist ein Abo erforderlich.';
+
+  @override
+  String get premiumFeature1 => 'Beobachtungen aller Nutzer';
+
+  @override
+  String get premiumFeature2 => 'Suche nach Gebiet';
+
+  @override
+  String get premiumFeature3 => 'Artenliste der ganzen Region';
+
+  @override
+  String get premiumPrice => '3 € / Monat';
+
+  @override
+  String get premiumSubscribe => 'Abonnieren';
+
+  @override
+  String get premiumTestNote => 'Entwicklermodus — vorerst ohne Bezahlung.';
+
+  @override
+  String get premiumTestTitle => 'Premium aktivieren?';
+
+  @override
+  String get premiumTestBody =>
+      'Dies ist ein Entwicklertest: Der Premium-Plan wird ohne Bezahlung aktiviert.';
+
+  @override
+  String get premiumActivated => 'Premium aktiviert (Test).';
+
+  @override
+  String get premiumActive => 'Premium-Abo aktiv';
+
+  @override
+  String get premiumDeactivate => 'Zurück auf Free (Test)';
+
+  @override
+  String get premiumDeactivated => 'Auf Free zurückgesetzt.';
+
+  @override
   String get obsSetSpecies => 'Art angeben / ändern';
 
   @override

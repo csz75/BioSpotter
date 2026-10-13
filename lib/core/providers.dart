@@ -4,6 +4,7 @@ import '../features/auth/auth_service.dart';
 import '../features/identification/identification_service.dart';
 import '../features/observations/observation_repository.dart';
 import '../features/identification/col_search_service.dart';
+import '../features/search/search_repository.dart';
 
 
 final supabaseClientProvider = Provider<SupabaseClient>(
@@ -24,4 +25,7 @@ final identificationServiceProvider = Provider<IdentificationService>(
 
 final colSearchServiceProvider = Provider<ColSearchService>(
   (ref) => ColSearchService(ref.watch(supabaseClientProvider)),
+);
+final searchRepositoryProvider = Provider<SearchRepository>(
+  (ref) => SearchRepository(ref.watch(supabaseClientProvider)),
 );

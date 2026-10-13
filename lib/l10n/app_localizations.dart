@@ -414,6 +414,114 @@ abstract class AppLocalizations {
   /// **'Eddig'**
   String get searchToDate;
 
+  /// No description provided for @searchTabMine.
+  ///
+  /// In hu, this message translates to:
+  /// **'Saját'**
+  String get searchTabMine;
+
+  /// No description provided for @searchTabCommunity.
+  ///
+  /// In hu, this message translates to:
+  /// **'Közösségi'**
+  String get searchTabCommunity;
+
+  /// No description provided for @searchCommunityEmpty.
+  ///
+  /// In hu, this message translates to:
+  /// **'Még nincs közösségi megfigyelés a szűrőkkel.'**
+  String get searchCommunityEmpty;
+
+  /// No description provided for @searchCommunityLoad.
+  ///
+  /// In hu, this message translates to:
+  /// **'Közösségi adatok betöltése'**
+  String get searchCommunityLoad;
+
+  /// No description provided for @premiumTitle.
+  ///
+  /// In hu, this message translates to:
+  /// **'Prémium előfizetés'**
+  String get premiumTitle;
+
+  /// No description provided for @premiumSubtitle.
+  ///
+  /// In hu, this message translates to:
+  /// **'A közösségi megfigyelések megtekintéséhez előfizetés szükséges.'**
+  String get premiumSubtitle;
+
+  /// No description provided for @premiumFeature1.
+  ///
+  /// In hu, this message translates to:
+  /// **'Mindenki megfigyelései'**
+  String get premiumFeature1;
+
+  /// No description provided for @premiumFeature2.
+  ///
+  /// In hu, this message translates to:
+  /// **'Körzet szerinti keresés'**
+  String get premiumFeature2;
+
+  /// No description provided for @premiumFeature3.
+  ///
+  /// In hu, this message translates to:
+  /// **'Fajlista az egész régióról'**
+  String get premiumFeature3;
+
+  /// No description provided for @premiumPrice.
+  ///
+  /// In hu, this message translates to:
+  /// **'3 € / hó'**
+  String get premiumPrice;
+
+  /// No description provided for @premiumSubscribe.
+  ///
+  /// In hu, this message translates to:
+  /// **'Előfizetek'**
+  String get premiumSubscribe;
+
+  /// No description provided for @premiumTestNote.
+  ///
+  /// In hu, this message translates to:
+  /// **'Fejlesztői mód — egyelőre fizetés nélkül.'**
+  String get premiumTestNote;
+
+  /// No description provided for @premiumTestTitle.
+  ///
+  /// In hu, this message translates to:
+  /// **'Prémium bekapcsolása?'**
+  String get premiumTestTitle;
+
+  /// No description provided for @premiumTestBody.
+  ///
+  /// In hu, this message translates to:
+  /// **'Ez egy fejlesztői teszt: a prémium csomag fizetés nélkül aktiválódik.'**
+  String get premiumTestBody;
+
+  /// No description provided for @premiumActivated.
+  ///
+  /// In hu, this message translates to:
+  /// **'Prémium aktiválva (teszt).'**
+  String get premiumActivated;
+
+  /// No description provided for @premiumActive.
+  ///
+  /// In hu, this message translates to:
+  /// **'Prémium előfizetés aktív'**
+  String get premiumActive;
+
+  /// No description provided for @premiumDeactivate.
+  ///
+  /// In hu, this message translates to:
+  /// **'Visszaállítás ingyenesre (teszt)'**
+  String get premiumDeactivate;
+
+  /// No description provided for @premiumDeactivated.
+  ///
+  /// In hu, this message translates to:
+  /// **'Visszaállítva ingyenesre.'**
+  String get premiumDeactivated;
+
   /// No description provided for @obsSetSpecies.
   ///
   /// In hu, this message translates to:
