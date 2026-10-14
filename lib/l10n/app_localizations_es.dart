@@ -298,6 +298,30 @@ class AppLocalizationsEs extends AppLocalizations {
       'No se pudo eliminar la cuenta. Inténtalo de nuevo.';
 
   @override
+  String get searchKingdom => 'Reino';
+
+  @override
+  String get searchFamily => 'Familia';
+
+  @override
+  String get searchGbifKey => 'Clave GBIF';
+
+  @override
+  String get searchVernaculars => 'Nombres en otros idiomas';
+
+  @override
+  String get searchChoose => 'Elegir esta especie';
+
+  @override
+  String get searchKingdomAnimalia => 'Animales';
+
+  @override
+  String get searchKingdomPlantae => 'Plantas';
+
+  @override
+  String get searchKingdomFungi => 'Hongos';
+
+  @override
   String get obsSetSpecies => 'Definir / cambiar especie';
 
   @override

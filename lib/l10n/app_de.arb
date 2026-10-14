@@ -93,6 +93,15 @@
   "deleteAccountDone": "Dein Konto wurde gelöscht. Du kannst dich mit deiner E-Mail-Adresse erneut registrieren.",
   "deleteAccountFailed": "Kontolöschung fehlgeschlagen. Bitte versuche es erneut.",
 
+  "searchKingdom": "Reich",
+  "searchFamily": "Familie",
+  "searchGbifKey": "GBIF-Schlüssel",
+  "searchVernaculars": "Namen in anderen Sprachen",
+  "searchChoose": "Diese Art wählen",
+  "searchKingdomAnimalia": "Tiere",
+  "searchKingdomPlantae": "Pflanzen",
+  "searchKingdomFungi": "Pilze",
+
   "obsSetSpecies": "Art angeben / ändern",
   "obsReidentify": "Neu bestimmen",
   "obsDelete": "Beobachtung löschen",

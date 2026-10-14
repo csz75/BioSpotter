@@ -140,6 +140,15 @@
   "deleteAccountDone": "A fiókod törölve. Az e-mail címeddel újra regisztrálhatsz.",
   "deleteAccountFailed": "A fiók törlése nem sikerült. Próbáld újra.",
 
+  "searchKingdom": "Ország",
+  "searchFamily": "Család",
+  "searchGbifKey": "GBIF azonosító",
+  "searchVernaculars": "Nevek más nyelveken",
+  "searchChoose": "Ezt a fajt választom",
+  "searchKingdomAnimalia": "Állatok",
+  "searchKingdomPlantae": "Növények",
+  "searchKingdomFungi": "Gombák",
+
   "obsSetSpecies": "Faj megadása / módosítása",
   "obsReidentify": "Újra-azonosítás",
   "obsDelete": "Megfigyelés törlése",

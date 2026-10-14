@@ -296,6 +296,30 @@ class AppLocalizationsPl extends AppLocalizations {
       'Usunięcie konta nie powiodło się. Spróbuj ponownie.';
 
   @override
+  String get searchKingdom => 'Królestwo';
+
+  @override
+  String get searchFamily => 'Rodzina';
+
+  @override
+  String get searchGbifKey => 'Klucz GBIF';
+
+  @override
+  String get searchVernaculars => 'Nazwy w innych językach';
+
+  @override
+  String get searchChoose => 'Wybierz ten gatunek';
+
+  @override
+  String get searchKingdomAnimalia => 'Zwierzęta';
+
+  @override
+  String get searchKingdomPlantae => 'Rośliny';
+
+  @override
+  String get searchKingdomFungi => 'Grzyby';
+
+  @override
   String get obsSetSpecies => 'Ustaw / zmień gatunek';
 
   @override

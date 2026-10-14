@@ -93,6 +93,15 @@
   "deleteAccountDone": "Your account has been deleted. You can register again with your email address.",
   "deleteAccountFailed": "Account deletion failed. Please try again.",
 
+  "searchKingdom": "Kingdom",
+  "searchFamily": "Family",
+  "searchGbifKey": "GBIF key",
+  "searchVernaculars": "Names in other languages",
+  "searchChoose": "Choose this species",
+  "searchKingdomAnimalia": "Animals",
+  "searchKingdomPlantae": "Plants",
+  "searchKingdomFungi": "Fungi",
+
   "obsSetSpecies": "Set / change species",
   "obsReidentify": "Re-identify",
   "obsDelete": "Delete observation",

@@ -93,6 +93,15 @@
   "deleteAccountDone": "Twoje konto zostało usunięte. Możesz zarejestrować się ponownie ze swoim adresem e-mail.",
   "deleteAccountFailed": "Usunięcie konta nie powiodło się. Spróbuj ponownie.",
 
+  "searchKingdom": "Królestwo",
+  "searchFamily": "Rodzina",
+  "searchGbifKey": "Klucz GBIF",
+  "searchVernaculars": "Nazwy w innych językach",
+  "searchChoose": "Wybierz ten gatunek",
+  "searchKingdomAnimalia": "Zwierzęta",
+  "searchKingdomPlantae": "Rośliny",
+  "searchKingdomFungi": "Grzyby",
+
   "obsSetSpecies": "Ustaw / zmień gatunek",
   "obsReidentify": "Zidentyfikuj ponownie",
   "obsDelete": "Usuń obserwację",

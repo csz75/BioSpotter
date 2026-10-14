@@ -93,6 +93,15 @@
   "deleteAccountDone": "Il tuo account è stato eliminato. Puoi registrarti di nuovo con la tua e-mail.",
   "deleteAccountFailed": "Eliminazione dell'account non riuscita. Riprova.",
 
+  "searchKingdom": "Regno",
+  "searchFamily": "Famiglia",
+  "searchGbifKey": "Chiave GBIF",
+  "searchVernaculars": "Nomi in altre lingue",
+  "searchChoose": "Scegli questa specie",
+  "searchKingdomAnimalia": "Animali",
+  "searchKingdomPlantae": "Piante",
+  "searchKingdomFungi": "Funghi",
+
   "obsSetSpecies": "Imposta / cambia specie",
   "obsReidentify": "Ridentifica",
   "obsDelete": "Elimina osservazione",

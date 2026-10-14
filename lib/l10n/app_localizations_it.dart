@@ -301,6 +301,30 @@ class AppLocalizationsIt extends AppLocalizations {
       'Eliminazione dell\'account non riuscita. Riprova.';
 
   @override
+  String get searchKingdom => 'Regno';
+
+  @override
+  String get searchFamily => 'Famiglia';
+
+  @override
+  String get searchGbifKey => 'Chiave GBIF';
+
+  @override
+  String get searchVernaculars => 'Nomi in altre lingue';
+
+  @override
+  String get searchChoose => 'Scegli questa specie';
+
+  @override
+  String get searchKingdomAnimalia => 'Animali';
+
+  @override
+  String get searchKingdomPlantae => 'Piante';
+
+  @override
+  String get searchKingdomFungi => 'Funghi';
+
+  @override
   String get obsSetSpecies => 'Imposta / cambia specie';
 
   @override

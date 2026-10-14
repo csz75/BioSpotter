@@ -295,6 +295,30 @@ class AppLocalizationsEn extends AppLocalizations {
       'Account deletion failed. Please try again.';
 
   @override
+  String get searchKingdom => 'Kingdom';
+
+  @override
+  String get searchFamily => 'Family';
+
+  @override
+  String get searchGbifKey => 'GBIF key';
+
+  @override
+  String get searchVernaculars => 'Names in other languages';
+
+  @override
+  String get searchChoose => 'Choose this species';
+
+  @override
+  String get searchKingdomAnimalia => 'Animals';
+
+  @override
+  String get searchKingdomPlantae => 'Plants';
+
+  @override
+  String get searchKingdomFungi => 'Fungi';
+
+  @override
   String get obsSetSpecies => 'Set / change species';
 
   @override

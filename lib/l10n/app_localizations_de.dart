@@ -298,6 +298,30 @@ class AppLocalizationsDe extends AppLocalizations {
       'Kontolöschung fehlgeschlagen. Bitte versuche es erneut.';
 
   @override
+  String get searchKingdom => 'Reich';
+
+  @override
+  String get searchFamily => 'Familie';
+
+  @override
+  String get searchGbifKey => 'GBIF-Schlüssel';
+
+  @override
+  String get searchVernaculars => 'Namen in anderen Sprachen';
+
+  @override
+  String get searchChoose => 'Diese Art wählen';
+
+  @override
+  String get searchKingdomAnimalia => 'Tiere';
+
+  @override
+  String get searchKingdomPlantae => 'Pflanzen';
+
+  @override
+  String get searchKingdomFungi => 'Pilze';
+
+  @override
   String get obsSetSpecies => 'Art angeben / ändern';
 
   @override

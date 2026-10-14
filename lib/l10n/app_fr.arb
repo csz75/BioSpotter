@@ -93,6 +93,15 @@
   "deleteAccountDone": "Ton compte a été supprimé. Tu peux t'inscrire à nouveau avec ton adresse e-mail.",
   "deleteAccountFailed": "La suppression du compte a échoué. Réessaie.",
 
+  "searchKingdom": "Règne",
+  "searchFamily": "Famille",
+  "searchGbifKey": "Clé GBIF",
+  "searchVernaculars": "Noms dans d'autres langues",
+  "searchChoose": "Choisir cette espèce",
+  "searchKingdomAnimalia": "Animaux",
+  "searchKingdomPlantae": "Plantes",
+  "searchKingdomFungi": "Champignons",
+
   "obsSetSpecies": "Définir / modifier l'espèce",
   "obsReidentify": "Réidentifier",
   "obsDelete": "Supprimer l'observation",

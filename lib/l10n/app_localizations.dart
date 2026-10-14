@@ -618,6 +618,54 @@ abstract class AppLocalizations {
   /// **'A fiók törlése nem sikerült. Próbáld újra.'**
   String get deleteAccountFailed;
 
+  /// No description provided for @searchKingdom.
+  ///
+  /// In hu, this message translates to:
+  /// **'Ország'**
+  String get searchKingdom;
+
+  /// No description provided for @searchFamily.
+  ///
+  /// In hu, this message translates to:
+  /// **'Család'**
+  String get searchFamily;
+
+  /// No description provided for @searchGbifKey.
+  ///
+  /// In hu, this message translates to:
+  /// **'GBIF azonosító'**
+  String get searchGbifKey;
+
+  /// No description provided for @searchVernaculars.
+  ///
+  /// In hu, this message translates to:
+  /// **'Nevek más nyelveken'**
+  String get searchVernaculars;
+
+  /// No description provided for @searchChoose.
+  ///
+  /// In hu, this message translates to:
+  /// **'Ezt a fajt választom'**
+  String get searchChoose;
+
+  /// No description provided for @searchKingdomAnimalia.
+  ///
+  /// In hu, this message translates to:
+  /// **'Állatok'**
+  String get searchKingdomAnimalia;
+
+  /// No description provided for @searchKingdomPlantae.
+  ///
+  /// In hu, this message translates to:
+  /// **'Növények'**
+  String get searchKingdomPlantae;
+
+  /// No description provided for @searchKingdomFungi.
+  ///
+  /// In hu, this message translates to:
+  /// **'Gombák'**
+  String get searchKingdomFungi;
+
   /// No description provided for @obsSetSpecies.
   ///
   /// In hu, this message translates to:

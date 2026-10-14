@@ -10,7 +10,8 @@ import '../l10n/app_localizations.dart';
 
 /// A GBIF-alapú fajnév-kereső.
 /// Élő keresés (400 ms késleltetéssel), nyelv-választóval,
-/// és a kiválasztott faj visszaadásával (`Navigator.pop(match)`).
+/// részletnézettel, és a kiválasztott faj visszaadásával
+/// (`Navigator.pop(match)`).
 class SpeciesSearchScreen extends ConsumerStatefulWidget {
   const SpeciesSearchScreen({super.key});
 
@@ -114,9 +115,10 @@ class _SpeciesSearchScreenState extends ConsumerState<SpeciesSearchScreen> {
     final l = AppLocalizations.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.searchTitle)),
+      appBar: AppBar(title: const Text('XXX')),
       body: Column(
         children: [
+          // Kereső mező
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
             child: TextField(
@@ -141,6 +143,7 @@ class _SpeciesSearchScreenState extends ConsumerState<SpeciesSearchScreen> {
               ),
             ),
           ),
+          // Nyelv-választó sor
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
@@ -160,7 +163,8 @@ class _SpeciesSearchScreenState extends ConsumerState<SpeciesSearchScreen> {
                         return Padding(
                           padding: const EdgeInsets.only(right: 6),
                           child: ChoiceChip(
-                            label: Text('${lang.flag} ${lang.code.toUpperCase()}'),
+                            label:
+                                Text('${lang.flag} ${lang.code.toUpperCase()}'),
                             selected: selected,
                             onSelected: (_) {
                               setState(() => _lang = code);
@@ -178,6 +182,7 @@ class _SpeciesSearchScreenState extends ConsumerState<SpeciesSearchScreen> {
             ),
           ),
           const Divider(height: 16),
+          // Találatok
           Expanded(child: _buildResults(l)),
         ],
       ),
@@ -227,36 +232,211 @@ class _SpeciesSearchScreenState extends ConsumerState<SpeciesSearchScreen> {
     return ListView.separated(
       itemCount: _results.length,
       separatorBuilder: (_, __) => const Divider(height: 1),
-      itemBuilder: (context, i) {
-        final m = _results[i];
-        final localized = m.vernacularNames[_lang];
-        final title = localized ?? m.scientificName ?? '?';
-        final isDifferent =
-            localized != null && localized != m.scientificName;
+      itemBuilder: (context, i) => _resultRow(context, _results[i], l),
+    );
+  }
 
-        return ListTile(
-          leading: Icon(_iconForKingdom(m.kingdom)),
-          title: Text(title),
-          subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+  /// Egy találat sora — sima GestureDetectorral, a legbiztosabb módon.
+  Widget _resultRow(BuildContext context, ColMatch m, AppLocalizations l) {
+    final localized = m.vernacularNames[_lang];
+    final title = localized ?? m.scientificName ?? '?';
+    final isDifferent = localized != null && localized != m.scientificName;
+
+    return InkWell(
+      onTap: () {
+        debugPrint('>>> ONTAP FUTOTT: ${m.scientificName}');
+        FocusScope.of(context).unfocus();
+        _showDetail(context, m, l);
+        debugPrint('>>> _showDetail VISSZATÉRT');
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(_iconForKingdom(m.kingdom)),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  if (isDifferent) ...[
+                    const SizedBox(height: 2),
+                    Text(
+                      m.scientificName ?? '',
+                      style: const TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  ],
+                  if (m.family != null) ...[
+                    const SizedBox(height: 2),
+                    Text(
+                      m.family!,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            const SizedBox(width: 8),
+            const Icon(Icons.chevron_right),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// A faj részletnézete — ugyanúgy alsó lap, mint a megfigyeléslistán.
+  /// Innen lehet kiválasztani a fajt.
+  void _showDetail(
+    BuildContext context,
+    ColMatch m,
+    AppLocalizations l,
+  ) {
+    debugPrint('>>> _SHOWDETAIL ELINDULT');
+
+    final localized = m.vernacularNames[_lang];
+    final title = localized ?? m.scientificName ?? '?';
+    final isDifferent = localized != null && localized != m.scientificName;
+
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => DraggableScrollableSheet(
+        initialChildSize: 0.6,
+        minChildSize: 0.35,
+        maxChildSize: 0.95,
+        expand: false,
+        builder: (ctx, scrollController) => Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+          ),
+          child: ListView(
+            controller: scrollController,
+            padding: const EdgeInsets.all(16),
             children: [
-              if (isDifferent)
+              Center(
+                child: Container(
+                  width: 40,
+                  height: 4,
+                  margin: const EdgeInsets.only(bottom: 12),
+                  decoration: BoxDecoration(
+                    color: Colors.black26,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+
+              // Cím — a kiválasztott nyelvű név, ha van
+              Text(title, style: Theme.of(ctx).textTheme.titleLarge),
+              if (isDifferent) ...[
+                const SizedBox(height: 4),
                 Text(
                   m.scientificName ?? '',
-                  style: const TextStyle(fontStyle: FontStyle.italic),
+                  style: Theme.of(ctx)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(fontStyle: FontStyle.italic),
                 ),
+              ],
+              const SizedBox(height: 16),
+
+              // Rendszertani adatok
+              _detailRow(ctx, l.searchKingdom, _kingdomLabel(m.kingdom, l)),
               if (m.family != null)
+                _detailRow(ctx, l.searchFamily, m.family!),
+              if (m.gbifKey != null)
+                _detailRow(ctx, l.searchGbifKey, '${m.gbifKey}'),
+
+              const Divider(height: 32),
+
+              // Hétnyelvű nevek — mindegyik nyelven
+              if (m.vernacularNames.isNotEmpty) ...[
                 Text(
-                  m.family!,
-                  style: Theme.of(context).textTheme.bodySmall,
+                  l.searchVernaculars,
+                  style: Theme.of(ctx).textTheme.titleSmall,
                 ),
+                const SizedBox(height: 8),
+                ...m.vernacularNames.entries.map(
+                  (e) => Padding(
+                    padding: const EdgeInsets.only(bottom: 4),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 44,
+                          child: Text(
+                            e.key.toUpperCase(),
+                            style: Theme.of(ctx)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        Expanded(child: Text(e.value)),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+              ],
+
+              const Divider(height: 32),
+
+              // Kiválasztás
+              FilledButton.icon(
+                icon: const Icon(Icons.check),
+                label: Text(l.searchChoose),
+                onPressed: () {
+                  Navigator.of(ctx).pop(); // alsó lap bezárása
+                  Navigator.of(context).pop(m); // a faj visszaadása
+                },
+              ),
+              const SizedBox(height: 16),
             ],
           ),
-          isThreeLine: isDifferent && m.family != null,
-          onTap: () => Navigator.of(context).pop(m),
-        );
-      },
+        ),
+      ),
     );
+  }
+
+  Widget _detailRow(BuildContext ctx, String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 3),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 110,
+            child: Text(
+              label,
+              style: Theme.of(ctx).textTheme.bodySmall,
+            ),
+          ),
+          Expanded(child: Text(value)),
+        ],
+      ),
+    );
+  }
+
+  /// A királyság neve a felület nyelvén.
+  String _kingdomLabel(String? kingdom, AppLocalizations l) {
+    switch (kingdom) {
+      case 'Animalia':
+        return l.searchKingdomAnimalia;
+      case 'Plantae':
+        return l.searchKingdomPlantae;
+      case 'Fungi':
+        return l.searchKingdomFungi;
+      default:
+        return kingdom ?? '—';
+    }
   }
 
   IconData _iconForKingdom(String? kingdom) {

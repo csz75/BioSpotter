@@ -297,6 +297,30 @@ class AppLocalizationsHu extends AppLocalizations {
       'A fiók törlése nem sikerült. Próbáld újra.';
 
   @override
+  String get searchKingdom => 'Ország';
+
+  @override
+  String get searchFamily => 'Család';
+
+  @override
+  String get searchGbifKey => 'GBIF azonosító';
+
+  @override
+  String get searchVernaculars => 'Nevek más nyelveken';
+
+  @override
+  String get searchChoose => 'Ezt a fajt választom';
+
+  @override
+  String get searchKingdomAnimalia => 'Állatok';
+
+  @override
+  String get searchKingdomPlantae => 'Növények';
+
+  @override
+  String get searchKingdomFungi => 'Gombák';
+
+  @override
   String get obsSetSpecies => 'Faj megadása / módosítása';
 
   @override

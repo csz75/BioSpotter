@@ -298,6 +298,30 @@ class AppLocalizationsFr extends AppLocalizations {
       'La suppression du compte a échoué. Réessaie.';
 
   @override
+  String get searchKingdom => 'Règne';
+
+  @override
+  String get searchFamily => 'Famille';
+
+  @override
+  String get searchGbifKey => 'Clé GBIF';
+
+  @override
+  String get searchVernaculars => 'Noms dans d\'autres langues';
+
+  @override
+  String get searchChoose => 'Choisir cette espèce';
+
+  @override
+  String get searchKingdomAnimalia => 'Animaux';
+
+  @override
+  String get searchKingdomPlantae => 'Plantes';
+
+  @override
+  String get searchKingdomFungi => 'Champignons';
+
+  @override
   String get obsSetSpecies => 'Définir / modifier l\'espèce';
 
   @override
