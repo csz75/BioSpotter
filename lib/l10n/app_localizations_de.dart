@@ -298,6 +298,15 @@ class AppLocalizationsDe extends AppLocalizations {
       'Kontolöschung fehlgeschlagen. Bitte versuche es erneut.';
 
   @override
+  String get legalPrivacy => 'Datenschutzerklärung';
+
+  @override
+  String get legalTerms => 'Nutzungsbedingungen';
+
+  @override
+  String get legalDeletion => 'Datenlöschung';
+
+  @override
   String mapCommunityCount(int count) {
     return 'Gemeinschaft: $count';
   }
@@ -307,6 +316,12 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get mapCommunityLocked => 'Premium';
+
+  @override
+  String get mapSearchHint => 'Nach Art suchen…';
+
+  @override
+  String get mapNoMatch => 'Keine Treffer für diese Suche.';
 
   @override
   String get searchKingdom => 'Reich';

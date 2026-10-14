@@ -298,6 +298,15 @@ class AppLocalizationsFr extends AppLocalizations {
       'La suppression du compte a échoué. Réessaie.';
 
   @override
+  String get legalPrivacy => 'Politique de confidentialité';
+
+  @override
+  String get legalTerms => 'Conditions d\'utilisation';
+
+  @override
+  String get legalDeletion => 'Suppression des données';
+
+  @override
   String mapCommunityCount(int count) {
     return 'Communauté : $count';
   }
@@ -307,6 +316,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get mapCommunityLocked => 'Premium';
+
+  @override
+  String get mapSearchHint => 'Rechercher par espèce…';
+
+  @override
+  String get mapNoMatch => 'Aucun résultat pour cette recherche.';
 
   @override
   String get searchKingdom => 'Règne';

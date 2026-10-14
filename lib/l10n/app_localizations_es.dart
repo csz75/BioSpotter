@@ -298,6 +298,15 @@ class AppLocalizationsEs extends AppLocalizations {
       'No se pudo eliminar la cuenta. Inténtalo de nuevo.';
 
   @override
+  String get legalPrivacy => 'Política de privacidad';
+
+  @override
+  String get legalTerms => 'Términos de uso';
+
+  @override
+  String get legalDeletion => 'Eliminación de datos';
+
+  @override
   String mapCommunityCount(int count) {
     return 'Comunidad: $count';
   }
@@ -307,6 +316,12 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get mapCommunityLocked => 'Premium';
+
+  @override
+  String get mapSearchHint => 'Buscar por especie…';
+
+  @override
+  String get mapNoMatch => 'Sin resultados para esta búsqueda.';
 
   @override
   String get searchKingdom => 'Reino';

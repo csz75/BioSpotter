@@ -92,10 +92,15 @@
   "deleteAccountButton": "Delete account",
   "deleteAccountDone": "Your account has been deleted. You can register again with your email address.",
   "deleteAccountFailed": "Account deletion failed. Please try again.",
+  "legalPrivacy": "Privacy Policy",
+  "legalTerms": "Terms of Service",
+  "legalDeletion": "Data Deletion",
 
   "mapCommunityCount": "Community: {count}",
   "mapCommunityToggle": "Community",
   "mapCommunityLocked": "Premium",
+  "mapSearchHint": "Search by species…",
+  "mapNoMatch": "No results for this search.",
 
   "searchKingdom": "Kingdom",
   "searchFamily": "Family",

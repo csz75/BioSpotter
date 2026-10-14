@@ -93,9 +93,15 @@
   "deleteAccountDone": "Tu cuenta ha sido eliminada. Puedes registrarte de nuevo con tu correo electrónico.",
   "deleteAccountFailed": "No se pudo eliminar la cuenta. Inténtalo de nuevo.",
 
+  "legalPrivacy": "Política de privacidad",
+  "legalTerms": "Términos de uso",
+  "legalDeletion": "Eliminación de datos",
+
   "mapCommunityCount": "Comunidad: {count}",
   "mapCommunityToggle": "Comunidad",
   "mapCommunityLocked": "Premium",
+  "mapSearchHint": "Buscar por especie…",
+  "mapNoMatch": "Sin resultados para esta búsqueda.",
 
   "searchKingdom": "Reino",
   "searchFamily": "Familia",

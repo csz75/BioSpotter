@@ -618,6 +618,24 @@ abstract class AppLocalizations {
   /// **'A fiók törlése nem sikerült. Próbáld újra.'**
   String get deleteAccountFailed;
 
+  /// No description provided for @legalPrivacy.
+  ///
+  /// In hu, this message translates to:
+  /// **'Adatvédelmi tájékoztató'**
+  String get legalPrivacy;
+
+  /// No description provided for @legalTerms.
+  ///
+  /// In hu, this message translates to:
+  /// **'Felhasználási feltételek'**
+  String get legalTerms;
+
+  /// No description provided for @legalDeletion.
+  ///
+  /// In hu, this message translates to:
+  /// **'Adattörlési tudnivalók'**
+  String get legalDeletion;
+
   /// No description provided for @mapCommunityCount.
   ///
   /// In hu, this message translates to:
@@ -635,6 +653,18 @@ abstract class AppLocalizations {
   /// In hu, this message translates to:
   /// **'Prémium'**
   String get mapCommunityLocked;
+
+  /// No description provided for @mapSearchHint.
+  ///
+  /// In hu, this message translates to:
+  /// **'Keresés fajra…'**
+  String get mapSearchHint;
+
+  /// No description provided for @mapNoMatch.
+  ///
+  /// In hu, this message translates to:
+  /// **'Nincs találat erre a keresésre.'**
+  String get mapNoMatch;
 
   /// No description provided for @searchKingdom.
   ///

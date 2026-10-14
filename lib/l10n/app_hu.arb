@@ -140,9 +140,15 @@
   "deleteAccountDone": "A fiókod törölve. Az e-mail címeddel újra regisztrálhatsz.",
   "deleteAccountFailed": "A fiók törlése nem sikerült. Próbáld újra.",
 
+  "legalPrivacy": "Adatvédelmi tájékoztató",
+  "legalTerms": "Felhasználási feltételek",
+  "legalDeletion": "Adattörlési tudnivalók",
+
   "mapCommunityCount": "Közösségi: {count}",
   "mapCommunityToggle": "Közösségi",
   "mapCommunityLocked": "Prémium",
+  "mapSearchHint": "Keresés fajra…",
+  "mapNoMatch": "Nincs találat erre a keresésre.",
   "@mapCommunityCount": {
     "placeholders": {
       "count": { "type": "int" }

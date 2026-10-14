@@ -301,6 +301,15 @@ class AppLocalizationsIt extends AppLocalizations {
       'Eliminazione dell\'account non riuscita. Riprova.';
 
   @override
+  String get legalPrivacy => 'Informativa sulla privacy';
+
+  @override
+  String get legalTerms => 'Termini di servizio';
+
+  @override
+  String get legalDeletion => 'Eliminazione dei dati';
+
+  @override
   String mapCommunityCount(int count) {
     return 'Comunità: $count';
   }
@@ -310,6 +319,12 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get mapCommunityLocked => 'Premium';
+
+  @override
+  String get mapSearchHint => 'Cerca per specie…';
+
+  @override
+  String get mapNoMatch => 'Nessun risultato per questa ricerca.';
 
   @override
   String get searchKingdom => 'Regno';

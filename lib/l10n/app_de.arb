@@ -92,10 +92,16 @@
   "deleteAccountButton": "Konto löschen",
   "deleteAccountDone": "Dein Konto wurde gelöscht. Du kannst dich mit deiner E-Mail-Adresse erneut registrieren.",
   "deleteAccountFailed": "Kontolöschung fehlgeschlagen. Bitte versuche es erneut.",
+  
+  "legalPrivacy": "Datenschutzerklärung",
+  "legalTerms": "Nutzungsbedingungen",
+  "legalDeletion": "Datenlöschung",
 
   "mapCommunityCount": "Gemeinschaft: {count}",
   "mapCommunityToggle": "Gemeinschaft",
   "mapCommunityLocked": "Premium",
+  "mapSearchHint": "Nach Art suchen…",
+  "mapNoMatch": "Keine Treffer für diese Suche.",
 
   "searchKingdom": "Reich",
   "searchFamily": "Familie",

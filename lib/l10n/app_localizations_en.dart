@@ -295,6 +295,15 @@ class AppLocalizationsEn extends AppLocalizations {
       'Account deletion failed. Please try again.';
 
   @override
+  String get legalPrivacy => 'Privacy Policy';
+
+  @override
+  String get legalTerms => 'Terms of Service';
+
+  @override
+  String get legalDeletion => 'Data Deletion';
+
+  @override
   String mapCommunityCount(int count) {
     return 'Community: $count';
   }
@@ -304,6 +313,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mapCommunityLocked => 'Premium';
+
+  @override
+  String get mapSearchHint => 'Search by species…';
+
+  @override
+  String get mapNoMatch => 'No results for this search.';
 
   @override
   String get searchKingdom => 'Kingdom';

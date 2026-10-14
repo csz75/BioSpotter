@@ -297,6 +297,15 @@ class AppLocalizationsHu extends AppLocalizations {
       'A fiók törlése nem sikerült. Próbáld újra.';
 
   @override
+  String get legalPrivacy => 'Adatvédelmi tájékoztató';
+
+  @override
+  String get legalTerms => 'Felhasználási feltételek';
+
+  @override
+  String get legalDeletion => 'Adattörlési tudnivalók';
+
+  @override
   String mapCommunityCount(int count) {
     return 'Közösségi: $count';
   }
@@ -306,6 +315,12 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get mapCommunityLocked => 'Prémium';
+
+  @override
+  String get mapSearchHint => 'Keresés fajra…';
+
+  @override
+  String get mapNoMatch => 'Nincs találat erre a keresésre.';
 
   @override
   String get searchKingdom => 'Ország';

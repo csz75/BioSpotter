@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../core/locale_controller.dart';
 import '../l10n/app_localizations.dart';
+import '../legal/legal_texts.dart';
 import 'delete_account_screen.dart';
+import 'legal_screen.dart';
+
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -54,7 +57,38 @@ class _SettingsScreenState extends State<SettingsScreen> {
           const SizedBox(height: 16),
           const Divider(),
 
-          // Fiók törlése — a review előtt kötelező
+          // ── Jogi dokumentumok ──────────────────────────────────────
+          ListTile(
+            leading: const Icon(Icons.privacy_tip_outlined),
+            title: Text(l.legalPrivacy),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const LegalScreen(doc: LegalDoc.privacy),
+              ),
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.description_outlined),
+            title: Text(l.legalTerms),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const LegalScreen(doc: LegalDoc.terms),
+              ),
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.delete_sweep_outlined),
+            title: Text(l.legalDeletion),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const LegalScreen(doc: LegalDoc.deletion),
+              ),
+            ),
+          ),
+
+          const Divider(),
+
+          // ── Fiók törlése ───────────────────────────────────────────
           ListTile(
             leading:
                 const Icon(Icons.delete_forever, color: Color(0xFFB3261E)),
@@ -68,6 +102,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
           ),
+
+          const SizedBox(height: 24),
         ],
       ),
     );
