@@ -115,7 +115,7 @@ class _SpeciesSearchScreenState extends ConsumerState<SpeciesSearchScreen> {
     final l = AppLocalizations.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('XXX')),
+      appBar: AppBar(title: Text(l.searchTitle)),
       body: Column(
         children: [
           // Kereső mező
