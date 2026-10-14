@@ -140,6 +140,15 @@
   "deleteAccountDone": "A fiókod törölve. Az e-mail címeddel újra regisztrálhatsz.",
   "deleteAccountFailed": "A fiók törlése nem sikerült. Próbáld újra.",
 
+  "mapCommunityCount": "Közösségi: {count}",
+  "mapCommunityToggle": "Közösségi",
+  "mapCommunityLocked": "Prémium",
+  "@mapCommunityCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
   "searchKingdom": "Ország",
   "searchFamily": "Család",
   "searchGbifKey": "GBIF azonosító",

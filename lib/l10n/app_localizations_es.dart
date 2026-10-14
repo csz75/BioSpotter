@@ -298,6 +298,17 @@ class AppLocalizationsEs extends AppLocalizations {
       'No se pudo eliminar la cuenta. Inténtalo de nuevo.';
 
   @override
+  String mapCommunityCount(int count) {
+    return 'Comunidad: $count';
+  }
+
+  @override
+  String get mapCommunityToggle => 'Comunidad';
+
+  @override
+  String get mapCommunityLocked => 'Premium';
+
+  @override
   String get searchKingdom => 'Reino';
 
   @override

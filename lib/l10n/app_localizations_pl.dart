@@ -296,6 +296,17 @@ class AppLocalizationsPl extends AppLocalizations {
       'Usunięcie konta nie powiodło się. Spróbuj ponownie.';
 
   @override
+  String mapCommunityCount(int count) {
+    return 'Społeczność: $count';
+  }
+
+  @override
+  String get mapCommunityToggle => 'Społeczność';
+
+  @override
+  String get mapCommunityLocked => 'Premium';
+
+  @override
   String get searchKingdom => 'Królestwo';
 
   @override

@@ -618,6 +618,24 @@ abstract class AppLocalizations {
   /// **'A fiók törlése nem sikerült. Próbáld újra.'**
   String get deleteAccountFailed;
 
+  /// No description provided for @mapCommunityCount.
+  ///
+  /// In hu, this message translates to:
+  /// **'Közösségi: {count}'**
+  String mapCommunityCount(int count);
+
+  /// No description provided for @mapCommunityToggle.
+  ///
+  /// In hu, this message translates to:
+  /// **'Közösségi'**
+  String get mapCommunityToggle;
+
+  /// No description provided for @mapCommunityLocked.
+  ///
+  /// In hu, this message translates to:
+  /// **'Prémium'**
+  String get mapCommunityLocked;
+
   /// No description provided for @searchKingdom.
   ///
   /// In hu, this message translates to:

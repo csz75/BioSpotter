@@ -8,6 +8,7 @@ import '../core/providers.dart';
 import '../features/observations/observation.dart';
 import '../features/search/observation_filter.dart';
 import '../l10n/app_localizations.dart';
+import '../widgets/observation_detail_sheet.dart';
 
 /// Megfigyelés-keresés — két mód:
 ///  • Saját      — a bejelentkezett felhasználó megfigyelései (kliens-oldali szűrés)
@@ -38,8 +39,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
   String? _errorCommunity;
   bool? _isPremium;
 
-  /// A közösségi fül szerveroldali újratöltésének késleltetése —
-  /// így gépelés közben nem indul minden leütésre külön RPC-hívás.
+  /// A közösségi fül szerveroldali újratöltésének késleltetése.
   Timer? _debounce;
 
   @override
@@ -49,7 +49,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
     _tabs.addListener(() {
       if (!_tabs.indexIsChanging) {
         setState(() {});
-        // Fülváltásnál a közösségi lista újratöltése az aktuális szűrővel.
         if (_tabs.index == 1 && _isPremium == true) _loadCommunity();
       }
     });
@@ -119,11 +118,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
 
   // ── Segédek ─────────────────────────────────────────────────────────
 
-  /// Szűrőváltozás kezelése: állapotfrissítés, és ha a közösségi fül
-  /// az aktív, a szerveroldali találatok újratöltése (késleltetve).
-  ///
-  /// A saját fül kliens-oldalon szűr (a `_mineResults` getter minden
-  /// újraépítésnél újraszámol), ezért ott nincs szükség szerverhívásra.
+  /// Szűrőváltozás: állapotfrissítés, és ha a közösségi fül aktív,
+  /// a szerveroldali találatok újratöltése (késleltetve).
   void _onFilterChanged(VoidCallback apply) {
     setState(apply);
 
@@ -195,6 +191,24 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
     await _loadCommunity();
   }
 
+  /// Fejlesztői teszt: visszaállítás ingyenes csomagra.
+  Future<void> _disableTestPremium() async {
+    final err = await ref.read(searchRepositoryProvider).deactivatePremium();
+    if (!mounted) return;
+
+    if (err != null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(err)));
+      return;
+    }
+
+    await _checkPremium();
+    if (!mounted) return;
+    setState(() => _community = const []);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(AppLocalizations.of(context).premiumDeactivated)),
+    );
+  }
+
   // ── UI ──────────────────────────────────────────────────────────────
 
   @override
@@ -211,8 +225,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
               icon: const Icon(Icons.filter_alt_off),
               onPressed: () {
                 _controller.clear();
-                _onFilterChanged(
-                    () => _filter = const ObservationFilter());
+                _onFilterChanged(() => _filter = const ObservationFilter());
               },
             ),
         ],
@@ -447,6 +460,29 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
 
     return Column(
       children: [
+        // Prémium jelzés + visszaállítás (fejlesztői teszt)
+        Container(
+          color: const Color(0xFFE8EEF7),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          child: Row(
+            children: [
+              const Icon(Icons.workspace_premium,
+                  size: 16, color: Color(0xFF1F3864)),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Text(
+                  l.premiumActive,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ),
+              TextButton(
+                onPressed: _disableTestPremium,
+                child: Text(l.premiumDeactivate),
+              ),
+            ],
+          ),
+        ),
+
         Expanded(
           child: _loadingCommunity
               ? const Center(child: CircularProgressIndicator())
@@ -626,137 +662,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
         '${when.isNotEmpty ? ' · $when' : ''}',
       ),
       trailing: const Icon(Icons.chevron_right),
-      onTap: () => _showDetail(o, lang, l),
-    );
-  }
-
-  /// A megfigyelés részletnézete — alsó lap, a nagy fotóval.
-  void _showDetail(Observation o, String lang, AppLocalizations l) {
-    final bigPath = o.photoPath ?? o.photoThumbPath;
-    final photoUrl = bigPath != null
-        ? ref.read(observationRepositoryProvider).photoUrl(bigPath)
-        : null;
-    final name =
-        o.hasSpecies ? o.displayNameFor(lang) : l.observationsUnknownSpecies;
-
-    showModalBottomSheet<void>(
-      context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
-      builder: (_) => DraggableScrollableSheet(
-        initialChildSize: 0.7,
-        minChildSize: 0.4,
-        maxChildSize: 0.95,
-        expand: false,
-        builder: (ctx, scrollController) => Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-          ),
-          child: ListView(
-            controller: scrollController,
-            padding: const EdgeInsets.all(16),
-            children: [
-              Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  margin: const EdgeInsets.only(bottom: 12),
-                  decoration: BoxDecoration(
-                    color: Colors.black26,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-
-              if (photoUrl != null)
-                GestureDetector(
-                  onTap: () => _showFullImage(photoUrl),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Column(
-                      children: [
-                        Image.network(
-                          photoUrl,
-                          fit: BoxFit.contain,
-                          width: double.infinity,
-                          loadingBuilder: (_, child, progress) {
-                            if (progress == null) return child;
-                            return const SizedBox(
-                              height: 220,
-                              child:
-                                  Center(child: CircularProgressIndicator()),
-                            );
-                          },
-                          errorBuilder: (_, __, ___) => const SizedBox(
-                            height: 220,
-                            child: Center(child: Icon(Icons.broken_image)),
-                          ),
-                        ),
-                        Container(
-                          width: double.infinity,
-                          color: Colors.black54,
-                          padding: const EdgeInsets.symmetric(vertical: 6),
-                          child: Text(
-                            l.tapForFullSize,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 12),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              const SizedBox(height: 16),
-
-              Text(name, style: Theme.of(ctx).textTheme.titleLarge),
-              if (o.scientificName != null && o.scientificName != name) ...[
-                const SizedBox(height: 4),
-                Text(
-                  o.scientificName!,
-                  style: Theme.of(ctx)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(fontStyle: FontStyle.italic),
-                ),
-              ],
-              const SizedBox(height: 8),
-              Text(l.observationsGps(
-                o.latitude.toStringAsFixed(5),
-                o.longitude.toStringAsFixed(5),
-              )),
-              if (o.observedAt != null)
-                Text(l.observationsDateTime(
-                    o.observedAt!.toLocal().toString())),
-              const SizedBox(height: 16),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  /// A fotó teljes méretben — külön képernyőn, nagyíthatóan.
-  void _showFullImage(String url) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => Scaffold(
-          backgroundColor: Colors.black,
-          appBar: AppBar(
-            backgroundColor: Colors.black,
-            foregroundColor: Colors.white,
-          ),
-          body: Center(
-            child: InteractiveViewer(
-              minScale: 1,
-              maxScale: 5,
-              child: Image.network(url, fit: BoxFit.contain),
-            ),
-          ),
-        ),
-      ),
+      onTap: () => showObservationDetail(context, ref, o, lang),
     );
   }
 

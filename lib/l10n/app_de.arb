@@ -93,6 +93,10 @@
   "deleteAccountDone": "Dein Konto wurde gelöscht. Du kannst dich mit deiner E-Mail-Adresse erneut registrieren.",
   "deleteAccountFailed": "Kontolöschung fehlgeschlagen. Bitte versuche es erneut.",
 
+  "mapCommunityCount": "Gemeinschaft: {count}",
+  "mapCommunityToggle": "Gemeinschaft",
+  "mapCommunityLocked": "Premium",
+
   "searchKingdom": "Reich",
   "searchFamily": "Familie",
   "searchGbifKey": "GBIF-Schlüssel",

@@ -298,6 +298,17 @@ class AppLocalizationsDe extends AppLocalizations {
       'Kontolöschung fehlgeschlagen. Bitte versuche es erneut.';
 
   @override
+  String mapCommunityCount(int count) {
+    return 'Gemeinschaft: $count';
+  }
+
+  @override
+  String get mapCommunityToggle => 'Gemeinschaft';
+
+  @override
+  String get mapCommunityLocked => 'Premium';
+
+  @override
   String get searchKingdom => 'Reich';
 
   @override

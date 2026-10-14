@@ -298,6 +298,17 @@ class AppLocalizationsFr extends AppLocalizations {
       'La suppression du compte a échoué. Réessaie.';
 
   @override
+  String mapCommunityCount(int count) {
+    return 'Communauté : $count';
+  }
+
+  @override
+  String get mapCommunityToggle => 'Communauté';
+
+  @override
+  String get mapCommunityLocked => 'Premium';
+
+  @override
   String get searchKingdom => 'Règne';
 
   @override

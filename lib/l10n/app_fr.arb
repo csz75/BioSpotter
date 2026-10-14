@@ -93,6 +93,10 @@
   "deleteAccountDone": "Ton compte a été supprimé. Tu peux t'inscrire à nouveau avec ton adresse e-mail.",
   "deleteAccountFailed": "La suppression du compte a échoué. Réessaie.",
 
+  "mapCommunityCount": "Communauté : {count}",
+  "mapCommunityToggle": "Communauté",
+  "mapCommunityLocked": "Premium",
+
   "searchKingdom": "Règne",
   "searchFamily": "Famille",
   "searchGbifKey": "Clé GBIF",

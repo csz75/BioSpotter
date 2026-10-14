@@ -297,6 +297,17 @@ class AppLocalizationsHu extends AppLocalizations {
       'A fiók törlése nem sikerült. Próbáld újra.';
 
   @override
+  String mapCommunityCount(int count) {
+    return 'Közösségi: $count';
+  }
+
+  @override
+  String get mapCommunityToggle => 'Közösségi';
+
+  @override
+  String get mapCommunityLocked => 'Prémium';
+
+  @override
   String get searchKingdom => 'Ország';
 
   @override

@@ -295,6 +295,17 @@ class AppLocalizationsEn extends AppLocalizations {
       'Account deletion failed. Please try again.';
 
   @override
+  String mapCommunityCount(int count) {
+    return 'Community: $count';
+  }
+
+  @override
+  String get mapCommunityToggle => 'Community';
+
+  @override
+  String get mapCommunityLocked => 'Premium';
+
+  @override
   String get searchKingdom => 'Kingdom';
 
   @override
