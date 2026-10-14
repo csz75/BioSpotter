@@ -39,6 +39,11 @@ class SearchRepository {
   // ── 2. KÖZÖSSÉGI megfigyelések (prémium) ────────────────────────────
 
   /// A KÖZÖSSÉGI megfigyelések — mindenki adatai, szerveroldali szűréssel.
+  ///
+  /// Prémium előfizetés kell hozzá: az RPC és az RLS is ellenőrzi.
+  /// A szűrést a szerver végzi (szöveg, csoport, dátum, körzet).
+  ///
+  /// [lat], [lng], [radiusKm] — a térképes körzet-szűrőhöz.
   Future<List<Observation>> loadCommunity(
     ObservationFilter filter, {
     double? lat,
@@ -95,7 +100,8 @@ class SearchRepository {
       vernacularNames: vernacular,
       iconicTaxon: row['iconic_taxon'] as String?,
       observedAt: observedAt,
-      photoPath: null,
+      photoPath: row['photo_path'] as String?,
+      photoThumbPath: row['thumb_path'] as String?,
     );
   }
 
@@ -118,7 +124,6 @@ class SearchRepository {
       final plan = (row['plan'] as String?) ?? 'free';
       final validUntil = row['valid_until'] as String?;
 
-      // Ha lejárt az előfizetés, akkor ingyenesnek számít
       if (validUntil != null) {
         final end = DateTime.tryParse(validUntil);
         if (end != null && end.isBefore(DateTime.now())) return 'free';
@@ -178,7 +183,7 @@ class SearchRepository {
     }
   }
 
-  /// FEJLESZTŐI TESZT: visszaállítás ingyenes csomagra.
+  /// FEJLESZTŐI TESZT: visszaállítás ingyenesre.
   ///
   /// Visszatérés: null = siker, egyébként a hibaüzenet.
   Future<String?> deactivatePremium() async {
@@ -195,7 +200,6 @@ class SearchRepository {
           .eq('user_id', user.id)
           .select();
 
-      // Ha az RLS nem engedte, nulla sor tér vissza — jelezzük.
       if ((updated as List).isEmpty) {
         return 'A módosítás nem sikerült (RLS). '
             'Ellenőrizd a subscriptions update policy-t.';

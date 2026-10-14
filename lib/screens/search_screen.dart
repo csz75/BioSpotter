@@ -1,6 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geolocator/geolocator.dart';
 
 import '../core/locale_controller.dart';
 import '../core/providers.dart';
@@ -37,18 +38,20 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
   String? _errorCommunity;
   bool? _isPremium;
 
-  // Körzet-szűrő (közösségi fül)
-  double? _zoneLat;
-  double? _zoneLng;
-  double? _zoneRadiusKm;
-  bool _zoneBusy = false;
+  /// A közösségi fül szerveroldali újratöltésének késleltetése —
+  /// így gépelés közben nem indul minden leütésre külön RPC-hívás.
+  Timer? _debounce;
 
   @override
   void initState() {
     super.initState();
     _tabs = TabController(length: 2, vsync: this);
     _tabs.addListener(() {
-      if (!_tabs.indexIsChanging) setState(() {});
+      if (!_tabs.indexIsChanging) {
+        setState(() {});
+        // Fülváltásnál a közösségi lista újratöltése az aktuális szűrővel.
+        if (_tabs.index == 1 && _isPremium == true) _loadCommunity();
+      }
     });
     _loadMine();
     _checkPremium();
@@ -56,6 +59,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
 
   @override
   void dispose() {
+    _debounce?.cancel();
     _tabs.dispose();
     _controller.dispose();
     super.dispose();
@@ -97,12 +101,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
       _errorCommunity = null;
     });
     try {
-      final items = await ref.read(searchRepositoryProvider).loadCommunity(
-            _filter,
-            lat: _zoneLat,
-            lng: _zoneLng,
-            radiusKm: _zoneRadiusKm,
-          );
+      final items =
+          await ref.read(searchRepositoryProvider).loadCommunity(_filter);
       if (!mounted) return;
       setState(() {
         _community = items;
@@ -117,65 +117,23 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
     }
   }
 
-  // ── Körzet-szűrő ────────────────────────────────────────────────────
-
-  /// A jelenlegi helyzet lekérése, és a körzet beállítása.
-  Future<void> _setZoneHere() async {
-    setState(() => _zoneBusy = true);
-    try {
-      var permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-      }
-      if (permission == LocationPermission.denied ||
-          permission == LocationPermission.deniedForever) {
-        if (!mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(AppLocalizations.of(context).zoneNoPermission),
-          ),
-        );
-        return;
-      }
-
-      final pos = await Geolocator.getCurrentPosition(
-        locationSettings: const LocationSettings(
-          accuracy: LocationAccuracy.high,
-          timeLimit: Duration(seconds: 20),
-        ),
-      );
-
-      if (!mounted) return;
-      setState(() {
-        _zoneLat = pos.latitude;
-        _zoneLng = pos.longitude;
-        // Alapértelmezett sugár: 25 km
-        _zoneRadiusKm ??= 25;
-      });
-      await _loadCommunity();
-    } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context).zoneFailed),
-        ),
-      );
-    } finally {
-      if (mounted) setState(() => _zoneBusy = false);
-    }
-  }
-
-  /// A körzet törlése.
-  void _clearZone() {
-    setState(() {
-      _zoneLat = null;
-      _zoneLng = null;
-      _zoneRadiusKm = null;
-    });
-    _loadCommunity();
-  }
-
   // ── Segédek ─────────────────────────────────────────────────────────
+
+  /// Szűrőváltozás kezelése: állapotfrissítés, és ha a közösségi fül
+  /// az aktív, a szerveroldali találatok újratöltése (késleltetve).
+  ///
+  /// A saját fül kliens-oldalon szűr (a `_mineResults` getter minden
+  /// újraépítésnél újraszámol), ezért ott nincs szükség szerverhívásra.
+  void _onFilterChanged(VoidCallback apply) {
+    setState(apply);
+
+    if (_tabs.index != 1) return;
+
+    _debounce?.cancel();
+    _debounce = Timer(const Duration(milliseconds: 400), () {
+      if (mounted) _loadCommunity();
+    });
+  }
 
   String _langCode() {
     return localeController.locale?.languageCode ??
@@ -237,24 +195,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
     await _loadCommunity();
   }
 
-  /// Fejlesztői teszt: visszaállítás ingyenes csomagra.
-  Future<void> _disableTestPremium() async {
-    final err = await ref.read(searchRepositoryProvider).deactivatePremium();
-    if (!mounted) return;
-
-    if (err != null) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(err)));
-      return;
-    }
-
-    await _checkPremium();
-    if (!mounted) return;
-    setState(() => _community = const []);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(AppLocalizations.of(context).premiumDeactivated)),
-    );
-  }
-
   // ── UI ──────────────────────────────────────────────────────────────
 
   @override
@@ -271,7 +211,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
               icon: const Icon(Icons.filter_alt_off),
               onPressed: () {
                 _controller.clear();
-                setState(() => _filter = const ObservationFilter());
+                _onFilterChanged(
+                    () => _filter = const ObservationFilter());
               },
             ),
         ],
@@ -305,7 +246,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
             child: TextField(
               controller: _controller,
               textInputAction: TextInputAction.search,
-              onChanged: (v) => setState(() {
+              onChanged: (v) => _onFilterChanged(() {
                 _filter = _filter.copyWith(text: v);
               }),
               decoration: InputDecoration(
@@ -317,7 +258,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                         icon: const Icon(Icons.clear),
                         onPressed: () {
                           _controller.clear();
-                          setState(
+                          _onFilterChanged(
                               () => _filter = _filter.copyWith(text: ''));
                         },
                       )
@@ -364,7 +305,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                         lastDate: DateTime(2100),
                       );
                       if (d != null) {
-                        setState(() => _filter = _filter.copyWith(from: d));
+                        _onFilterChanged(() {
+                          _filter = _filter.copyWith(from: d);
+                        });
                       }
                     },
                   ),
@@ -386,7 +329,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                         lastDate: DateTime(2100),
                       );
                       if (d != null) {
-                        setState(() => _filter = _filter.copyWith(to: d));
+                        _onFilterChanged(() {
+                          _filter = _filter.copyWith(to: d);
+                        });
                       }
                     },
                   ),
@@ -418,7 +363,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
       child: FilterChip(
         label: Text(label),
         selected: _filter.group == value,
-        onSelected: (_) => setState(() {
+        onSelected: (_) => _onFilterChanged(() {
           _filter = _filter.group == value
               ? _filter.copyWith(clearGroup: true)
               : _filter.copyWith(group: value);
@@ -433,7 +378,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
       child: FilterChip(
         label: Text(label),
         selected: _filter.identifiedOnly == value,
-        onSelected: (_) => setState(() {
+        onSelected: (_) => _onFilterChanged(() {
           _filter = _filter.identifiedOnly == value
               ? _filter.copyWith(clearIdentified: true)
               : _filter.copyWith(identifiedOnly: value);
@@ -502,85 +447,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
 
     return Column(
       children: [
-        // Prémium jelzés + visszaállítás (fejlesztői teszt)
-        Container(
-          color: const Color(0xFFE8EEF7),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-          child: Row(
-            children: [
-              const Icon(Icons.workspace_premium,
-                  size: 16, color: Color(0xFF1F3864)),
-              const SizedBox(width: 6),
-              Expanded(
-                child: Text(
-                  l.premiumActive,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ),
-              TextButton(
-                onPressed: _disableTestPremium,
-                child: Text(l.premiumDeactivate),
-              ),
-            ],
-          ),
-        ),
-
-        // Körzet-sáv
-        Container(
-          color: Colors.black.withValues(alpha: 0.04),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-          child: Row(
-            children: [
-              const Icon(Icons.my_location, size: 18),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  _zoneRadiusKm == null
-                      ? l.zoneNone
-                      : l.zoneActive(_zoneRadiusKm!.round()),
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ),
-              if (_zoneRadiusKm != null) ...[
-                DropdownButton<double>(
-                  value: const [5.0, 10.0, 25.0, 50.0, 100.0]
-                          .contains(_zoneRadiusKm)
-                      ? _zoneRadiusKm
-                      : 25.0,
-                  underline: const SizedBox.shrink(),
-                  items: const [5.0, 10.0, 25.0, 50.0, 100.0]
-                      .map((r) => DropdownMenuItem(
-                            value: r,
-                            child: Text('${r.round()} km'),
-                          ))
-                      .toList(),
-                  onChanged: (v) {
-                    if (v == null) return;
-                    setState(() => _zoneRadiusKm = v);
-                    _loadCommunity();
-                  },
-                ),
-                IconButton(
-                  tooltip: l.zoneClear,
-                  icon: const Icon(Icons.close, size: 18),
-                  onPressed: _clearZone,
-                ),
-              ] else
-                TextButton.icon(
-                  icon: _zoneBusy
-                      ? const SizedBox(
-                          width: 14,
-                          height: 14,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        )
-                      : const Icon(Icons.add_location_alt, size: 18),
-                  label: Text(l.zoneHere),
-                  onPressed: _zoneBusy ? null : _setZoneHere,
-                ),
-            ],
-          ),
-        ),
-
         Expanded(
           child: _loadingCommunity
               ? const Center(child: CircularProgressIndicator())
@@ -622,7 +488,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                                   _community[i],
                                   lang,
                                   l,
-                                  showThumb: false,
+                                  showThumb: true,
                                 ),
                               ),
                             ),
@@ -730,15 +596,21 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
         ? o.observedAt!.toLocal().toString().substring(0, 16)
         : '';
 
+    // A listában a miniatűrt használjuk, ha van; egyébként a nagy fotót.
+    final listPath = o.listPhotoPath;
+    final photoUrl = listPath != null
+        ? ref.read(observationRepositoryProvider).photoUrl(listPath)
+        : null;
+
     return ListTile(
-      leading: (showThumb && o.photoPath != null)
+      leading: (showThumb && photoUrl != null)
           ? ClipRRect(
               borderRadius: BorderRadius.circular(6),
               child: Image.network(
-                ref.read(observationRepositoryProvider).photoUrl(o.photoPath!),
+                photoUrl,
                 width: 56,
                 height: 56,
-                fit: BoxFit.contain,
+                fit: BoxFit.cover,
                 errorBuilder: (_, __, ___) => const SizedBox(
                   width: 56,
                   height: 56,
@@ -752,6 +624,138 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
         '${o.latitude.toStringAsFixed(4)}, '
         '${o.longitude.toStringAsFixed(4)}'
         '${when.isNotEmpty ? ' · $when' : ''}',
+      ),
+      trailing: const Icon(Icons.chevron_right),
+      onTap: () => _showDetail(o, lang, l),
+    );
+  }
+
+  /// A megfigyelés részletnézete — alsó lap, a nagy fotóval.
+  void _showDetail(Observation o, String lang, AppLocalizations l) {
+    final bigPath = o.photoPath ?? o.photoThumbPath;
+    final photoUrl = bigPath != null
+        ? ref.read(observationRepositoryProvider).photoUrl(bigPath)
+        : null;
+    final name =
+        o.hasSpecies ? o.displayNameFor(lang) : l.observationsUnknownSpecies;
+
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => DraggableScrollableSheet(
+        initialChildSize: 0.7,
+        minChildSize: 0.4,
+        maxChildSize: 0.95,
+        expand: false,
+        builder: (ctx, scrollController) => Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+          ),
+          child: ListView(
+            controller: scrollController,
+            padding: const EdgeInsets.all(16),
+            children: [
+              Center(
+                child: Container(
+                  width: 40,
+                  height: 4,
+                  margin: const EdgeInsets.only(bottom: 12),
+                  decoration: BoxDecoration(
+                    color: Colors.black26,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+
+              if (photoUrl != null)
+                GestureDetector(
+                  onTap: () => _showFullImage(photoUrl),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Column(
+                      children: [
+                        Image.network(
+                          photoUrl,
+                          fit: BoxFit.contain,
+                          width: double.infinity,
+                          loadingBuilder: (_, child, progress) {
+                            if (progress == null) return child;
+                            return const SizedBox(
+                              height: 220,
+                              child:
+                                  Center(child: CircularProgressIndicator()),
+                            );
+                          },
+                          errorBuilder: (_, __, ___) => const SizedBox(
+                            height: 220,
+                            child: Center(child: Icon(Icons.broken_image)),
+                          ),
+                        ),
+                        Container(
+                          width: double.infinity,
+                          color: Colors.black54,
+                          padding: const EdgeInsets.symmetric(vertical: 6),
+                          child: Text(
+                            l.tapForFullSize,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 12),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              const SizedBox(height: 16),
+
+              Text(name, style: Theme.of(ctx).textTheme.titleLarge),
+              if (o.scientificName != null && o.scientificName != name) ...[
+                const SizedBox(height: 4),
+                Text(
+                  o.scientificName!,
+                  style: Theme.of(ctx)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(fontStyle: FontStyle.italic),
+                ),
+              ],
+              const SizedBox(height: 8),
+              Text(l.observationsGps(
+                o.latitude.toStringAsFixed(5),
+                o.longitude.toStringAsFixed(5),
+              )),
+              if (o.observedAt != null)
+                Text(l.observationsDateTime(
+                    o.observedAt!.toLocal().toString())),
+              const SizedBox(height: 16),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// A fotó teljes méretben — külön képernyőn, nagyíthatóan.
+  void _showFullImage(String url) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => Scaffold(
+          backgroundColor: Colors.black,
+          appBar: AppBar(
+            backgroundColor: Colors.black,
+            foregroundColor: Colors.white,
+          ),
+          body: Center(
+            child: InteractiveViewer(
+              minScale: 1,
+              maxScale: 5,
+              child: Image.network(url, fit: BoxFit.contain),
+            ),
+          ),
+        ),
       ),
     );
   }

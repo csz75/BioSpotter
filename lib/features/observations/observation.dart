@@ -24,6 +24,7 @@ class Observation {
     this.iconicTaxon,
     this.observedAt,
     this.photoPath,
+    this.photoThumbPath,
   });
 
   final String id;
@@ -43,7 +44,16 @@ class Observation {
   final String? iconicTaxon;
 
   final DateTime? observedAt;
+
+  /// A nagy fotó útvonala a Storage-ban (a részletnézethez).
   final String? photoPath;
+
+  /// A lista miniatűrje a Storage-ban (ha van) — a listához.
+  /// Ha nincs külön thumbnail, a [photoPath]-ot használjuk.
+  final String? photoThumbPath;
+
+  /// A listában használandó kép útvonala: thumbnail, ha van; egyébként a nagy fotó.
+  String? get listPhotoPath => photoThumbPath ?? photoPath;
 
   /// A fajnév az adott app-nyelven (ISO 639-1 kód, pl. "hu").
   /// Visszaesés: magyar név → tudományos név.
@@ -101,9 +111,12 @@ class Observation {
     }
 
     String? photoPath;
+    String? photoThumbPath;
     final photos = json['photos'];
     if (photos is List && photos.isNotEmpty) {
-      photoPath = (photos.first as Map)['storage_path'] as String?;
+      final first = photos.first as Map;
+      photoPath = first['storage_path'] as String?;
+      photoThumbPath = first['thumbnail_path'] as String?;
     }
 
     return Observation(
@@ -120,6 +133,7 @@ class Observation {
           ? DateTime.parse(json['observed_at'] as String)
           : null,
       photoPath: photoPath,
+      photoThumbPath: photoThumbPath,
     );
   }
 }
