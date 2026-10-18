@@ -439,7 +439,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
             itemCount: results.length,
             separatorBuilder: (_, __) => const Divider(height: 1),
             itemBuilder: (context, i) =>
-                _row(results[i], lang, l, showThumb: true),
+                _row(results[i], lang, l,
+                    showThumb: true, showStatusLine: true),
           ),
         ),
       ],
@@ -525,6 +526,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                                   lang,
                                   l,
                                   showThumb: true,
+                                  allowReport: true,
+            
                                 ),
                               ),
                             ),
@@ -625,7 +628,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
     String lang,
     AppLocalizations l, {
     required bool showThumb,
+    bool allowReport = false,
+    bool showStatusLine = false,
   }) {
+
     final name =
         o.hasSpecies ? o.displayNameFor(lang) : l.observationsUnknownSpecies;
     final when = o.observedAt != null
@@ -662,7 +668,14 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
         '${when.isNotEmpty ? ' · $when' : ''}',
       ),
       trailing: const Icon(Icons.chevron_right),
-      onTap: () => showObservationDetail(context, ref, o, lang),
+      onTap: () => showObservationDetail(
+        context,
+        ref,
+        o,
+        lang,
+        allowReport: allowReport,
+        showStatusLine: showStatusLine,
+      ),
     );
   }
 

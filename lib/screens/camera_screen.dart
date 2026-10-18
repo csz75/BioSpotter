@@ -32,6 +32,12 @@ class _CameraScreenState extends ConsumerState<CameraScreen>
 
   static const _colLangs = ['hun', 'eng', 'deu', 'fra', 'spa', 'ita', 'pol'];
 
+  /// Ez alatt a biztonsági szint alatt nem ajánlunk fel találatot.
+  static const _minScoreToSuggest = 40.0;
+
+  /// Ez felett a biztonsági szint felett automatikus azonosításnak számít.
+  static const _autoIdentifyScore = 70.0;
+
   /// Az app nyelvének ISO 639-3 kódja (a GBIF ezt használja).
   String _appColLang() {
     final code = localeController.locale?.languageCode ??
@@ -265,9 +271,13 @@ class _CameraScreenState extends ConsumerState<CameraScreen>
           .identify(File(file.path));
 
       // Az iNaturalist neveit kiegészítjük a GBIF hétnyelvű neveivel
-      final enriched = await _enrichWithVernaculars(rawSuggestions.take(5).toList());
+      final enriched =
+          await _enrichWithVernaculars(rawSuggestions.take(5).toList());
 
       final repo = ref.read(observationRepositoryProvider);
+
+      // A megfigyelés 'pending' állapotban jön létre — csak szándékos
+      // azonosítás után lesz 'published' (lásd setSpeciesFromName).
       final observation = await repo.create(
         latitude: position.latitude,
         longitude: position.longitude,
@@ -276,7 +286,20 @@ class _CameraScreenState extends ConsumerState<CameraScreen>
 
       if (!mounted) return;
 
-      SpeciesSuggestion? chosen = await _askSuggestion(enriched, l);
+      // Erős találat (>70%) vagy bizonytalan (40–70%) — mindkettőnél
+      // felajánljuk a választást, mert az azonosítás szándékos aktus,
+      // és ezzel a megfigyelés közzétehető. Találat nélkül 'pending' marad.
+      final candidates =
+          enriched.where((s) => s.score >= _minScoreToSuggest).toList();
+      final strong =
+          candidates.where((s) => s.score >= _autoIdentifyScore).toList();
+      final weak =
+          candidates.where((s) => s.score < _autoIdentifyScore).toList();
+
+      SpeciesSuggestion? chosen = await _askSuggestion(
+        [...strong, ...weak],
+        l,
+      );
 
       // Kézi keresés jelzés
       if (chosen != null && chosen.scientificName == '__MANUAL__') {
@@ -445,7 +468,7 @@ class _CameraScreenState extends ConsumerState<CameraScreen>
                   child: ListView(
                     shrinkWrap: true,
                     children: [
-                      ...suggestions.map((s) => ListTile(
+                      ...suggestions.take(6).map((s) => ListTile(
                             leading: Icon(_iconForTaxon(s.iconicTaxon)),
                             title: Text(_displayName(s)),
                             subtitle: Text(s.scientificName ?? ''),

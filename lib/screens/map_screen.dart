@@ -232,8 +232,13 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                                     width: 36,
                                     height: 36,
                                     child: GestureDetector(
-                                      onTap: () => showObservationDetail(
-                                          context, ref, o, lang),
+                                onTap: () => showObservationDetail(
+                                  context,
+                                  ref,
+                                  o,
+                                  lang,
+                                  allowReport: true,
+                                ),
                                       child: Icon(
                                         Icons.location_on,
                                         size: 30,
@@ -257,8 +262,13 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                                     width: 44,
                                     height: 44,
                                     child: GestureDetector(
-                                      onTap: () => showObservationDetail(
-                                          context, ref, o, lang),
+                                onTap: () => showObservationDetail(
+                                  context,
+                                  ref,
+                                  o,
+                                  lang,
+                                  showStatusLine: true,
+                                ),
                                       child: Icon(
                                         Icons.location_on,
                                         size: 38,

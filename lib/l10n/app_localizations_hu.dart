@@ -306,6 +306,43 @@ class AppLocalizationsHu extends AppLocalizations {
   String get legalDeletion => 'Adattörlési tudnivalók';
 
   @override
+  String get reportButton => 'Bejelentés';
+
+  @override
+  String get reportTitle => 'Mit jelentessz be?';
+
+  @override
+  String get reportNotNature => 'Nem oda való tartalom';
+
+  @override
+  String get reportViolent => 'Erőszakos tartalom';
+
+  @override
+  String get reportAdult => 'Felnőtt tartalom';
+
+  @override
+  String get reportOther => 'Egyéb';
+
+  @override
+  String get reportCancel => 'Mégsem';
+
+  @override
+  String get reportSent => 'Köszönjük, megkaptuk a bejelentést.';
+
+  @override
+  String get reportFailed => 'A bejelentés nem sikerült.';
+
+  @override
+  String get statusPending =>
+      'Azonosításra vár — még nem látszik a közösségben.';
+
+  @override
+  String get statusFlagged => 'Bejelentve — moderálás alatt.';
+
+  @override
+  String get statusRejected => 'Elutasítva.';
+
+  @override
   String mapCommunityCount(int count) {
     return 'Közösségi: $count';
   }

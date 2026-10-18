@@ -19,12 +19,12 @@ class ObservationRepository {
         .from('observations_with_coords')
         .select(
           'id, user_id, species_id, observed_at, latitude, longitude, '
+          'moderation_status, '
           'photos(storage_path, thumbnail_path), '
-          'species(scientific_name, common_name_hu, vernacular_names, taxonomy_json)',
+          'species(scientific_name, common_name_hu, vernacular_names)',
         )
         .eq('user_id', user.id)
         .order('observed_at', ascending: false);
-
 
     return (res as List)
         .map((e) => Observation.fromJson(e as Map<String, dynamic>))
@@ -44,7 +44,8 @@ class ObservationRepository {
     // Sorrend: POINT(hosszúság szélesség) — lon az első!
     final wkt = 'SRID=4326;POINT($longitude $latitude)';
 
-    // 1. Megfigyelés létrehozása
+    // 1. Megfigyelés létrehozása.
+    //    Alapállapot: 'pending' — csak azonosítás után lesz közösségi.
     final res = await _client
         .from('observations')
         .insert({
@@ -52,6 +53,7 @@ class ObservationRepository {
           'species_id': speciesId,
           'location': wkt,
           'observed_at': DateTime.now().toUtc().toIso8601String(),
+          'moderation_status': 'pending',
         })
         .select()
         .single();
@@ -78,6 +80,10 @@ class ObservationRepository {
   ///
   /// [vernacularNames] nyelvenkénti nevek GBIF-kóddal kulcsolva
   /// (pl. {"hun": "...", "eng": "...", ...}).
+  ///
+  /// Az azonosítás egyben KÖZZÉTÉTEL is: a 'pending' állapotú megfigyelés
+  /// 'published' lesz. A 'flagged' / 'rejected' állapotot NEM írja felül —
+  /// azt csak moderátor oldhatja fel.
   Future<void> setSpeciesFromName({
     required String observationId,
     required String scientificName,
@@ -141,36 +147,31 @@ class ObservationRepository {
       }
     }
 
-    // 3. A megfigyeléshez rendelés
-    await _client
+    // 3. A megfigyeléshez rendelés + közzététel.
+    //    A 'flagged' / 'rejected' állapotot NEM írjuk felül — azt csak
+    //    moderátor oldhatja fel. A 'pending' viszont 'published' lesz,
+    //    mert az azonosítás szándékos aktus volt.
+    final current = await _client
         .from('observations')
-        .update({'species_id': speciesId}).eq('id', observationId);
+        .select('moderation_status')
+        .eq('id', observationId)
+        .maybeSingle();
+
+    final status = (current?['moderation_status'] as String?) ?? 'pending';
+    final canPublish = status == 'pending';
+
+    await _client.from('observations').update({
+      'species_id': speciesId,
+      if (canPublish) 'moderation_status': 'published',
+    }).eq('id', observationId);
   }
 
-  /// A megfigyelés fajának módosítása — a meglévő species_id felülírása.
-  /// A repóban lévő setSpeciesFromName-et használjuk, csak a
-  /// megfigyelés azonosítójával.
-  Future<void> updateSpecies({
-    required String observationId,
-    required String scientificName,
-    String? commonName,
-    String? iconicTaxon,
-    Map<String, String> vernacularNames = const {},
-    int? gbifKey,
-  }) async {
-    await setSpeciesFromName(
-      observationId: observationId,
-      scientificName: scientificName,
-      commonName: commonName,
-      iconicTaxon: iconicTaxon,
-      vernacularNames: vernacularNames,
-      gbifKey: gbifKey,
-    );
-  }
+  /// Egy megfigyelés törlése (a fotóval együtt).
+  Future<void> delete(String observationId) async {
+    final user = _client.auth.currentUser;
+    if (user == null) throw Exception('Nincs bejelentkezett felhasználó');
 
-  /// A megfigyelés törlése — a fotóval és a photos sorral együtt.
-  Future<void> deleteObservation(String observationId) async {
-    // 1. A fotók útvonalainak összegyűjtése
+    // A fotók útvonalát előbb kiolvassuk, hogy a Storage-ból is törölhessük.
     final photos = await _client
         .from('photos')
         .select('storage_path')
@@ -181,29 +182,49 @@ class ObservationRepository {
         .whereType<String>()
         .toList();
 
-    // 2. A Storage-ból törlés (ha van)
     if (paths.isNotEmpty) {
       try {
         await _client.storage.from('photos').remove(paths);
       } catch (_) {
-        // Ha a Storage-törlés elhasal, a DB-törlést akkor is végigvisszük
+        // Ha a Storage-törlés nem sikerül, a DB sor akkor is menjen.
       }
     }
 
-    // 3. A photos sorok törlése
+    // A photos sorokat a CASCADE viszi, de explicit is töröljük.
     await _client.from('photos').delete().eq('observation_id', observationId);
-
-    // 4. Maga a megfigyelés törlése
     await _client.from('observations').delete().eq('id', observationId);
   }
 
-  /// Egy megfigyeléshez tartozó fotó letöltése fájlként
-  /// (az újra-azonosításhoz).
+/// A [setSpeciesFromName] régi neve — a megfigyeléslistából hívjuk.
+  /// Ugyanaz, mint a [setSpeciesFromName]; közzététel a szabály szerint.
+  Future<void> updateSpecies({
+    required String observationId,
+    required String scientificName,
+    String? commonName,
+    String? iconicTaxon,
+    Map<String, String> vernacularNames = const {},
+    int? gbifKey,
+  }) {
+    return setSpeciesFromName(
+      observationId: observationId,
+      scientificName: scientificName,
+      commonName: commonName,
+      iconicTaxon: iconicTaxon,
+      vernacularNames: vernacularNames,
+      gbifKey: gbifKey,
+    );
+  }
+
+  /// A [delete] régi neve — a megfigyeléslistából hívjuk.
+  Future<void> deleteObservation(String observationId) => delete(observationId);
+
+  /// A Storage-ból letölti a fotót egy helyi fájlba
+  /// (az újra-azonosításhoz kell, mert az iNaturalist fájlt vár).
   Future<File> downloadPhoto(String storagePath) async {
     final bytes = await _client.storage.from('photos').download(storagePath);
     final dir = Directory.systemTemp;
     final file = File(
-      '${dir.path}/reidentify-${DateTime.now().millisecondsSinceEpoch}.jpg',
+      '${dir.path}/biospotter_${DateTime.now().millisecondsSinceEpoch}.jpg',
     );
     await file.writeAsBytes(bytes);
     return file;

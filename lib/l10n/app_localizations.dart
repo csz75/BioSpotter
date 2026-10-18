@@ -636,6 +636,78 @@ abstract class AppLocalizations {
   /// **'Adattörlési tudnivalók'**
   String get legalDeletion;
 
+  /// No description provided for @reportButton.
+  ///
+  /// In hu, this message translates to:
+  /// **'Bejelentés'**
+  String get reportButton;
+
+  /// No description provided for @reportTitle.
+  ///
+  /// In hu, this message translates to:
+  /// **'Mit jelentessz be?'**
+  String get reportTitle;
+
+  /// No description provided for @reportNotNature.
+  ///
+  /// In hu, this message translates to:
+  /// **'Nem oda való tartalom'**
+  String get reportNotNature;
+
+  /// No description provided for @reportViolent.
+  ///
+  /// In hu, this message translates to:
+  /// **'Erőszakos tartalom'**
+  String get reportViolent;
+
+  /// No description provided for @reportAdult.
+  ///
+  /// In hu, this message translates to:
+  /// **'Felnőtt tartalom'**
+  String get reportAdult;
+
+  /// No description provided for @reportOther.
+  ///
+  /// In hu, this message translates to:
+  /// **'Egyéb'**
+  String get reportOther;
+
+  /// No description provided for @reportCancel.
+  ///
+  /// In hu, this message translates to:
+  /// **'Mégsem'**
+  String get reportCancel;
+
+  /// No description provided for @reportSent.
+  ///
+  /// In hu, this message translates to:
+  /// **'Köszönjük, megkaptuk a bejelentést.'**
+  String get reportSent;
+
+  /// No description provided for @reportFailed.
+  ///
+  /// In hu, this message translates to:
+  /// **'A bejelentés nem sikerült.'**
+  String get reportFailed;
+
+  /// No description provided for @statusPending.
+  ///
+  /// In hu, this message translates to:
+  /// **'Azonosításra vár — még nem látszik a közösségben.'**
+  String get statusPending;
+
+  /// No description provided for @statusFlagged.
+  ///
+  /// In hu, this message translates to:
+  /// **'Bejelentve — moderálás alatt.'**
+  String get statusFlagged;
+
+  /// No description provided for @statusRejected.
+  ///
+  /// In hu, this message translates to:
+  /// **'Elutasítva.'**
+  String get statusRejected;
+
   /// No description provided for @mapCommunityCount.
   ///
   /// In hu, this message translates to:

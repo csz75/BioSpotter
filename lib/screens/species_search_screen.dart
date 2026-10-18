@@ -7,6 +7,7 @@ import '../core/locale_controller.dart';
 import '../core/providers.dart';
 import '../features/identification/col_match.dart';
 import '../l10n/app_localizations.dart';
+import '../features/identification/col_match.dart';
 
 /// A GBIF-alapú fajnév-kereső.
 /// Élő keresés (400 ms késleltetéssel), nyelv-választóval,
@@ -99,7 +100,7 @@ class _SpeciesSearchScreenState extends ConsumerState<SpeciesSearchScreen> {
 
     setState(() => _loading = true);
     final matches = await ref
-        .read(colSearchServiceProvider)
+        .read(speciesRepositoryProvider)
         .search(query: q, language: _lang);
 
     if (!mounted) return;

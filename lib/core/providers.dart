@@ -1,11 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../features/auth/auth_service.dart';
-import '../features/identification/identification_service.dart';
-import '../features/observations/observation_repository.dart';
-import '../features/identification/col_search_service.dart';
-import '../features/search/search_repository.dart';
 
+import '../features/auth/auth_service.dart';
+import '../features/identification/col_search_service.dart';
+import '../features/identification/identification_service.dart';
+import '../features/identification/species_repository.dart';
+import '../features/observations/observation_repository.dart';
+import '../features/search/search_repository.dart';
 
 final supabaseClientProvider = Provider<SupabaseClient>(
   (ref) => Supabase.instance.client,
@@ -23,9 +24,21 @@ final identificationServiceProvider = Provider<IdentificationService>(
   (ref) => IdentificationService(ref.watch(supabaseClientProvider)),
 );
 
-final colSearchServiceProvider = Provider<ColSearchService>(
-  (ref) => ColSearchService(ref.watch(supabaseClientProvider)),
+
+/// A fajkereső a SAJÁT adatbázisból (~1,13 millió faj).
+final speciesRepositoryProvider = Provider<SpeciesRepository>(
+  (ref) => SpeciesRepository(ref.watch(supabaseClientProvider)),
 );
+
+/// A megfigyelés-keresés (saját + közösségi) és az előfizetés.
 final searchRepositoryProvider = Provider<SearchRepository>(
   (ref) => SearchRepository(ref.watch(supabaseClientProvider)),
 );
+
+/// A GBIF-alapú kereső (Edge Function). Megmarad, de a fajkereső
+/// már a saját adatbázisból dolgozik.
+final colSearchServiceProvider = Provider<ColSearchService>(
+  (ref) => ColSearchService(ref.watch(supabaseClientProvider)),
+);
+
+

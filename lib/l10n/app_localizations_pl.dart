@@ -305,6 +305,43 @@ class AppLocalizationsPl extends AppLocalizations {
   String get legalDeletion => 'Usuwanie danych';
 
   @override
+  String get reportButton => 'Zgłoś';
+
+  @override
+  String get reportTitle => 'Co chcesz zgłosić?';
+
+  @override
+  String get reportNotNature => 'Nieodpowiednia treść';
+
+  @override
+  String get reportViolent => 'Treść z przemocą';
+
+  @override
+  String get reportAdult => 'Treść dla dorosłych';
+
+  @override
+  String get reportOther => 'Inne';
+
+  @override
+  String get reportCancel => 'Anuluj';
+
+  @override
+  String get reportSent => 'Dziękujemy, otrzymaliśmy zgłoszenie.';
+
+  @override
+  String get reportFailed => 'Nie udało się wysłać zgłoszenia.';
+
+  @override
+  String get statusPending =>
+      'Oczekuje na identyfikację — jeszcze niewidoczne.';
+
+  @override
+  String get statusFlagged => 'Zgłoszone — w moderacji.';
+
+  @override
+  String get statusRejected => 'Odrzucone.';
+
+  @override
   String mapCommunityCount(int count) {
     return 'Społeczność: $count';
   }

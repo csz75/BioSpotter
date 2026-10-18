@@ -25,6 +25,7 @@ class Observation {
     this.observedAt,
     this.photoPath,
     this.photoThumbPath,
+    this.moderationStatus = 'published',
   });
 
   final String id;
@@ -52,8 +53,23 @@ class Observation {
   /// Ha nincs külön thumbnail, a [photoPath]-ot használjuk.
   final String? photoThumbPath;
 
+  /// A moderációs állapot:
+  ///  • 'pending'   — azonosításra vár, NEM látszik a közösségben
+  ///  • 'published' — közzétéve, látszik a közösségben
+  ///  • 'flagged'   — bejelentve, moderálás alatt (nem látszik)
+  ///  • 'rejected'  — moderátor elutasította (nem látszik)
+  final String moderationStatus;
+
   /// A listában használandó kép útvonala: thumbnail, ha van; egyébként a nagy fotó.
   String? get listPhotoPath => photoThumbPath ?? photoPath;
+
+  /// Látszik-e a megfigyelés a közösségi nézetben.
+  bool get isVisibleToCommunity => moderationStatus == 'published';
+
+  bool get isPending => moderationStatus == 'pending';
+  bool get isPublished => moderationStatus == 'published';
+  bool get isFlagged => moderationStatus == 'flagged';
+  bool get isRejected => moderationStatus == 'rejected';
 
   /// A fajnév az adott app-nyelven (ISO 639-1 kód, pl. "hu").
   /// Visszaesés: magyar név → tudományos név.
@@ -134,6 +150,9 @@ class Observation {
           : null,
       photoPath: photoPath,
       photoThumbPath: photoThumbPath,
+      // A saját nézet (observations_with_coords) adja; ha nincs,
+      // biztonságból 'published' — a közösségi RPC úgyis szűr.
+      moderationStatus: (json['moderation_status'] as String?) ?? 'published',
     );
   }
 }

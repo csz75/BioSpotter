@@ -307,6 +307,43 @@ class AppLocalizationsFr extends AppLocalizations {
   String get legalDeletion => 'Suppression des données';
 
   @override
+  String get reportButton => 'Signaler';
+
+  @override
+  String get reportTitle => 'Que signales-tu ?';
+
+  @override
+  String get reportNotNature => 'Contenu inapproprié';
+
+  @override
+  String get reportViolent => 'Contenu violent';
+
+  @override
+  String get reportAdult => 'Contenu pour adultes';
+
+  @override
+  String get reportOther => 'Autre';
+
+  @override
+  String get reportCancel => 'Annuler';
+
+  @override
+  String get reportSent => 'Merci, nous avons reçu ton signalement.';
+
+  @override
+  String get reportFailed => 'Le signalement n\'a pas pu être envoyé.';
+
+  @override
+  String get statusPending =>
+      'En attente d\'identification — pas encore visible.';
+
+  @override
+  String get statusFlagged => 'Signalé — en cours de modération.';
+
+  @override
+  String get statusRejected => 'Refusé.';
+
+  @override
   String mapCommunityCount(int count) {
     return 'Communauté : $count';
   }

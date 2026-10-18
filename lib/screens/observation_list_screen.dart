@@ -121,17 +121,20 @@ class _ObservationListScreenState
                     ? o.displayNameFor(lang)
                     : l.observationsUnknownSpecies;
 
+                // A listában a miniatűrt használjuk, ha van; egyébként a nagy fotót.
+                final listPath = o.listPhotoPath;
+
                 return ListTile(
-                  leading: o.photoPath != null
+                  leading: listPath != null
                       ? ClipRRect(
                           borderRadius: BorderRadius.circular(6),
                           child: Image.network(
                             ref
                                 .read(observationRepositoryProvider)
-                                .photoUrl(o.photoPath!),
+                                .photoUrl(listPath),
                             width: 56,
                             height: 56,
-                            fit: BoxFit.contain,
+                            fit: BoxFit.cover,
                             errorBuilder: (_, __, ___) => const SizedBox(
                               width: 56,
                               height: 56,
@@ -173,6 +176,7 @@ class _ObservationListScreenState
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
+      useSafeArea: true,
       backgroundColor: Colors.transparent,
       builder: (_) => DraggableScrollableSheet(
         initialChildSize: 0.8,
@@ -257,6 +261,39 @@ class _ObservationListScreenState
               )),
               if (o.observedAt != null)
                 Text(l.observationsDateTime(o.observedAt!.toLocal().toString())),
+
+              // ── Moderációs állapot ─────────────────────────────────
+              if (!o.isPublished) ...[
+                const Divider(height: 24),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      o.isPending
+                          ? Icons.hourglass_empty
+                          : (o.isFlagged ? Icons.flag : Icons.block),
+                      size: 18,
+                      color: o.isPending
+                          ? Colors.orange.shade700
+                          : (o.isFlagged
+                              ? Colors.red.shade700
+                              : Colors.grey.shade700),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        o.isPending
+                            ? l.statusPending
+                            : (o.isFlagged
+                                ? l.statusFlagged
+                                : l.statusRejected),
+                        style: Theme.of(ctx).textTheme.bodySmall,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+
               const Divider(height: 32),
 
               // ── Műveletek ──────────────────────────────────────────
