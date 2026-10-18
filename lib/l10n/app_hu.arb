@@ -33,6 +33,14 @@
     "placeholders": { "email": { "type": "String" } }
   },
 
+  "likeTooltip": "Tetszik",
+  "likeCount": "{count} kedvelés",
+  "likeFailed": "A kedvelés nem sikerült.",
+  "@likeCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+
+
   "loginError": "Hiba történt: {error}",
   "@loginError": {
     "placeholders": {

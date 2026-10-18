@@ -81,6 +81,17 @@ class AppLocalizationsPl extends AppLocalizations {
       'Konto nie jest jeszcze potwierdzone. Otwórz link w e-mailu.';
 
   @override
+  String get likeTooltip => 'Lubię to';
+
+  @override
+  String likeCount(int count) {
+    return '$count polubień';
+  }
+
+  @override
+  String get likeFailed => 'Nie udało się zapisać.';
+
+  @override
   String homeGreeting(String email) {
     return 'Cześć, $email!';
   }

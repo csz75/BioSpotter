@@ -13,6 +13,7 @@ import '../l10n/app_localizations.dart';
 ///
 /// [allowReport]    — mutassa-e a „Jelentés" gombot (mások megfigyelésénél)
 /// [showStatusLine] — mutassa-e a moderációs állapotot (a sajátomnál)
+/// [allowLike]      — mutassa-e a kedvelés gombot (mások megfigyelésénél)
 Future<void> showObservationDetail(
   BuildContext context,
   WidgetRef ref,
@@ -20,15 +21,8 @@ Future<void> showObservationDetail(
   String lang, {
   bool allowReport = false,
   bool showStatusLine = false,
+  bool allowLike = false,
 }) {
-  final l = AppLocalizations.of(context);
-  final bigPath = o.photoPath ?? o.photoThumbPath;
-  final photoUrl = bigPath != null
-      ? ref.read(observationRepositoryProvider).photoUrl(bigPath)
-      : null;
-  final name =
-      o.hasSpecies ? o.displayNameFor(lang) : l.observationsUnknownSpecies;
-
   return showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
@@ -39,128 +33,243 @@ Future<void> showObservationDetail(
       minChildSize: 0.4,
       maxChildSize: 0.95,
       expand: false,
-      builder: (ctx, scrollController) => Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-        ),
-        child: ListView(
-          controller: scrollController,
-          padding: const EdgeInsets.all(16),
-          children: [
-            Center(
-              child: Container(
-                width: 40,
-                height: 4,
-                margin: const EdgeInsets.only(bottom: 12),
-                decoration: BoxDecoration(
-                  color: Colors.black26,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            ),
-
-            if (photoUrl != null)
-              GestureDetector(
-                onTap: () => showFullImage(context, photoUrl),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Column(
-                    children: [
-                      Image.network(
-                        photoUrl,
-                        fit: BoxFit.contain,
-                        width: double.infinity,
-                        loadingBuilder: (_, child, progress) {
-                          if (progress == null) return child;
-                          return const SizedBox(
-                            height: 220,
-                            child: Center(child: CircularProgressIndicator()),
-                          );
-                        },
-                        errorBuilder: (_, __, ___) => const SizedBox(
-                          height: 220,
-                          child: Center(child: Icon(Icons.broken_image)),
-                        ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        color: Colors.black54,
-                        padding: const EdgeInsets.symmetric(vertical: 6),
-                        child: Text(
-                          l.tapForFullSize,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 12),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            const SizedBox(height: 16),
-
-            Text(name, style: Theme.of(ctx).textTheme.titleLarge),
-            if (o.scientificName != null && o.scientificName != name) ...[
-              const SizedBox(height: 4),
-              Text(
-                o.scientificName!,
-                style: Theme.of(ctx)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(fontStyle: FontStyle.italic),
-              ),
-            ],
-            const SizedBox(height: 8),
-            Text(l.observationsGps(
-              o.latitude.toStringAsFixed(5),
-              o.longitude.toStringAsFixed(5),
-            )),
-            if (o.observedAt != null)
-              Text(l.observationsDateTime(
-                  o.observedAt!.toLocal().toString())),
-
-            // ── Moderációs állapot — csak a saját megfigyelésnél ──────
-            if (showStatusLine && !o.isPublished) ...[
-              const Divider(height: 32),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(
-                    _statusIcon(o.moderationStatus),
-                    size: 18,
-                    color: _statusColor(o.moderationStatus),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      _statusLabel(o, l),
-                      style: Theme.of(ctx).textTheme.bodySmall,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-
-            // ── Jelentés — csak MÁSOK megfigyelésénél ─────────────────
-            if (allowReport) ...[
-              const Divider(height: 32),
-              OutlinedButton.icon(
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: Theme.of(ctx).colorScheme.error,
-                ),
-                icon: const Icon(Icons.flag_outlined),
-                label: Text(l.reportButton),
-                onPressed: () => _showReportDialog(ctx, o, l),
-              ),
-            ],
-
-            const SizedBox(height: 16),
-          ],
-        ),
+      builder: (ctx, scrollController) => _DetailBody(
+        observation: o,
+        lang: lang,
+        allowReport: allowReport,
+        showStatusLine: showStatusLine,
+        allowLike: allowLike,
+        scrollController: scrollController,
       ),
     ),
   );
+}
+
+/// A lap tartalma — állapotot tart, mert a kedvelés változik.
+class _DetailBody extends ConsumerStatefulWidget {
+  const _DetailBody({
+    required this.observation,
+    required this.lang,
+    required this.allowReport,
+    required this.showStatusLine,
+    required this.allowLike,
+    required this.scrollController,
+  });
+
+  final Observation observation;
+  final String lang;
+  final bool allowReport;
+  final bool showStatusLine;
+  final bool allowLike;
+  final ScrollController scrollController;
+
+  @override
+  ConsumerState<_DetailBody> createState() => _DetailBodyState();
+}
+
+class _DetailBodyState extends ConsumerState<_DetailBody> {
+  int _likes = 0;
+  bool _liked = false;
+  bool _likeBusy = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.allowLike) _loadLikes();
+  }
+
+  Future<void> _loadLikes() async {
+    final s = await ref
+        .read(likeRepositoryProvider)
+        .stats(widget.observation.id);
+    if (!mounted) return;
+    setState(() {
+      _likes = s.count;
+      _liked = s.likedByMe;
+    });
+  }
+
+  Future<void> _toggleLike() async {
+    if (_likeBusy) return;
+    setState(() => _likeBusy = true);
+    try {
+      final s = await ref
+          .read(likeRepositoryProvider)
+          .toggle(widget.observation.id);
+      if (!mounted) return;
+      setState(() {
+        _likes = s.count;
+        _liked = s.likedByMe;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      final l = AppLocalizations.of(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l.likeFailed)),
+      );
+    } finally {
+      if (mounted) setState(() => _likeBusy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final o = widget.observation;
+    final ctx = context;
+
+    final bigPath = o.photoPath ?? o.photoThumbPath;
+    final photoUrl = bigPath != null
+        ? ref.read(observationRepositoryProvider).photoUrl(bigPath)
+        : null;
+    final name = o.hasSpecies
+        ? o.displayNameFor(widget.lang)
+        : l.observationsUnknownSpecies;
+
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      child: ListView(
+        controller: widget.scrollController,
+        padding: const EdgeInsets.all(16),
+        children: [
+          Center(
+            child: Container(
+              width: 40,
+              height: 4,
+              margin: const EdgeInsets.only(bottom: 12),
+              decoration: BoxDecoration(
+                color: Colors.black26,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+
+          if (photoUrl != null)
+            GestureDetector(
+              onTap: () => showFullImage(context, photoUrl),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Column(
+                  children: [
+                    Image.network(
+                      photoUrl,
+                      fit: BoxFit.contain,
+                      width: double.infinity,
+                      loadingBuilder: (_, child, progress) {
+                        if (progress == null) return child;
+                        return const SizedBox(
+                          height: 220,
+                          child: Center(child: CircularProgressIndicator()),
+                        );
+                      },
+                      errorBuilder: (_, __, ___) => const SizedBox(
+                        height: 220,
+                        child: Center(child: Icon(Icons.broken_image)),
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      color: Colors.black54,
+                      padding: const EdgeInsets.symmetric(vertical: 6),
+                      child: Text(
+                        l.tapForFullSize,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            color: Colors.white, fontSize: 12),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          const SizedBox(height: 16),
+
+          Text(name, style: Theme.of(ctx).textTheme.titleLarge),
+          if (o.scientificName != null && o.scientificName != name) ...[
+            const SizedBox(height: 4),
+            Text(
+              o.scientificName!,
+              style: Theme.of(ctx)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontStyle: FontStyle.italic),
+            ),
+          ],
+          const SizedBox(height: 8),
+          Text(l.observationsGps(
+            o.latitude.toStringAsFixed(5),
+            o.longitude.toStringAsFixed(5),
+          )),
+          if (o.observedAt != null)
+            Text(l.observationsDateTime(
+                o.observedAt!.toLocal().toString())),
+
+          // ── Kedvelés — csak MÁSOK megfigyelésénél ─────────────────
+          if (widget.allowLike) ...[
+            const Divider(height: 24),
+            Row(
+              children: [
+                IconButton(
+                  onPressed: _likeBusy ? null : _toggleLike,
+                  tooltip: l.likeTooltip,
+                  icon: Icon(
+                    _liked ? Icons.favorite : Icons.favorite_border,
+                    color: _liked ? Colors.red.shade600 : null,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    l.likeCount(_likes),
+                    style: Theme.of(ctx).textTheme.bodyMedium,
+                  ),
+                ),
+              ],
+            ),
+          ],
+
+          // ── Moderációs állapot — csak a saját megfigyelésnél ──────
+          if (widget.showStatusLine && !o.isPublished) ...[
+            const Divider(height: 32),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(
+                  _statusIcon(o.moderationStatus),
+                  size: 18,
+                  color: _statusColor(o.moderationStatus),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    _statusLabel(o, l),
+                    style: Theme.of(ctx).textTheme.bodySmall,
+                  ),
+                ),
+              ],
+            ),
+          ],
+
+          // ── Jelentés — csak MÁSOK megfigyelésénél ─────────────────
+          if (widget.allowReport) ...[
+            const Divider(height: 32),
+            OutlinedButton.icon(
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Theme.of(ctx).colorScheme.error,
+              ),
+              icon: const Icon(Icons.flag_outlined),
+              label: Text(l.reportButton),
+              onPressed: () => _showReportDialog(ctx, o, l),
+            ),
+          ],
+
+          const SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
 }
 
 /// A fotó teljes méretben — külön képernyőn, nagyíthatóan.

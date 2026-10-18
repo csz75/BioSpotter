@@ -438,9 +438,13 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
           child: ListView.separated(
             itemCount: results.length,
             separatorBuilder: (_, __) => const Divider(height: 1),
-            itemBuilder: (context, i) =>
-                _row(results[i], lang, l,
-                    showThumb: true, showStatusLine: true),
+            itemBuilder: (context, i) => _row(
+              results[i],
+              lang,
+              l,
+              showThumb: true,
+              showStatusLine: true,
+            ),
           ),
         ),
       ],
@@ -527,7 +531,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                                   l,
                                   showThumb: true,
                                   allowReport: true,
-            
+                                  allowLike: true,
                                 ),
                               ),
                             ),
@@ -630,8 +634,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
     required bool showThumb,
     bool allowReport = false,
     bool showStatusLine = false,
+    bool allowLike = false,
   }) {
-
     final name =
         o.hasSpecies ? o.displayNameFor(lang) : l.observationsUnknownSpecies;
     final when = o.observedAt != null
@@ -675,6 +679,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
         lang,
         allowReport: allowReport,
         showStatusLine: showStatusLine,
+        allowLike: allowLike,
       ),
     );
   }

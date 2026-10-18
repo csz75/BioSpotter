@@ -81,6 +81,17 @@ class AppLocalizationsHu extends AppLocalizations {
       'A fiók még nincs megerősítve. Nyisd meg a levélben lévő linket.';
 
   @override
+  String get likeTooltip => 'Tetszik';
+
+  @override
+  String likeCount(int count) {
+    return '$count kedvelés';
+  }
+
+  @override
+  String get likeFailed => 'A kedvelés nem sikerült.';
+
+  @override
   String homeGreeting(String email) {
     return 'Üdv, $email!';
   }

@@ -26,6 +26,10 @@
   "verifyEmailImDone": "Ich habe es bestätigt",
   "verifyEmailNotYet": "Das Konto ist noch nicht bestätigt. Öffne den Link in der E-Mail.",
 
+  "likeTooltip": "Gefällt mir",
+  "likeCount": "{count} Gefällt-mir",
+  "likeFailed": "Konnte nicht gespeichert werden.",
+
   "homeGreeting": "Hallo, {email}!",
   "homeNewObservation": "Neue Beobachtung",
   "homeMyObservations": "Meine Beobachtungen",

@@ -7,6 +7,8 @@ import '../features/identification/identification_service.dart';
 import '../features/identification/species_repository.dart';
 import '../features/observations/observation_repository.dart';
 import '../features/search/search_repository.dart';
+import '../features/observations/like_repository.dart';
+
 
 final supabaseClientProvider = Provider<SupabaseClient>(
   (ref) => Supabase.instance.client,
@@ -39,6 +41,10 @@ final searchRepositoryProvider = Provider<SearchRepository>(
 /// már a saját adatbázisból dolgozik.
 final colSearchServiceProvider = Provider<ColSearchService>(
   (ref) => ColSearchService(ref.watch(supabaseClientProvider)),
+);
+
+final likeRepositoryProvider = Provider<LikeRepository>(
+  (ref) => LikeRepository(ref.watch(supabaseClientProvider)),
 );
 
 

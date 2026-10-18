@@ -195,12 +195,14 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                 }
 
                 // A saját réteg kliens-oldali szűrése a keresőszöveggel.
-                final mineFiltered = _nameFilter(_valid(snapshot.data ?? const []));
+                final mineFiltered =
+                    _nameFilter(_valid(snapshot.data ?? const []));
 
                 // A közösségi réteget már a szerver szűrte.
-                final communityFiltered = (_showCommunity && _isPremium == true)
-                    ? _valid(_community)
-                    : <Observation>[];
+                final communityFiltered =
+                    (_showCommunity && _isPremium == true)
+                        ? _valid(_community)
+                        : <Observation>[];
 
                 final all = [...mineFiltered, ...communityFiltered];
                 final center = all.isNotEmpty
@@ -220,7 +222,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                       children: [
                         TileLayer(
                           urlTemplate:
-                              'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                              '[tile.openstreetmap.org](https://tile.openstreetmap.org/{z}/{x}/{y}.png)',
                           userAgentPackageName: 'hu.therma.biospotter',
                         ),
 
@@ -232,13 +234,14 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                                     width: 36,
                                     height: 36,
                                     child: GestureDetector(
-                                onTap: () => showObservationDetail(
-                                  context,
-                                  ref,
-                                  o,
-                                  lang,
-                                  allowReport: true,
-                                ),
+                                      onTap: () => showObservationDetail(
+                                        context,
+                                        ref,
+                                        o,
+                                        lang,
+                                        allowReport: true,
+                                        allowLike: true,
+                                      ),
                                       child: Icon(
                                         Icons.location_on,
                                         size: 30,
@@ -262,13 +265,13 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                                     width: 44,
                                     height: 44,
                                     child: GestureDetector(
-                                onTap: () => showObservationDetail(
-                                  context,
-                                  ref,
-                                  o,
-                                  lang,
-                                  showStatusLine: true,
-                                ),
+                                      onTap: () => showObservationDetail(
+                                        context,
+                                        ref,
+                                        o,
+                                        lang,
+                                        showStatusLine: true,
+                                      ),
                                       child: Icon(
                                         Icons.location_on,
                                         size: 38,

@@ -26,6 +26,10 @@
   "verifyEmailImDone": "I've confirmed it",
   "verifyEmailNotYet": "The account is not confirmed yet. Open the link in the email.",
 
+  "likeTooltip": "Like",
+  "likeCount": "{count} likes",
+  "likeFailed": "Could not save your like.",
+
   "homeGreeting": "Hi, {email}!",
   "homeNewObservation": "New observation",
   "homeMyObservations": "My observations",

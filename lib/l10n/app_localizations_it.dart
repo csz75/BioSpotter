@@ -83,6 +83,17 @@ class AppLocalizationsIt extends AppLocalizations {
       'L\'account non è ancora confermato. Apri il link nell\'e-mail.';
 
   @override
+  String get likeTooltip => 'Mi piace';
+
+  @override
+  String likeCount(int count) {
+    return '$count mi piace';
+  }
+
+  @override
+  String get likeFailed => 'Impossibile salvare.';
+
+  @override
   String homeGreeting(String email) {
     return 'Ciao, $email!';
   }

@@ -240,6 +240,24 @@ abstract class AppLocalizations {
   /// **'A fiók még nincs megerősítve. Nyisd meg a levélben lévő linket.'**
   String get verifyEmailNotYet;
 
+  /// No description provided for @likeTooltip.
+  ///
+  /// In hu, this message translates to:
+  /// **'Tetszik'**
+  String get likeTooltip;
+
+  /// No description provided for @likeCount.
+  ///
+  /// In hu, this message translates to:
+  /// **'{count} kedvelés'**
+  String likeCount(int count);
+
+  /// No description provided for @likeFailed.
+  ///
+  /// In hu, this message translates to:
+  /// **'A kedvelés nem sikerült.'**
+  String get likeFailed;
+
   /// No description provided for @homeGreeting.
   ///
   /// In hu, this message translates to:
