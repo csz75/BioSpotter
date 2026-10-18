@@ -16,6 +16,16 @@
   "loginPasswordTooShort": "Password must be at least 6 characters",
   "loginError": "Something went wrong: {error}",
 
+  "loginEmailNotConfirmed": "Please confirm your email address and try again.",
+  "verifyEmailTitle": "Verify email",
+  "verifyEmailHeading": "Confirm your email address",
+  "verifyEmailBody": "We sent a confirmation email to {email}. Click the link in the email to activate your account.",
+  "verifyEmailResend": "Resend email",
+  "verifyEmailResent": "We resent the confirmation email.",
+  "verifyEmailBack": "Back to sign in",
+  "verifyEmailImDone": "I've confirmed it",
+  "verifyEmailNotYet": "The account is not confirmed yet. Open the link in the email.",
+
   "homeGreeting": "Hi, {email}!",
   "homeNewObservation": "New observation",
   "homeMyObservations": "My observations",

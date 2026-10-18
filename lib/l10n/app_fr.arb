@@ -16,6 +16,16 @@
   "loginPasswordTooShort": "Le mot de passe doit comporter au moins 6 caractères",
   "loginError": "Une erreur est survenue : {error}",
 
+  "loginEmailNotConfirmed": "Confirme ton adresse e-mail et réessaie.",
+  "verifyEmailTitle": "Vérifier l'e-mail",
+  "verifyEmailHeading": "Confirme ton adresse e-mail",
+  "verifyEmailBody": "Nous avons envoyé un e-mail de confirmation à {email}. Clique sur le lien pour activer ton compte.",
+  "verifyEmailResend": "Renvoyer l'e-mail",
+  "verifyEmailResent": "Nous avons renvoyé l'e-mail de confirmation.",
+  "verifyEmailBack": "Retour à la connexion",
+  "verifyEmailImDone": "Je l'ai confirmé",
+  "verifyEmailNotYet": "Le compte n'est pas encore confirmé. Ouvre le lien dans l'e-mail.",
+
   "homeGreeting": "Bonjour, {email} !",
   "homeNewObservation": "Nouvelle observation",
   "homeMyObservations": "Mes observations",

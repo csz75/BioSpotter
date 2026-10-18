@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../core/providers.dart';
 import '../l10n/app_localizations.dart';
 import 'home_screen.dart';
+import 'verify_email_screen.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -51,27 +53,56 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     FocusScope.of(context).unfocus();
     setState(() => _loading = true);
 
+    final l = AppLocalizations.of(context);
+    final email = _email.text.trim();
+
     try {
       final auth = ref.read(authServiceProvider);
+
       if (_isSignUp) {
-        await auth.signUp(
-          email: _email.text.trim(),
+        final res = await auth.signUp(
+          email: email,
           password: _password.text,
           displayName: _name.text.trim(),
         );
+
+        if (!mounted) return;
+
+        // Megerősítés bekapcsolva → nincs session, e-mailt küldtünk.
+        if (res.session == null) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (_) => VerifyEmailScreen(
+                email: email,
+                password: _password.text,
+              ),
+            ),
+          );
+          return;
+        }
+        // Ha a megerősítés ki van kapcsolva, van session → azonnal belépett.
       } else {
         await auth.signIn(
-          email: _email.text.trim(),
+          email: email,
           password: _password.text,
         );
       }
+
       if (!mounted) return;
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => const HomeScreen()),
       );
+    } on AuthException catch (e) {
+      if (!mounted) return;
+      // A nem megerősített e-mail-cím külön üzenetet kap.
+      final msg = e.code == 'email_not_confirmed' || '$e'.contains('not confirmed')
+          ? l.loginEmailNotConfirmed
+          : l.loginError(e.message);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(msg)),
+      );
     } catch (e) {
       if (!mounted) return;
-      final l = AppLocalizations.of(context);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(l.loginError('$e'))),
       );

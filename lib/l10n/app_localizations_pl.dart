@@ -45,9 +45,40 @@ class AppLocalizationsPl extends AppLocalizations {
   String get loginPasswordTooShort => 'Hasło musi mieć co najmniej 6 znaków';
 
   @override
+  String get loginEmailNotConfirmed =>
+      'Potwierdź swój adres e-mail i spróbuj ponownie.';
+
+  @override
   String loginError(String error) {
     return 'Wystąpił błąd: $error';
   }
+
+  @override
+  String get verifyEmailTitle => 'Weryfikacja e-mail';
+
+  @override
+  String get verifyEmailHeading => 'Potwierdź swój adres e-mail';
+
+  @override
+  String verifyEmailBody(String email) {
+    return 'Wysłaliśmy e-mail potwierdzający na $email. Kliknij link, aby aktywować konto.';
+  }
+
+  @override
+  String get verifyEmailResend => 'Wyślij e-mail ponownie';
+
+  @override
+  String get verifyEmailResent => 'Ponownie wysłaliśmy e-mail potwierdzający.';
+
+  @override
+  String get verifyEmailBack => 'Powrót do logowania';
+
+  @override
+  String get verifyEmailImDone => 'Już potwierdziłem';
+
+  @override
+  String get verifyEmailNotYet =>
+      'Konto nie jest jeszcze potwierdzone. Otwórz link w e-mailu.';
 
   @override
   String homeGreeting(String email) {

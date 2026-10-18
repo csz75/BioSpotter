@@ -46,9 +46,41 @@ class AppLocalizationsIt extends AppLocalizations {
       'La password deve contenere almeno 6 caratteri';
 
   @override
+  String get loginEmailNotConfirmed =>
+      'Conferma il tuo indirizzo e-mail e riprova.';
+
+  @override
   String loginError(String error) {
     return 'Si è verificato un errore: $error';
   }
+
+  @override
+  String get verifyEmailTitle => 'Verifica e-mail';
+
+  @override
+  String get verifyEmailHeading => 'Conferma il tuo indirizzo e-mail';
+
+  @override
+  String verifyEmailBody(String email) {
+    return 'Abbiamo inviato un\'e-mail di conferma a $email. Clicca sul link per attivare il tuo account.';
+  }
+
+  @override
+  String get verifyEmailResend => 'Invia di nuovo l\'e-mail';
+
+  @override
+  String get verifyEmailResent =>
+      'Abbiamo inviato di nuovo l\'e-mail di conferma.';
+
+  @override
+  String get verifyEmailBack => 'Torna all\'accesso';
+
+  @override
+  String get verifyEmailImDone => 'L\'ho già confermato';
+
+  @override
+  String get verifyEmailNotYet =>
+      'L\'account non è ancora confermato. Apri il link nell\'e-mail.';
 
   @override
   String homeGreeting(String email) {

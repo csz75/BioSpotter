@@ -180,11 +180,65 @@ abstract class AppLocalizations {
   /// **'A jelszó legalább 6 karakter'**
   String get loginPasswordTooShort;
 
+  /// No description provided for @loginEmailNotConfirmed.
+  ///
+  /// In hu, this message translates to:
+  /// **'Erősítsd meg az e-mail-címed, majd próbáld újra.'**
+  String get loginEmailNotConfirmed;
+
   /// No description provided for @loginError.
   ///
   /// In hu, this message translates to:
   /// **'Hiba történt: {error}'**
   String loginError(String error);
+
+  /// No description provided for @verifyEmailTitle.
+  ///
+  /// In hu, this message translates to:
+  /// **'E-mail megerősítése'**
+  String get verifyEmailTitle;
+
+  /// No description provided for @verifyEmailHeading.
+  ///
+  /// In hu, this message translates to:
+  /// **'Erősítsd meg az e-mail-címed'**
+  String get verifyEmailHeading;
+
+  /// No description provided for @verifyEmailBody.
+  ///
+  /// In hu, this message translates to:
+  /// **'Elküldtük a megerősítő levelet ide: {email}. A levélben lévő linkre kattintva aktiválódik a fiókod.'**
+  String verifyEmailBody(String email);
+
+  /// No description provided for @verifyEmailResend.
+  ///
+  /// In hu, this message translates to:
+  /// **'Levél újraküldése'**
+  String get verifyEmailResend;
+
+  /// No description provided for @verifyEmailResent.
+  ///
+  /// In hu, this message translates to:
+  /// **'Elküldtük újra a megerősítő levelet.'**
+  String get verifyEmailResent;
+
+  /// No description provided for @verifyEmailBack.
+  ///
+  /// In hu, this message translates to:
+  /// **'Vissza a belépéshez'**
+  String get verifyEmailBack;
+
+  /// No description provided for @verifyEmailImDone.
+  ///
+  /// In hu, this message translates to:
+  /// **'Már megerősítettem'**
+  String get verifyEmailImDone;
+
+  /// No description provided for @verifyEmailNotYet.
+  ///
+  /// In hu, this message translates to:
+  /// **'A fiók még nincs megerősítve. Nyisd meg a levélben lévő linket.'**
+  String get verifyEmailNotYet;
 
   /// No description provided for @homeGreeting.
   ///

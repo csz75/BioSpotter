@@ -45,9 +45,40 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loginPasswordTooShort => 'Password must be at least 6 characters';
 
   @override
+  String get loginEmailNotConfirmed =>
+      'Please confirm your email address and try again.';
+
+  @override
   String loginError(String error) {
     return 'Something went wrong: $error';
   }
+
+  @override
+  String get verifyEmailTitle => 'Verify email';
+
+  @override
+  String get verifyEmailHeading => 'Confirm your email address';
+
+  @override
+  String verifyEmailBody(String email) {
+    return 'We sent a confirmation email to $email. Click the link in the email to activate your account.';
+  }
+
+  @override
+  String get verifyEmailResend => 'Resend email';
+
+  @override
+  String get verifyEmailResent => 'We resent the confirmation email.';
+
+  @override
+  String get verifyEmailBack => 'Back to sign in';
+
+  @override
+  String get verifyEmailImDone => 'I\'ve confirmed it';
+
+  @override
+  String get verifyEmailNotYet =>
+      'The account is not confirmed yet. Open the link in the email.';
 
   @override
   String homeGreeting(String email) {

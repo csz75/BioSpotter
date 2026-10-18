@@ -45,9 +45,40 @@ class AppLocalizationsHu extends AppLocalizations {
   String get loginPasswordTooShort => 'A jelszó legalább 6 karakter';
 
   @override
+  String get loginEmailNotConfirmed =>
+      'Erősítsd meg az e-mail-címed, majd próbáld újra.';
+
+  @override
   String loginError(String error) {
     return 'Hiba történt: $error';
   }
+
+  @override
+  String get verifyEmailTitle => 'E-mail megerősítése';
+
+  @override
+  String get verifyEmailHeading => 'Erősítsd meg az e-mail-címed';
+
+  @override
+  String verifyEmailBody(String email) {
+    return 'Elküldtük a megerősítő levelet ide: $email. A levélben lévő linkre kattintva aktiválódik a fiókod.';
+  }
+
+  @override
+  String get verifyEmailResend => 'Levél újraküldése';
+
+  @override
+  String get verifyEmailResent => 'Elküldtük újra a megerősítő levelet.';
+
+  @override
+  String get verifyEmailBack => 'Vissza a belépéshez';
+
+  @override
+  String get verifyEmailImDone => 'Már megerősítettem';
+
+  @override
+  String get verifyEmailNotYet =>
+      'A fiók még nincs megerősítve. Nyisd meg a levélben lévő linket.';
 
   @override
   String homeGreeting(String email) {

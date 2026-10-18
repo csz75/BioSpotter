@@ -5,30 +5,40 @@ class AuthService {
 
   final SupabaseClient _client;
 
-Future<AuthResponse> signUp({
+  /// Regisztráció.
+  ///
+  /// A `display_name` a **metadata**-ba kerül — az adatbázis-trigger
+  /// onnan olvassa ki, amikor a felhasználó megerősíti az e-mail-címét.
+  ///
+  /// Megerősítés esetén a `res.session` **null** (a felhasználó még nincs
+  /// bejelentkezve), ezért NEM írunk a `public.users`-be — azt a trigger
+  /// teszi, amikor a fiók létrejön.
+  Future<AuthResponse> signUp({
     required String email,
     required String password,
     required String displayName,
-  }) async {
-    final res = await _client.auth.signUp(
+  }) {
+    return _client.auth.signUp(
       email: email,
       password: password,
+      data: {'display_name': displayName},
+      emailRedirectTo: '[csz75.github.io](https://csz75.github.io/BioSpotter/)',
     );
-
-    final user = res.user;
-    if (user != null) {
-      // A public.users sor beszúrása — ez kell az idegen kulcshoz.
-      // upsert: ha már létezik (pl. trigger), ne dobjon hibát.
-      await _client.from('users').upsert({
-        'id': user.id,
-        'email': email,
-        'display_name': displayName,
-      });
-    }
-
-    return res;
   }
 
+  /// Újraküldi a megerősítő e-mailt.
+  Future<void> resendConfirmation(String email) {
+    return _client.auth.resend(
+      type: OtpType.signup,
+      email: email,
+      emailRedirectTo: '[csz75.github.io](https://csz75.github.io/BioSpotter/)',
+    );
+  }
+
+  /// Belépés e-mail-címmel és jelszóval.
+  ///
+  /// Ha az e-mail-cím nincs megerősítve, a Supabase
+  /// `email_not_confirmed` hibát dob — ezt a képernyő kezeli.
   Future<AuthResponse> signIn({
     required String email,
     required String password,

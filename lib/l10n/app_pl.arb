@@ -16,6 +16,16 @@
   "loginPasswordTooShort": "Hasło musi mieć co najmniej 6 znaków",
   "loginError": "Wystąpił błąd: {error}",
 
+  "loginEmailNotConfirmed": "Potwierdź swój adres e-mail i spróbuj ponownie.",
+  "verifyEmailTitle": "Weryfikacja e-mail",
+  "verifyEmailHeading": "Potwierdź swój adres e-mail",
+  "verifyEmailBody": "Wysłaliśmy e-mail potwierdzający na {email}. Kliknij link, aby aktywować konto.",
+  "verifyEmailResend": "Wyślij e-mail ponownie",
+  "verifyEmailResent": "Ponownie wysłaliśmy e-mail potwierdzający.",
+  "verifyEmailBack": "Powrót do logowania",
+  "verifyEmailImDone": "Już potwierdziłem",
+  "verifyEmailNotYet": "Konto nie jest jeszcze potwierdzone. Otwórz link w e-mailu.",
+
   "homeGreeting": "Cześć, {email}!",
   "homeNewObservation": "Nowa obserwacja",
   "homeMyObservations": "Moje obserwacje",

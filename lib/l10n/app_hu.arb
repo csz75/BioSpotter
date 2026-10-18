@@ -14,6 +14,25 @@
   "loginEmailRequired": "Add meg az email címedet",
   "loginEmailInvalid": "Érvénytelen email cím",
   "loginPasswordTooShort": "A jelszó legalább 6 karakter",
+  "loginEmailNotConfirmed": "Erősítsd meg az e-mail-címed, majd próbáld újra.",
+  "loginError": "Hiba történt: {error}",
+  "@loginError": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "verifyEmailTitle": "E-mail megerősítése",
+  "verifyEmailHeading": "Erősítsd meg az e-mail-címed",
+  "verifyEmailBody": "Elküldtük a megerősítő levelet ide: {email}. A levélben lévő linkre kattintva aktiválódik a fiókod.",
+  "verifyEmailResend": "Levél újraküldése",
+  "verifyEmailResent": "Elküldtük újra a megerősítő levelet.",
+  "verifyEmailBack": "Vissza a belépéshez",
+  "verifyEmailImDone": "Már megerősítettem",
+  "verifyEmailNotYet": "A fiók még nincs megerősítve. Nyisd meg a levélben lévő linket.",
+  "@verifyEmailBody": {
+    "placeholders": { "email": { "type": "String" } }
+  },
+
   "loginError": "Hiba történt: {error}",
   "@loginError": {
     "placeholders": {
