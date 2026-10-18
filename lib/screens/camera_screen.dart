@@ -38,7 +38,7 @@ class _CameraScreenState extends ConsumerState<CameraScreen>
   /// Ez felett a biztonsági szint felett automatikus azonosításnak számít.
   static const _autoIdentifyScore = 70.0;
 
-  /// Az app nyelvének ISO 639-3 kódja (a GBIF ezt használja).
+  /// Az app nyelvének ISO 639-3 kódja (a népies nevek kulcsa).
   String _appColLang() {
     final code = localeController.locale?.languageCode ??
         WidgetsBinding.instance.platformDispatcher.locale.languageCode;
@@ -177,36 +177,47 @@ class _CameraScreenState extends ConsumerState<CameraScreen>
     }
   }
 
-  /// A GBIF-ből származó hétnyelvű neveket kéri le egy tudományos névre.
-  /// A GBIF ugyanazt a taxont több találatban adja vissza, és a népies
-  /// nevek szétszórva vannak köztük — ezért az összeset egyesítjük.
+  /// A hétnyelvű nevek a SAJÁT adatbázisból (nincs GBIF-hívás).
+  ///
+  /// A `species` tábla ~1,13 millió fajt tartalmaz, benne a hét nyelv
+  /// népies neveivel — ezért egyetlen Supabase-lekérdezés elég.
   Future<({Map<String, String> names, int? gbifKey})> _fetchVernaculars(
     String scientificName,
   ) async {
     try {
-      final matches = await ref
-          .read(colSearchServiceProvider)
-          .search(query: scientificName, language: 'eng', limit: 30);
+      final res = await ref
+          .read(supabaseClientProvider)
+          .from('species')
+          .select('vernacular_names, col_id')
+          .eq('scientific_name', scientificName)
+          .maybeSingle();
+
+      if (res == null) {
+        return (names: const <String, String>{}, gbifKey: null);
+      }
 
       final merged = <String, String>{};
-      int? bestKey;
-
-      for (final m in matches) {
-        if (m.scientificName != scientificName) continue;
-        bestKey ??= m.gbifKey;
-        m.vernacularNames.forEach((lang, name) {
-          if (_colLangs.contains(lang)) {
-            merged.putIfAbsent(lang, () => name);
+      final raw = res['vernacular_names'];
+      if (raw is Map) {
+        raw.forEach((k, v) {
+          final key = k.toString();
+          if (v is String && v.isNotEmpty && _colLangs.contains(key)) {
+            merged[key] = v;
           }
         });
       }
 
-      return (names: merged, gbifKey: bestKey);
+      final colId = res['col_id'] as String?;
+      return (
+        names: merged,
+        gbifKey: colId != null ? int.tryParse(colId) : null,
+      );
     } catch (_) {}
     return (names: const <String, String>{}, gbifKey: null);
   }
 
-  /// Az iNaturalist találatokhoz párhuzamosan lekéri a GBIF hétnyelvű neveit.
+  /// Az iNaturalist találatokhoz a saját adatbázisból kérjük a hétnyelvű
+  /// neveket, hogy a találati lista az APP nyelvén jelenjen meg.
   Future<List<SpeciesSuggestion>> _enrichWithVernaculars(
     List<SpeciesSuggestion> suggestions,
   ) async {
@@ -270,7 +281,7 @@ class _CameraScreenState extends ConsumerState<CameraScreen>
           .read(identificationServiceProvider)
           .identify(File(file.path));
 
-      // Az iNaturalist neveit kiegészítjük a GBIF hétnyelvű neveivel
+      // Az iNaturalist neveit kiegészítjük a SAJÁT adatbázis hétnyelvű neveivel
       final enriched =
           await _enrichWithVernaculars(rawSuggestions.take(5).toList());
 
@@ -642,6 +653,7 @@ class _CameraScreenState extends ConsumerState<CameraScreen>
   }
 }
 
+/// Zoom szabályzó: 1x / közepes / max gyorsgombok + csúszka.
 class _ZoomControl extends StatelessWidget {
   const _ZoomControl({
     required this.value,

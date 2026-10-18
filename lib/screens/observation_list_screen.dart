@@ -47,7 +47,7 @@ class _ObservationListScreenState
         Localizations.localeOf(context).languageCode;
   }
 
-  /// Az app nyelvének ISO 639-3 kódja (a GBIF ezt használja).
+  /// Az app nyelvének ISO 639-3 kódja (a népies nevek kulcsa).
   String _appColLang() {
     final code = _langCode(context);
     switch (code) {
@@ -347,33 +347,46 @@ class _ObservationListScreenState
     );
   }
 
-  /// A GBIF-ből származó hétnyelvű nevek egy tudományos névre.
+  /// A hétnyelvű nevek a SAJÁT adatbázisból (nincs GBIF-hívás).
+  ///
+  /// A `species` tábla ~1,13 millió fajt tartalmaz, benne a hét nyelv
+  /// népies neveivel — ezért egyetlen Supabase-lekérdezés elég.
   Future<({Map<String, String> names, int? gbifKey})>
       _fetchVernacularsFromGbif(String scientificName) async {
     try {
-      final matches = await ref.read(colSearchServiceProvider).search(
-            query: scientificName,
-            language: 'eng',
-            limit: 30,
-          );
+      final res = await ref
+          .read(supabaseClientProvider)
+          .from('species')
+          .select('vernacular_names, col_id')
+          .eq('scientific_name', scientificName)
+          .maybeSingle();
+
+      if (res == null) {
+        return (names: const <String, String>{}, gbifKey: null);
+      }
+
       final merged = <String, String>{};
-      int? bestKey;
-      for (final m in matches) {
-        if (m.scientificName != scientificName) continue;
-        bestKey ??= m.gbifKey;
-        m.vernacularNames.forEach((lang, name) {
-          if (_colLangs.contains(lang)) {
-            merged.putIfAbsent(lang, () => name);
+      final raw = res['vernacular_names'];
+      if (raw is Map) {
+        raw.forEach((k, v) {
+          final key = k.toString();
+          if (v is String && v.isNotEmpty && _colLangs.contains(key)) {
+            merged[key] = v;
           }
         });
       }
-      return (names: merged, gbifKey: bestKey);
+
+      final colId = res['col_id'] as String?;
+      return (
+        names: merged,
+        gbifKey: colId != null ? int.tryParse(colId) : null,
+      );
     } catch (_) {}
     return (names: const <String, String>{}, gbifKey: null);
   }
 
-  /// Az iNaturalist találatokhoz párhuzamosan lekéri a GBIF hétnyelvű neveit,
-  /// hogy a lista az APP nyelvén jelenjen meg (ne az iNaturalist fiók nyelvén).
+  /// Az iNaturalist találatokhoz a saját adatbázisból kérjük a hétnyelvű
+  /// neveket, hogy a lista az APP nyelvén jelenjen meg.
   Future<List<SpeciesSuggestion>> _enrichWithVernaculars(
     List<SpeciesSuggestion> suggestions,
   ) async {
@@ -422,7 +435,7 @@ class _ObservationListScreenState
     }
   }
 
-  /// 1. Faj megadása / módosítása a GBIF-keresővel.
+  /// 1. Faj megadása / módosítása a fajkeresővel (saját adatbázis).
   Future<void> _changeSpecies(Observation o, AppLocalizations l) async {
     final match = await Navigator.of(context).push<ColMatch>(
       MaterialPageRoute(builder: (_) => const SpeciesSearchScreen()),
@@ -473,7 +486,7 @@ class _ObservationListScreenState
       final rawSuggestions =
           await ref.read(identificationServiceProvider).identify(file);
 
-      // Az iNaturalist neveit kiegészítjük a GBIF hétnyelvű neveivel,
+      // Az iNaturalist neveit kiegészítjük a SAJÁT adatbázis hétnyelvű neveivel,
       // hogy a találati lista az APP nyelvén jelenjen meg.
       final suggestions = await _enrichWithVernaculars(
         rawSuggestions.take(5).toList(),
@@ -541,7 +554,7 @@ class _ObservationListScreenState
       if (chosen == null || chosen.scientificName == null) return;
       if (!mounted) return;
 
-      // A hétnyelvű nevek — ha a találatnál nincs, pótoljuk a GBIF-ból
+      // A hétnyelvű nevek — ha a találatnál nincs, pótoljuk a saját DB-ből
       var vernaculars = chosen.vernacularNames ?? const <String, String>{};
       int? gbifKey = chosen.gbifKey;
       if (vernaculars.isEmpty) {
