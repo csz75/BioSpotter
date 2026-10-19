@@ -30,6 +30,9 @@
   "likeCount": "{count} polubień",
   "likeFailed": "Nie udało się zapisać.",
 
+  "likeMineCount": "{count} polubień na twojej obserwacji",
+  "likeMineNone": "Jeszcze brak polubień na tej obserwacji",
+
   "homeGreeting": "Cześć, {email}!",
   "homeNewObservation": "Nowa obserwacja",
   "homeMyObservations": "Moje obserwacje",

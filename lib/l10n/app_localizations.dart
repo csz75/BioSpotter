@@ -258,6 +258,18 @@ abstract class AppLocalizations {
   /// **'A kedvelés nem sikerült.'**
   String get likeFailed;
 
+  /// No description provided for @likeMineCount.
+  ///
+  /// In hu, this message translates to:
+  /// **'{count} kedvelés érkezett a megfigyelésedre'**
+  String likeMineCount(int count);
+
+  /// No description provided for @likeMineNone.
+  ///
+  /// In hu, this message translates to:
+  /// **'Még nincs kedvelés ezen a megfigyelésen'**
+  String get likeMineNone;
+
   /// No description provided for @homeGreeting.
   ///
   /// In hu, this message translates to:

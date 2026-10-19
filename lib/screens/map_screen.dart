@@ -222,7 +222,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                       children: [
                         TileLayer(
                           urlTemplate:
-                              '[tile.openstreetmap.org](https://tile.openstreetmap.org/{z}/{x}/{y}.png)',
+                              'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                           userAgentPackageName: 'hu.therma.biospotter',
                         ),
 
@@ -271,6 +271,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                                         o,
                                         lang,
                                         showStatusLine: true,
+                                        showLikeCount: true,
                                       ),
                                       child: Icon(
                                         Icons.location_on,

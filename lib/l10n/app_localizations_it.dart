@@ -94,6 +94,14 @@ class AppLocalizationsIt extends AppLocalizations {
   String get likeFailed => 'Impossibile salvare.';
 
   @override
+  String likeMineCount(int count) {
+    return '$count mi piace sulla tua osservazione';
+  }
+
+  @override
+  String get likeMineNone => 'Ancora nessun mi piace su questa osservazione';
+
+  @override
   String homeGreeting(String email) {
     return 'Ciao, $email!';
   }

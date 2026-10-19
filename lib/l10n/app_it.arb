@@ -30,6 +30,9 @@
   "likeCount": "{count} mi piace",
   "likeFailed": "Impossibile salvare.",
 
+  "likeMineCount": "{count} mi piace sulla tua osservazione",
+  "likeMineNone": "Ancora nessun mi piace su questa osservazione",
+
   "homeGreeting": "Ciao, {email}!",
   "homeNewObservation": "Nuova osservazione",
   "homeMyObservations": "Le mie osservazioni",

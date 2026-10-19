@@ -30,6 +30,9 @@
   "likeCount": "{count} likes",
   "likeFailed": "Could not save your like.",
 
+  "likeMineCount": "{count} likes on your observation",
+  "likeMineNone": "No likes on this observation yet",
+
   "homeGreeting": "Hi, {email}!",
   "homeNewObservation": "New observation",
   "homeMyObservations": "My observations",

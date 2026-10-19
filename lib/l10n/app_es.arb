@@ -30,6 +30,9 @@
   "likeCount": "{count} me gusta",
   "likeFailed": "No se pudo guardar.",
 
+  "likeMineCount": "{count} me gusta en tu observación",
+  "likeMineNone": "Aún no hay me gusta en esta observación",
+
   "homeGreeting": "¡Hola, {email}!",
   "homeNewObservation": "Nueva observación",
   "homeMyObservations": "Mis observaciones",

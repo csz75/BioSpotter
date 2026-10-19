@@ -444,6 +444,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
               l,
               showThumb: true,
               showStatusLine: true,
+              showLikeCount: true,
             ),
           ),
         ),
@@ -635,6 +636,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
     bool allowReport = false,
     bool showStatusLine = false,
     bool allowLike = false,
+    bool showLikeCount = false,
   }) {
     final name =
         o.hasSpecies ? o.displayNameFor(lang) : l.observationsUnknownSpecies;
@@ -680,6 +682,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
         allowReport: allowReport,
         showStatusLine: showStatusLine,
         allowLike: allowLike,
+        showLikeCount: showLikeCount,
       ),
     );
   }

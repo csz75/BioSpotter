@@ -94,6 +94,14 @@ class AppLocalizationsFr extends AppLocalizations {
   String get likeFailed => 'Impossible d\'enregistrer.';
 
   @override
+  String likeMineCount(int count) {
+    return '$count j\'aime sur ton observation';
+  }
+
+  @override
+  String get likeMineNone => 'Pas encore de j\'aime sur cette observation';
+
+  @override
   String homeGreeting(String email) {
     return 'Bonjour, $email !';
   }

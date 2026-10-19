@@ -30,6 +30,9 @@
   "likeCount": "{count} Gefällt-mir",
   "likeFailed": "Konnte nicht gespeichert werden.",
 
+  "likeMineCount": "{count} Gefällt-mir auf deiner Beobachtung",
+  "likeMineNone": "Noch keine Gefällt-mir auf dieser Beobachtung",
+
   "homeGreeting": "Hallo, {email}!",
   "homeNewObservation": "Neue Beobachtung",
   "homeMyObservations": "Meine Beobachtungen",

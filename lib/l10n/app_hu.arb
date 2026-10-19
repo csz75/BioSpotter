@@ -40,6 +40,13 @@
     "placeholders": { "count": { "type": "int" } }
   },
 
+  "likeMineCount": "{count} kedvelés érkezett a megfigyelésedre",
+  "likeMineNone": "Még nincs kedvelés ezen a megfigyelésen",
+  "@likeMineCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+
+
 
   "loginError": "Hiba történt: {error}",
   "@loginError": {

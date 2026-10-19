@@ -92,6 +92,14 @@ class AppLocalizationsHu extends AppLocalizations {
   String get likeFailed => 'A kedvelés nem sikerült.';
 
   @override
+  String likeMineCount(int count) {
+    return '$count kedvelés érkezett a megfigyelésedre';
+  }
+
+  @override
+  String get likeMineNone => 'Még nincs kedvelés ezen a megfigyelésen';
+
+  @override
   String homeGreeting(String email) {
     return 'Üdv, $email!';
   }

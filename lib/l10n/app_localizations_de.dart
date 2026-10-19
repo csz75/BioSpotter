@@ -94,6 +94,14 @@ class AppLocalizationsDe extends AppLocalizations {
   String get likeFailed => 'Konnte nicht gespeichert werden.';
 
   @override
+  String likeMineCount(int count) {
+    return '$count Gefällt-mir auf deiner Beobachtung';
+  }
+
+  @override
+  String get likeMineNone => 'Noch keine Gefällt-mir auf dieser Beobachtung';
+
+  @override
   String homeGreeting(String email) {
     return 'Hallo, $email!';
   }

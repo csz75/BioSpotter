@@ -8,12 +8,10 @@ import '../l10n/app_localizations.dart';
 
 /// A megfigyelés részletnézete — alsó lap, a nagy fotóval.
 ///
-/// Közös minden nézet számára (kereső, térkép, megfigyeléseim):
-/// egyszer kell karbantartani.
-///
 /// [allowReport]    — mutassa-e a „Jelentés" gombot (mások megfigyelésénél)
 /// [showStatusLine] — mutassa-e a moderációs állapotot (a sajátomnál)
-/// [allowLike]      — mutassa-e a kedvelés gombot (mások megfigyelésénél)
+/// [allowLike]      — mutassa-e a kedvelés GOMBOT (mások megfigyelésénél)
+/// [showLikeCount]  — mutassa-e a kedvelések SZÁMÁT gomb nélkül (a sajátomnál)
 Future<void> showObservationDetail(
   BuildContext context,
   WidgetRef ref,
@@ -22,6 +20,7 @@ Future<void> showObservationDetail(
   bool allowReport = false,
   bool showStatusLine = false,
   bool allowLike = false,
+  bool showLikeCount = false,
 }) {
   return showModalBottomSheet<void>(
     context: context,
@@ -39,6 +38,7 @@ Future<void> showObservationDetail(
         allowReport: allowReport,
         showStatusLine: showStatusLine,
         allowLike: allowLike,
+        showLikeCount: showLikeCount,
         scrollController: scrollController,
       ),
     ),
@@ -53,6 +53,7 @@ class _DetailBody extends ConsumerStatefulWidget {
     required this.allowReport,
     required this.showStatusLine,
     required this.allowLike,
+    required this.showLikeCount,
     required this.scrollController,
   });
 
@@ -61,6 +62,7 @@ class _DetailBody extends ConsumerStatefulWidget {
   final bool allowReport;
   final bool showStatusLine;
   final bool allowLike;
+  final bool showLikeCount;
   final ScrollController scrollController;
 
   @override
@@ -71,11 +73,15 @@ class _DetailBodyState extends ConsumerState<_DetailBody> {
   int _likes = 0;
   bool _liked = false;
   bool _likeBusy = false;
+  bool _likesLoaded = false;
+
+  /// Kell-e egyáltalán a like-adat (gomb vagy szám).
+  bool get _needsLikes => widget.allowLike || widget.showLikeCount;
 
   @override
   void initState() {
     super.initState();
-    if (widget.allowLike) _loadLikes();
+    if (_needsLikes) _loadLikes();
   }
 
   Future<void> _loadLikes() async {
@@ -86,6 +92,7 @@ class _DetailBodyState extends ConsumerState<_DetailBody> {
     setState(() {
       _likes = s.count;
       _liked = s.likedByMe;
+      _likesLoaded = true;
     });
   }
 
@@ -207,7 +214,7 @@ class _DetailBodyState extends ConsumerState<_DetailBody> {
             Text(l.observationsDateTime(
                 o.observedAt!.toLocal().toString())),
 
-          // ── Kedvelés — csak MÁSOK megfigyelésénél ─────────────────
+          // ── Kedvelés — GOMBBAL (mások megfigyelésénél) ────────────
           if (widget.allowLike) ...[
             const Divider(height: 24),
             Row(
@@ -223,6 +230,31 @@ class _DetailBodyState extends ConsumerState<_DetailBody> {
                 Expanded(
                   child: Text(
                     l.likeCount(_likes),
+                    style: Theme.of(ctx).textTheme.bodyMedium,
+                  ),
+                ),
+              ],
+            ),
+          ]
+
+          // ── Kedvelés — CSAK SZÁM (a saját megfigyelésnél) ─────────
+          else if (widget.showLikeCount) ...[
+            const Divider(height: 24),
+            Row(
+              children: [
+                Icon(
+                  _likes > 0 ? Icons.favorite : Icons.favorite_border,
+                  size: 20,
+                  color: _likes > 0 ? Colors.red.shade600 : Colors.grey,
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    _likesLoaded
+                        ? (_likes > 0
+                            ? l.likeMineCount(_likes)
+                            : l.likeMineNone)
+                        : '…',
                     style: Theme.of(ctx).textTheme.bodyMedium,
                   ),
                 ),
