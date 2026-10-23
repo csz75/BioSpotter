@@ -100,6 +100,77 @@ class AppLocalizationsEn extends AppLocalizations {
   String get likeMineNone => 'No likes on this observation yet';
 
   @override
+  String get groupsTitle => 'Groups';
+
+  @override
+  String get groupsEmpty =>
+      'You have no groups yet. Create one, or join with an invite code.';
+
+  @override
+  String get groupsCreate => 'New group';
+
+  @override
+  String get groupsJoin => 'Join with code';
+
+  @override
+  String get groupsName => 'Group name';
+
+  @override
+  String get groupsDescription => 'Description (optional)';
+
+  @override
+  String get groupsInviteCode => 'Invite code';
+
+  @override
+  String get groupsCreateButton => 'Create';
+
+  @override
+  String get groupsJoinButton => 'Join';
+
+  @override
+  String get groupsJoinHint => 'e.g. 5B-4K7X';
+
+  @override
+  String get groupsInvalidCode => 'Invalid invite code.';
+
+  @override
+  String get groupsJoined => 'You joined successfully.';
+
+  @override
+  String get groupsCreated => 'Group created.';
+
+  @override
+  String get groupInviteCodeLabel => 'Invite code';
+
+  @override
+  String get groupCopyCode => 'Copy code';
+
+  @override
+  String get groupCodeCopied => 'Code copied to clipboard.';
+
+  @override
+  String get groupEmpty => 'No observations in this group yet.';
+
+  @override
+  String get groupNone => 'Public (no group)';
+
+  @override
+  String get groupPickTitle => 'Where should the observation go?';
+
+  @override
+  String get groupVisibilityTitle => 'Show publicly as well?';
+
+  @override
+  String get groupVisibilityBody =>
+      'If public, the observation also appears in the community view. If not, only your group members see it.';
+
+  @override
+  String get groupVisibilityPublic => 'Public too';
+
+  @override
+  String get groupVisibilityGroupOnly => 'Group only';
+
+  @override
   String homeGreeting(String email) {
     return 'Hi, $email!';
   }

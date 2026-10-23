@@ -9,6 +9,8 @@ import '../features/observations/observation_repository.dart';
 import '../features/search/search_repository.dart';
 import '../features/observations/like_repository.dart';
 
+import '../features/groups/group_repository.dart';
+
 
 final supabaseClientProvider = Provider<SupabaseClient>(
   (ref) => Supabase.instance.client,
@@ -45,6 +47,10 @@ final colSearchServiceProvider = Provider<ColSearchService>(
 
 final likeRepositoryProvider = Provider<LikeRepository>(
   (ref) => LikeRepository(ref.watch(supabaseClientProvider)),
+);
+
+final groupRepositoryProvider = Provider<GroupRepository>(
+  (ref) => GroupRepository(ref.watch(supabaseClientProvider)),
 );
 
 

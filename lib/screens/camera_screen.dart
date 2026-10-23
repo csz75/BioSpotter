@@ -7,6 +7,7 @@ import 'package:geolocator/geolocator.dart';
 
 import '../core/locale_controller.dart';
 import '../core/providers.dart';
+import '../features/groups/group_repository.dart';
 import '../features/identification/col_match.dart';
 import '../features/identification/species_suggestion.dart';
 import '../l10n/app_localizations.dart';
@@ -29,6 +30,12 @@ class _CameraScreenState extends ConsumerState<CameraScreen>
 
   double _maxZoom = 1.0;
   double _zoom = 1.0;
+
+  /// A kiválasztott csoport — null = nincs csoport (nyilvános).
+  Group? _selectedGroup;
+
+  /// Nyilvános-e a megfigyelés (a közösségi feedben is látszik).
+  bool _selectedPublic = true;
 
   static const _colLangs = ['hun', 'eng', 'deu', 'fra', 'spa', 'ita', 'pol'];
 
@@ -289,10 +296,13 @@ class _CameraScreenState extends ConsumerState<CameraScreen>
 
       // A megfigyelés 'pending' állapotban jön létre — csak szándékos
       // azonosítás után lesz 'published' (lásd setSpeciesFromName).
+      // A csoport és a láthatóság a kamera beállításaiból jön.
       final observation = await repo.create(
         latitude: position.latitude,
         longitude: position.longitude,
         photo: File(file.path),
+        groupId: _selectedGroup?.id,
+        visibility: _selectedPublic ? 'public' : 'group',
       );
 
       if (!mounted) return;
@@ -365,6 +375,132 @@ class _CameraScreenState extends ConsumerState<CameraScreen>
     }
   }
 
+  /// A csoport-választó lap.
+  Future<void> _pickGroup() async {
+    final l = AppLocalizations.of(context);
+    final groups = await ref.read(groupRepositoryProvider).myGroups();
+
+    if (!mounted) return;
+    final choice = await showModalBottomSheet<String>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) {
+        final maxHeight = MediaQuery.of(ctx).size.height * 0.7;
+        return Container(
+          constraints: BoxConstraints(maxHeight: maxHeight),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+          ),
+          child: SafeArea(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Center(
+                  child: Container(
+                    width: 40,
+                    height: 4,
+                    margin: const EdgeInsets.only(top: 12, bottom: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.black26,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
+                  child: Text(
+                    l.groupPickTitle,
+                    style: Theme.of(ctx).textTheme.titleMedium,
+                  ),
+                ),
+                Flexible(
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      // Nyilvános — nincs csoport
+                      ListTile(
+                        leading: const Icon(Icons.public),
+                        title: Text(l.groupNone),
+                        selected: _selectedGroup == null,
+                        trailing: _selectedGroup == null
+                            ? const Icon(Icons.check)
+                            : null,
+                        onTap: () => Navigator.of(ctx).pop('__public__'),
+                      ),
+                      const Divider(height: 1),
+                      // Csoportok
+                      ...groups.map(
+                        (g) => ListTile(
+                          leading: const Icon(Icons.group),
+                          title: Text(g.name),
+                          selected: _selectedGroup?.id == g.id,
+                          trailing: _selectedGroup?.id == g.id
+                              ? const Icon(Icons.check)
+                              : null,
+                          onTap: () => Navigator.of(ctx).pop(g.id),
+                        ),
+                      ),
+                      if (groups.isEmpty)
+                        Padding(
+                          padding: const EdgeInsets.all(24),
+                          child: Text(
+                            l.groupsEmpty,
+                            textAlign: TextAlign.center,
+                            style: Theme.of(ctx).textTheme.bodySmall,
+                          ),
+                        ),
+                      const SizedBox(height: 8),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+    if (choice == null) return;
+    if (!mounted) return;
+
+    if (choice == '__public__') {
+      setState(() {
+        _selectedGroup = null;
+        _selectedPublic = true;
+      });
+    } else {
+      final group = groups.firstWhere((g) => g.id == choice);
+      if (!mounted) return;
+
+      // Csoportnál megkérdezzük: nyilvános is legyen?
+      final makePublic = await showDialog<bool>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text(l.groupVisibilityTitle),
+          content: Text(l.groupVisibilityBody),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(false),
+              child: Text(l.groupVisibilityGroupOnly),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(ctx).pop(true),
+              child: Text(l.groupVisibilityPublic),
+            ),
+          ],
+        ),
+      );
+      if (!mounted) return;
+      setState(() {
+        _selectedGroup = group;
+        _selectedPublic = makePublic == true;
+      });
+    }
+  }
+
   Future<bool?> _confirmSave(File file, AppLocalizations l) {
     return showModalBottomSheet<bool>(
       context: context,
@@ -406,6 +542,44 @@ class _CameraScreenState extends ConsumerState<CameraScreen>
                     height: 120,
                     child: Center(child: Icon(Icons.broken_image)),
                   ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              // Hova kerüljön a megfigyelés
+              Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 12, vertical: 8),
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.04),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      _selectedGroup == null ? Icons.public : Icons.group,
+                      size: 18,
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        _selectedGroup == null
+                            ? l.groupNone
+                            : '${_selectedGroup!.name}'
+                                '${_selectedPublic ? ' · ${l.groupVisibilityPublic}' : ''}',
+                        style: Theme.of(ctx).textTheme.bodySmall,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () async {
+                        Navigator.of(ctx).pop(false);
+                        await Future.delayed(
+                            const Duration(milliseconds: 250));
+                        if (!mounted) return;
+                        await _pickGroup();
+                      },
+                      child: Text(l.groupPickTitle),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 16),
@@ -616,6 +790,50 @@ class _CameraScreenState extends ConsumerState<CameraScreen>
                 ),
               ),
             ),
+
+            // Csoport-választó gomb
+            if (!_busy)
+              Positioned(
+                top: 100,
+                left: 12,
+                child: GestureDetector(
+                  onTap: _pickGroup,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: _selectedGroup == null
+                          ? Colors.black54
+                          : (_selectedPublic
+                              ? const Color(0xFF2E7D32)
+                              : const Color(0xFF1F3864)),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          _selectedGroup == null ? Icons.public : Icons.group,
+                          size: 16,
+                          color: Colors.white,
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          _selectedGroup == null
+                              ? l.groupNone
+                              : _selectedGroup!.name,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
             if (!_busy && _maxZoom > 1.0)
               Positioned(
                 bottom: 130,

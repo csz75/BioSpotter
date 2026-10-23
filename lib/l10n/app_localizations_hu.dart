@@ -100,6 +100,77 @@ class AppLocalizationsHu extends AppLocalizations {
   String get likeMineNone => 'Még nincs kedvelés ezen a megfigyelésen';
 
   @override
+  String get groupsTitle => 'Csoportok';
+
+  @override
+  String get groupsEmpty =>
+      'Még nincs csoportod. Hozz létre egyet, vagy csatlakozz egy meghívó kóddal.';
+
+  @override
+  String get groupsCreate => 'Új csoport';
+
+  @override
+  String get groupsJoin => 'Csatlakozás kóddal';
+
+  @override
+  String get groupsName => 'Csoport neve';
+
+  @override
+  String get groupsDescription => 'Leírás (opcionális)';
+
+  @override
+  String get groupsInviteCode => 'Meghívó kód';
+
+  @override
+  String get groupsCreateButton => 'Létrehozás';
+
+  @override
+  String get groupsJoinButton => 'Csatlakozás';
+
+  @override
+  String get groupsJoinHint => 'pl. 5B-4K7X';
+
+  @override
+  String get groupsInvalidCode => 'Érvénytelen meghívó kód.';
+
+  @override
+  String get groupsJoined => 'Sikeresen csatlakoztál.';
+
+  @override
+  String get groupsCreated => 'Csoport létrehozva.';
+
+  @override
+  String get groupInviteCodeLabel => 'Meghívó kód';
+
+  @override
+  String get groupCopyCode => 'Kód másolása';
+
+  @override
+  String get groupCodeCopied => 'Kód a vágólapra másolva.';
+
+  @override
+  String get groupEmpty => 'Még nincs megfigyelés ebben a csoportban.';
+
+  @override
+  String get groupNone => 'Nyilvános (nincs csoport)';
+
+  @override
+  String get groupPickTitle => 'Hova kerüljön a megfigyelés?';
+
+  @override
+  String get groupVisibilityTitle => 'Látszódjon nyilvánosan is?';
+
+  @override
+  String get groupVisibilityBody =>
+      'Ha nyilvános, a megfigyelés a közösségi nézetben is megjelenik. Ha nem, csak a csoport tagjai látják.';
+
+  @override
+  String get groupVisibilityPublic => 'Nyilvános is';
+
+  @override
+  String get groupVisibilityGroupOnly => 'Csak a csoport';
+
+  @override
   String homeGreeting(String email) {
     return 'Üdv, $email!';
   }

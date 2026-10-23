@@ -46,6 +46,31 @@
     "placeholders": { "count": { "type": "int" } }
   },
 
+  "groupsTitle": "Csoportok",
+  "groupsEmpty": "Még nincs csoportod. Hozz létre egyet, vagy csatlakozz egy meghívó kóddal.",
+  "groupsCreate": "Új csoport",
+  "groupsJoin": "Csatlakozás kóddal",
+  "groupsName": "Csoport neve",
+  "groupsDescription": "Leírás (opcionális)",
+  "groupsInviteCode": "Meghívó kód",
+  "groupsCreateButton": "Létrehozás",
+  "groupsJoinButton": "Csatlakozás",
+  "groupsJoinHint": "pl. 5B-4K7X",
+  "groupsInvalidCode": "Érvénytelen meghívó kód.",
+  "groupsJoined": "Sikeresen csatlakoztál.",
+  "groupsCreated": "Csoport létrehozva.",
+  "groupInviteCodeLabel": "Meghívó kód",
+  "groupCopyCode": "Kód másolása",
+  "groupCodeCopied": "Kód a vágólapra másolva.",
+  "groupEmpty": "Még nincs megfigyelés ebben a csoportban.",
+  "groupNone": "Nyilvános (nincs csoport)",
+  "groupPickTitle": "Hova kerüljön a megfigyelés?",
+  "groupVisibilityTitle": "Látszódjon nyilvánosan is?",
+  "groupVisibilityBody": "Ha nyilvános, a megfigyelés a közösségi nézetben is megjelenik. Ha nem, csak a csoport tagjai látják.",
+  "groupVisibilityPublic": "Nyilvános is",
+  "groupVisibilityGroupOnly": "Csak a csoport",
+
+
 
 
   "loginError": "Hiba történt: {error}",

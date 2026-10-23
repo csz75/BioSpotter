@@ -270,6 +270,144 @@ abstract class AppLocalizations {
   /// **'Még nincs kedvelés ezen a megfigyelésen'**
   String get likeMineNone;
 
+  /// No description provided for @groupsTitle.
+  ///
+  /// In hu, this message translates to:
+  /// **'Csoportok'**
+  String get groupsTitle;
+
+  /// No description provided for @groupsEmpty.
+  ///
+  /// In hu, this message translates to:
+  /// **'Még nincs csoportod. Hozz létre egyet, vagy csatlakozz egy meghívó kóddal.'**
+  String get groupsEmpty;
+
+  /// No description provided for @groupsCreate.
+  ///
+  /// In hu, this message translates to:
+  /// **'Új csoport'**
+  String get groupsCreate;
+
+  /// No description provided for @groupsJoin.
+  ///
+  /// In hu, this message translates to:
+  /// **'Csatlakozás kóddal'**
+  String get groupsJoin;
+
+  /// No description provided for @groupsName.
+  ///
+  /// In hu, this message translates to:
+  /// **'Csoport neve'**
+  String get groupsName;
+
+  /// No description provided for @groupsDescription.
+  ///
+  /// In hu, this message translates to:
+  /// **'Leírás (opcionális)'**
+  String get groupsDescription;
+
+  /// No description provided for @groupsInviteCode.
+  ///
+  /// In hu, this message translates to:
+  /// **'Meghívó kód'**
+  String get groupsInviteCode;
+
+  /// No description provided for @groupsCreateButton.
+  ///
+  /// In hu, this message translates to:
+  /// **'Létrehozás'**
+  String get groupsCreateButton;
+
+  /// No description provided for @groupsJoinButton.
+  ///
+  /// In hu, this message translates to:
+  /// **'Csatlakozás'**
+  String get groupsJoinButton;
+
+  /// No description provided for @groupsJoinHint.
+  ///
+  /// In hu, this message translates to:
+  /// **'pl. 5B-4K7X'**
+  String get groupsJoinHint;
+
+  /// No description provided for @groupsInvalidCode.
+  ///
+  /// In hu, this message translates to:
+  /// **'Érvénytelen meghívó kód.'**
+  String get groupsInvalidCode;
+
+  /// No description provided for @groupsJoined.
+  ///
+  /// In hu, this message translates to:
+  /// **'Sikeresen csatlakoztál.'**
+  String get groupsJoined;
+
+  /// No description provided for @groupsCreated.
+  ///
+  /// In hu, this message translates to:
+  /// **'Csoport létrehozva.'**
+  String get groupsCreated;
+
+  /// No description provided for @groupInviteCodeLabel.
+  ///
+  /// In hu, this message translates to:
+  /// **'Meghívó kód'**
+  String get groupInviteCodeLabel;
+
+  /// No description provided for @groupCopyCode.
+  ///
+  /// In hu, this message translates to:
+  /// **'Kód másolása'**
+  String get groupCopyCode;
+
+  /// No description provided for @groupCodeCopied.
+  ///
+  /// In hu, this message translates to:
+  /// **'Kód a vágólapra másolva.'**
+  String get groupCodeCopied;
+
+  /// No description provided for @groupEmpty.
+  ///
+  /// In hu, this message translates to:
+  /// **'Még nincs megfigyelés ebben a csoportban.'**
+  String get groupEmpty;
+
+  /// No description provided for @groupNone.
+  ///
+  /// In hu, this message translates to:
+  /// **'Nyilvános (nincs csoport)'**
+  String get groupNone;
+
+  /// No description provided for @groupPickTitle.
+  ///
+  /// In hu, this message translates to:
+  /// **'Hova kerüljön a megfigyelés?'**
+  String get groupPickTitle;
+
+  /// No description provided for @groupVisibilityTitle.
+  ///
+  /// In hu, this message translates to:
+  /// **'Látszódjon nyilvánosan is?'**
+  String get groupVisibilityTitle;
+
+  /// No description provided for @groupVisibilityBody.
+  ///
+  /// In hu, this message translates to:
+  /// **'Ha nyilvános, a megfigyelés a közösségi nézetben is megjelenik. Ha nem, csak a csoport tagjai látják.'**
+  String get groupVisibilityBody;
+
+  /// No description provided for @groupVisibilityPublic.
+  ///
+  /// In hu, this message translates to:
+  /// **'Nyilvános is'**
+  String get groupVisibilityPublic;
+
+  /// No description provided for @groupVisibilityGroupOnly.
+  ///
+  /// In hu, this message translates to:
+  /// **'Csak a csoport'**
+  String get groupVisibilityGroupOnly;
+
   /// No description provided for @homeGreeting.
   ///
   /// In hu, this message translates to:

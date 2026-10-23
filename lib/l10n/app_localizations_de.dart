@@ -102,6 +102,77 @@ class AppLocalizationsDe extends AppLocalizations {
   String get likeMineNone => 'Noch keine Gefällt-mir auf dieser Beobachtung';
 
   @override
+  String get groupsTitle => 'Gruppen';
+
+  @override
+  String get groupsEmpty =>
+      'Du hast noch keine Gruppen. Erstelle eine oder tritt mit einem Code bei.';
+
+  @override
+  String get groupsCreate => 'Neue Gruppe';
+
+  @override
+  String get groupsJoin => 'Mit Code beitreten';
+
+  @override
+  String get groupsName => 'Gruppenname';
+
+  @override
+  String get groupsDescription => 'Beschreibung (optional)';
+
+  @override
+  String get groupsInviteCode => 'Einladungscode';
+
+  @override
+  String get groupsCreateButton => 'Erstellen';
+
+  @override
+  String get groupsJoinButton => 'Beitreten';
+
+  @override
+  String get groupsJoinHint => 'z. B. 5B-4K7X';
+
+  @override
+  String get groupsInvalidCode => 'Ungültiger Einladungscode.';
+
+  @override
+  String get groupsJoined => 'Du bist erfolgreich beigetreten.';
+
+  @override
+  String get groupsCreated => 'Gruppe erstellt.';
+
+  @override
+  String get groupInviteCodeLabel => 'Einladungscode';
+
+  @override
+  String get groupCopyCode => 'Code kopieren';
+
+  @override
+  String get groupCodeCopied => 'Code in die Zwischenablage kopiert.';
+
+  @override
+  String get groupEmpty => 'Noch keine Beobachtungen in dieser Gruppe.';
+
+  @override
+  String get groupNone => 'Öffentlich (keine Gruppe)';
+
+  @override
+  String get groupPickTitle => 'Wohin soll die Beobachtung?';
+
+  @override
+  String get groupVisibilityTitle => 'Auch öffentlich zeigen?';
+
+  @override
+  String get groupVisibilityBody =>
+      'Wenn öffentlich, erscheint die Beobachtung auch in der Gemeinschaftsansicht. Sonst sehen sie nur deine Gruppenmitglieder.';
+
+  @override
+  String get groupVisibilityPublic => 'Auch öffentlich';
+
+  @override
+  String get groupVisibilityGroupOnly => 'Nur Gruppe';
+
+  @override
   String homeGreeting(String email) {
     return 'Hallo, $email!';
   }

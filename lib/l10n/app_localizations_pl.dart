@@ -100,6 +100,77 @@ class AppLocalizationsPl extends AppLocalizations {
   String get likeMineNone => 'Jeszcze brak polubień na tej obserwacji';
 
   @override
+  String get groupsTitle => 'Grupy';
+
+  @override
+  String get groupsEmpty =>
+      'Nie masz jeszcze grup. Utwórz jedną lub dołącz kodem.';
+
+  @override
+  String get groupsCreate => 'Nowa grupa';
+
+  @override
+  String get groupsJoin => 'Dołącz kodem';
+
+  @override
+  String get groupsName => 'Nazwa grupy';
+
+  @override
+  String get groupsDescription => 'Opis (opcjonalnie)';
+
+  @override
+  String get groupsInviteCode => 'Kod zaproszenia';
+
+  @override
+  String get groupsCreateButton => 'Utwórz';
+
+  @override
+  String get groupsJoinButton => 'Dołącz';
+
+  @override
+  String get groupsJoinHint => 'np. 5B-4K7X';
+
+  @override
+  String get groupsInvalidCode => 'Nieprawidłowy kod zaproszenia.';
+
+  @override
+  String get groupsJoined => 'Dołączyłeś pomyślnie.';
+
+  @override
+  String get groupsCreated => 'Grupa utworzona.';
+
+  @override
+  String get groupInviteCodeLabel => 'Kod zaproszenia';
+
+  @override
+  String get groupCopyCode => 'Kopiuj kod';
+
+  @override
+  String get groupCodeCopied => 'Kod skopiowany do schowka.';
+
+  @override
+  String get groupEmpty => 'Brak obserwacji w tej grupie.';
+
+  @override
+  String get groupNone => 'Publiczne (bez grupy)';
+
+  @override
+  String get groupPickTitle => 'Gdzie ma trafić obserwacja?';
+
+  @override
+  String get groupVisibilityTitle => 'Pokazać też publicznie?';
+
+  @override
+  String get groupVisibilityBody =>
+      'Jeśli publiczna, obserwacja pojawi się także w widoku społeczności. W przeciwnym razie zobaczą ją tylko członkowie twojej grupy.';
+
+  @override
+  String get groupVisibilityPublic => 'Też publiczna';
+
+  @override
+  String get groupVisibilityGroupOnly => 'Tylko grupa';
+
+  @override
   String homeGreeting(String email) {
     return 'Cześć, $email!';
   }

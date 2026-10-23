@@ -31,11 +31,18 @@ class ObservationRepository {
         .toList();
   }
 
+  /// Új megfigyelés.
+  ///
+  /// [groupId]    — melyik csoporthoz tartozik (null = nincs csoport)
+  /// [visibility] — 'public' (a közösségi feedben is látszik)
+  ///                vagy 'group' (csak a csoport látja)
   Future<Observation> create({
     required double latitude,
     required double longitude,
     required File photo,
     String? speciesId,
+    String? groupId,
+    String visibility = 'public',
   }) async {
     final user = _client.auth.currentUser;
     if (user == null) throw Exception('Nincs bejelentkezett felhasználó');
@@ -54,6 +61,8 @@ class ObservationRepository {
           'location': wkt,
           'observed_at': DateTime.now().toUtc().toIso8601String(),
           'moderation_status': 'pending',
+          'group_id': groupId,
+          'visibility': visibility,
         })
         .select()
         .single();
@@ -195,7 +204,7 @@ class ObservationRepository {
     await _client.from('observations').delete().eq('id', observationId);
   }
 
-/// A [setSpeciesFromName] régi neve — a megfigyeléslistából hívjuk.
+  /// A [setSpeciesFromName] régi neve — a megfigyeléslistából hívjuk.
   /// Ugyanaz, mint a [setSpeciesFromName]; közzététel a szabály szerint.
   Future<void> updateSpecies({
     required String observationId,
