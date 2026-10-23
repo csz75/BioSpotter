@@ -214,6 +214,125 @@ class AppLocalizationsHu extends AppLocalizations {
   String get groupRestored => 'A csoport visszaállítva.';
 
   @override
+  String get bountyTitle => 'Kitűzések';
+
+  @override
+  String get bountyTabOpen => 'Nyitott';
+
+  @override
+  String get bountyTabMine => 'Sajátjaim';
+
+  @override
+  String get bountyCreate => 'Új kitűzés';
+
+  @override
+  String get bountyEmpty => 'Jelenleg nincs nyitott kitűzés.';
+
+  @override
+  String get bountyMineEmpty => 'Még nincs saját kitűzésed.';
+
+  @override
+  String get bountyPoints => 'pont';
+
+  @override
+  String get bountySlots => 'hely';
+
+  @override
+  String bountyDaysLeft(int days) {
+    return '$days nap';
+  }
+
+  @override
+  String get bountyExpires => 'Lejár';
+
+  @override
+  String get bountyStatusPending => 'Moderátor jóváhagyására vár';
+
+  @override
+  String get bountyStatusPaid => 'Lezárva — a jutalom kifizetve';
+
+  @override
+  String get bountyStatusExpired => 'Lejárt';
+
+  @override
+  String get bountySubmit => 'Megfigyelést jelentek be';
+
+  @override
+  String get bountyMyClaims => 'A beküldéseim';
+
+  @override
+  String get bountyClaims => 'Beküldések';
+
+  @override
+  String get bountyNoClaims => 'Még nincs beküldés.';
+
+  @override
+  String get bountyNoEligible =>
+      'Nincs olyan megfigyelésed, ami illik ehhez a kitűzéshez.';
+
+  @override
+  String get bountyPickObservation => 'Melyik megfigyelést küldöd be?';
+
+  @override
+  String get bountyClaimSent => 'A beküldést elküldtük.';
+
+  @override
+  String get bountyAccept => 'Elfogadás';
+
+  @override
+  String get bountyReject => 'Elutasítás';
+
+  @override
+  String get bountyAccepted => 'Elfogadva — a pont jóváírva.';
+
+  @override
+  String get bountyRejected => 'Elutasítva.';
+
+  @override
+  String get bountyClaimPending => 'Elbírálásra vár';
+
+  @override
+  String get bountyClaimAccepted => 'Elfogadva';
+
+  @override
+  String get bountyClaimRejected => 'Elutasítva';
+
+  @override
+  String get bountyFieldTitle => 'Kitűzés címe';
+
+  @override
+  String get bountyFieldDescription => 'Leírás (opcionális)';
+
+  @override
+  String get bountyFieldPoints => 'Jutalom (pont)';
+
+  @override
+  String get bountyFieldWinners => 'Nyertesek száma';
+
+  @override
+  String get bountyPickSpecies => 'Faj kiválasztása (opcionális)';
+
+  @override
+  String get bountyPickExpiry => 'Határidő kiválasztása';
+
+  @override
+  String get bountyCreateButton => 'Kitűzés létrehozása';
+
+  @override
+  String get bountyCreated =>
+      'A kitűzés létrejött — moderátor jóváhagyására vár.';
+
+  @override
+  String get bountyTitleRequired => 'A cím megadása kötelező.';
+
+  @override
+  String get bountyPointsRequired => 'A jutalom több mint 0 pont kell legyen.';
+
+  @override
+  String get bountyApprovalNote =>
+      'A kitűzés moderátor jóváhagyása után válik nyilvánossá. Kitűzést csak prémium előfizetők hozhatnak létre.';
+
+  @override
   String homeGreeting(String email) {
     return 'Üdv, $email!';
   }

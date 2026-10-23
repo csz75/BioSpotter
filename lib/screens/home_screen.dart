@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/locale_controller.dart';
 import '../core/providers.dart';
 import '../l10n/app_localizations.dart';
+import 'bounties_screen.dart';
 import 'camera_screen.dart';
 import 'groups_screen.dart';
 import 'login_screen.dart';
@@ -94,6 +95,14 @@ class HomeScreen extends ConsumerWidget {
                 label: Text(l.groupsTitle),
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (_) => const GroupsScreen()),
+                ),
+              ),
+              const SizedBox(height: 16),
+              OutlinedButton.icon(
+                icon: const Icon(Icons.track_changes),
+                label: Text(l.bountyTitle),
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const BountiesScreen()),
                 ),
               ),
             ],

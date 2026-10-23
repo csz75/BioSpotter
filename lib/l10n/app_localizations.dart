@@ -486,6 +486,234 @@ abstract class AppLocalizations {
   /// **'A csoport visszaállítva.'**
   String get groupRestored;
 
+  /// No description provided for @bountyTitle.
+  ///
+  /// In hu, this message translates to:
+  /// **'Kitűzések'**
+  String get bountyTitle;
+
+  /// No description provided for @bountyTabOpen.
+  ///
+  /// In hu, this message translates to:
+  /// **'Nyitott'**
+  String get bountyTabOpen;
+
+  /// No description provided for @bountyTabMine.
+  ///
+  /// In hu, this message translates to:
+  /// **'Sajátjaim'**
+  String get bountyTabMine;
+
+  /// No description provided for @bountyCreate.
+  ///
+  /// In hu, this message translates to:
+  /// **'Új kitűzés'**
+  String get bountyCreate;
+
+  /// No description provided for @bountyEmpty.
+  ///
+  /// In hu, this message translates to:
+  /// **'Jelenleg nincs nyitott kitűzés.'**
+  String get bountyEmpty;
+
+  /// No description provided for @bountyMineEmpty.
+  ///
+  /// In hu, this message translates to:
+  /// **'Még nincs saját kitűzésed.'**
+  String get bountyMineEmpty;
+
+  /// No description provided for @bountyPoints.
+  ///
+  /// In hu, this message translates to:
+  /// **'pont'**
+  String get bountyPoints;
+
+  /// No description provided for @bountySlots.
+  ///
+  /// In hu, this message translates to:
+  /// **'hely'**
+  String get bountySlots;
+
+  /// No description provided for @bountyDaysLeft.
+  ///
+  /// In hu, this message translates to:
+  /// **'{days} nap'**
+  String bountyDaysLeft(int days);
+
+  /// No description provided for @bountyExpires.
+  ///
+  /// In hu, this message translates to:
+  /// **'Lejár'**
+  String get bountyExpires;
+
+  /// No description provided for @bountyStatusPending.
+  ///
+  /// In hu, this message translates to:
+  /// **'Moderátor jóváhagyására vár'**
+  String get bountyStatusPending;
+
+  /// No description provided for @bountyStatusPaid.
+  ///
+  /// In hu, this message translates to:
+  /// **'Lezárva — a jutalom kifizetve'**
+  String get bountyStatusPaid;
+
+  /// No description provided for @bountyStatusExpired.
+  ///
+  /// In hu, this message translates to:
+  /// **'Lejárt'**
+  String get bountyStatusExpired;
+
+  /// No description provided for @bountySubmit.
+  ///
+  /// In hu, this message translates to:
+  /// **'Megfigyelést jelentek be'**
+  String get bountySubmit;
+
+  /// No description provided for @bountyMyClaims.
+  ///
+  /// In hu, this message translates to:
+  /// **'A beküldéseim'**
+  String get bountyMyClaims;
+
+  /// No description provided for @bountyClaims.
+  ///
+  /// In hu, this message translates to:
+  /// **'Beküldések'**
+  String get bountyClaims;
+
+  /// No description provided for @bountyNoClaims.
+  ///
+  /// In hu, this message translates to:
+  /// **'Még nincs beküldés.'**
+  String get bountyNoClaims;
+
+  /// No description provided for @bountyNoEligible.
+  ///
+  /// In hu, this message translates to:
+  /// **'Nincs olyan megfigyelésed, ami illik ehhez a kitűzéshez.'**
+  String get bountyNoEligible;
+
+  /// No description provided for @bountyPickObservation.
+  ///
+  /// In hu, this message translates to:
+  /// **'Melyik megfigyelést küldöd be?'**
+  String get bountyPickObservation;
+
+  /// No description provided for @bountyClaimSent.
+  ///
+  /// In hu, this message translates to:
+  /// **'A beküldést elküldtük.'**
+  String get bountyClaimSent;
+
+  /// No description provided for @bountyAccept.
+  ///
+  /// In hu, this message translates to:
+  /// **'Elfogadás'**
+  String get bountyAccept;
+
+  /// No description provided for @bountyReject.
+  ///
+  /// In hu, this message translates to:
+  /// **'Elutasítás'**
+  String get bountyReject;
+
+  /// No description provided for @bountyAccepted.
+  ///
+  /// In hu, this message translates to:
+  /// **'Elfogadva — a pont jóváírva.'**
+  String get bountyAccepted;
+
+  /// No description provided for @bountyRejected.
+  ///
+  /// In hu, this message translates to:
+  /// **'Elutasítva.'**
+  String get bountyRejected;
+
+  /// No description provided for @bountyClaimPending.
+  ///
+  /// In hu, this message translates to:
+  /// **'Elbírálásra vár'**
+  String get bountyClaimPending;
+
+  /// No description provided for @bountyClaimAccepted.
+  ///
+  /// In hu, this message translates to:
+  /// **'Elfogadva'**
+  String get bountyClaimAccepted;
+
+  /// No description provided for @bountyClaimRejected.
+  ///
+  /// In hu, this message translates to:
+  /// **'Elutasítva'**
+  String get bountyClaimRejected;
+
+  /// No description provided for @bountyFieldTitle.
+  ///
+  /// In hu, this message translates to:
+  /// **'Kitűzés címe'**
+  String get bountyFieldTitle;
+
+  /// No description provided for @bountyFieldDescription.
+  ///
+  /// In hu, this message translates to:
+  /// **'Leírás (opcionális)'**
+  String get bountyFieldDescription;
+
+  /// No description provided for @bountyFieldPoints.
+  ///
+  /// In hu, this message translates to:
+  /// **'Jutalom (pont)'**
+  String get bountyFieldPoints;
+
+  /// No description provided for @bountyFieldWinners.
+  ///
+  /// In hu, this message translates to:
+  /// **'Nyertesek száma'**
+  String get bountyFieldWinners;
+
+  /// No description provided for @bountyPickSpecies.
+  ///
+  /// In hu, this message translates to:
+  /// **'Faj kiválasztása (opcionális)'**
+  String get bountyPickSpecies;
+
+  /// No description provided for @bountyPickExpiry.
+  ///
+  /// In hu, this message translates to:
+  /// **'Határidő kiválasztása'**
+  String get bountyPickExpiry;
+
+  /// No description provided for @bountyCreateButton.
+  ///
+  /// In hu, this message translates to:
+  /// **'Kitűzés létrehozása'**
+  String get bountyCreateButton;
+
+  /// No description provided for @bountyCreated.
+  ///
+  /// In hu, this message translates to:
+  /// **'A kitűzés létrejött — moderátor jóváhagyására vár.'**
+  String get bountyCreated;
+
+  /// No description provided for @bountyTitleRequired.
+  ///
+  /// In hu, this message translates to:
+  /// **'A cím megadása kötelező.'**
+  String get bountyTitleRequired;
+
+  /// No description provided for @bountyPointsRequired.
+  ///
+  /// In hu, this message translates to:
+  /// **'A jutalom több mint 0 pont kell legyen.'**
+  String get bountyPointsRequired;
+
+  /// No description provided for @bountyApprovalNote.
+  ///
+  /// In hu, this message translates to:
+  /// **'A kitűzés moderátor jóváhagyása után válik nyilvánossá. Kitűzést csak prémium előfizetők hozhatnak létre.'**
+  String get bountyApprovalNote;
+
   /// No description provided for @homeGreeting.
   ///
   /// In hu, this message translates to:

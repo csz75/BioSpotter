@@ -11,6 +11,7 @@ import '../features/observations/like_repository.dart';
 
 import '../features/groups/group_repository.dart';
 
+import '../features/bounties/bounty_repository.dart';
 
 final supabaseClientProvider = Provider<SupabaseClient>(
   (ref) => Supabase.instance.client,
@@ -51,6 +52,10 @@ final likeRepositoryProvider = Provider<LikeRepository>(
 
 final groupRepositoryProvider = Provider<GroupRepository>(
   (ref) => GroupRepository(ref.watch(supabaseClientProvider)),
+);
+
+final bountyRepositoryProvider = Provider<BountyRepository>(
+  (ref) => BountyRepository(ref.watch(supabaseClientProvider)),
 );
 
 

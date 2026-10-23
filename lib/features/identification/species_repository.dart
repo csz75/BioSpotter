@@ -29,7 +29,7 @@ class SpeciesRepository {
     final res = await _client
         .from('species')
         .select(
-          'scientific_name, common_name_hu, common_name_en, '
+          'id, scientific_name, common_name_hu, common_name_en, '
           'vernacular_names, taxonomy_json, col_id',
         )
         .or(
@@ -94,6 +94,7 @@ class SpeciesRepository {
     final key = colId != null ? int.tryParse(colId) : null;
 
     return ColMatch(
+      id: row['id'] as String?,          // ← a saját species.id (uuid)
       gbifKey: key,
       scientificName: row['scientific_name'] as String?,
       family: family,

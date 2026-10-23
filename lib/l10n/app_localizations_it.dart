@@ -216,6 +216,124 @@ class AppLocalizationsIt extends AppLocalizations {
   String get groupRestored => 'Gruppo ripristinato.';
 
   @override
+  String get bountyTitle => 'Ricompense';
+
+  @override
+  String get bountyTabOpen => 'Aperte';
+
+  @override
+  String get bountyTabMine => 'Le mie';
+
+  @override
+  String get bountyCreate => 'Nuova ricompensa';
+
+  @override
+  String get bountyEmpty => 'Nessuna ricompensa aperta al momento.';
+
+  @override
+  String get bountyMineEmpty => 'Non hai ancora ricompense.';
+
+  @override
+  String get bountyPoints => 'punti';
+
+  @override
+  String get bountySlots => 'posti';
+
+  @override
+  String bountyDaysLeft(int days) {
+    return '$days giorni';
+  }
+
+  @override
+  String get bountyExpires => 'Scade';
+
+  @override
+  String get bountyStatusPending => 'In attesa di approvazione';
+
+  @override
+  String get bountyStatusPaid => 'Chiusa — ricompensa pagata';
+
+  @override
+  String get bountyStatusExpired => 'Scaduta';
+
+  @override
+  String get bountySubmit => 'Invia un\'osservazione';
+
+  @override
+  String get bountyMyClaims => 'I miei invii';
+
+  @override
+  String get bountyClaims => 'Invii';
+
+  @override
+  String get bountyNoClaims => 'Ancora nessun invio.';
+
+  @override
+  String get bountyNoEligible => 'Nessuna osservazione corrisponde.';
+
+  @override
+  String get bountyPickObservation => 'Quale osservazione invii?';
+
+  @override
+  String get bountyClaimSent => 'Invio effettuato.';
+
+  @override
+  String get bountyAccept => 'Accetta';
+
+  @override
+  String get bountyReject => 'Rifiuta';
+
+  @override
+  String get bountyAccepted => 'Accettata — punti accreditati.';
+
+  @override
+  String get bountyRejected => 'Rifiutata.';
+
+  @override
+  String get bountyClaimPending => 'In attesa di revisione';
+
+  @override
+  String get bountyClaimAccepted => 'Accettata';
+
+  @override
+  String get bountyClaimRejected => 'Rifiutata';
+
+  @override
+  String get bountyFieldTitle => 'Titolo della ricompensa';
+
+  @override
+  String get bountyFieldDescription => 'Descrizione (facoltativa)';
+
+  @override
+  String get bountyFieldPoints => 'Ricompensa (punti)';
+
+  @override
+  String get bountyFieldWinners => 'Numero di vincitori';
+
+  @override
+  String get bountyPickSpecies => 'Scegli una specie (facoltativo)';
+
+  @override
+  String get bountyPickExpiry => 'Scegli una scadenza';
+
+  @override
+  String get bountyCreateButton => 'Crea ricompensa';
+
+  @override
+  String get bountyCreated => 'Ricompensa creata — in attesa di approvazione.';
+
+  @override
+  String get bountyTitleRequired => 'Il titolo è obbligatorio.';
+
+  @override
+  String get bountyPointsRequired =>
+      'La ricompensa deve essere più di 0 punti.';
+
+  @override
+  String get bountyApprovalNote =>
+      'La ricompensa diventa pubblica dopo l\'approvazione. Solo gli abbonati premium possono crearle.';
+
+  @override
   String homeGreeting(String email) {
     return 'Ciao, $email!';
   }

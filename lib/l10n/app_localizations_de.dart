@@ -216,6 +216,123 @@ class AppLocalizationsDe extends AppLocalizations {
   String get groupRestored => 'Gruppe wiederhergestellt.';
 
   @override
+  String get bountyTitle => 'Prämien';
+
+  @override
+  String get bountyTabOpen => 'Offen';
+
+  @override
+  String get bountyTabMine => 'Meine Prämien';
+
+  @override
+  String get bountyCreate => 'Neue Prämie';
+
+  @override
+  String get bountyEmpty => 'Derzeit keine offenen Prämien.';
+
+  @override
+  String get bountyMineEmpty => 'Du hast noch keine Prämien.';
+
+  @override
+  String get bountyPoints => 'Punkte';
+
+  @override
+  String get bountySlots => 'Plätze';
+
+  @override
+  String bountyDaysLeft(int days) {
+    return '$days Tage';
+  }
+
+  @override
+  String get bountyExpires => 'Läuft ab';
+
+  @override
+  String get bountyStatusPending => 'Wartet auf Moderatorfreigabe';
+
+  @override
+  String get bountyStatusPaid => 'Abgeschlossen — Belohnung ausgezahlt';
+
+  @override
+  String get bountyStatusExpired => 'Abgelaufen';
+
+  @override
+  String get bountySubmit => 'Beobachtung einreichen';
+
+  @override
+  String get bountyMyClaims => 'Meine Einreichungen';
+
+  @override
+  String get bountyClaims => 'Einreichungen';
+
+  @override
+  String get bountyNoClaims => 'Noch keine Einreichungen.';
+
+  @override
+  String get bountyNoEligible => 'Keine Beobachtung passt zu dieser Prämie.';
+
+  @override
+  String get bountyPickObservation => 'Welche Beobachtung reichst du ein?';
+
+  @override
+  String get bountyClaimSent => 'Einreichung gesendet.';
+
+  @override
+  String get bountyAccept => 'Annehmen';
+
+  @override
+  String get bountyReject => 'Ablehnen';
+
+  @override
+  String get bountyAccepted => 'Angenommen — Punkte gutgeschrieben.';
+
+  @override
+  String get bountyRejected => 'Abgelehnt.';
+
+  @override
+  String get bountyClaimPending => 'Wartet auf Prüfung';
+
+  @override
+  String get bountyClaimAccepted => 'Angenommen';
+
+  @override
+  String get bountyClaimRejected => 'Abgelehnt';
+
+  @override
+  String get bountyFieldTitle => 'Titel der Prämie';
+
+  @override
+  String get bountyFieldDescription => 'Beschreibung (optional)';
+
+  @override
+  String get bountyFieldPoints => 'Belohnung (Punkte)';
+
+  @override
+  String get bountyFieldWinners => 'Anzahl der Gewinner';
+
+  @override
+  String get bountyPickSpecies => 'Art auswählen (optional)';
+
+  @override
+  String get bountyPickExpiry => 'Frist wählen';
+
+  @override
+  String get bountyCreateButton => 'Prämie erstellen';
+
+  @override
+  String get bountyCreated => 'Prämie erstellt — wartet auf Moderatorfreigabe.';
+
+  @override
+  String get bountyTitleRequired => 'Titel ist erforderlich.';
+
+  @override
+  String get bountyPointsRequired => 'Belohnung muss mehr als 0 Punkte sein.';
+
+  @override
+  String get bountyApprovalNote =>
+      'Die Prämie wird nach Moderatorfreigabe öffentlich. Nur Premium-Abonnenten können Prämien erstellen.';
+
+  @override
   String homeGreeting(String email) {
     return 'Hallo, $email!';
   }
