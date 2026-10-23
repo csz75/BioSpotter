@@ -22,6 +22,8 @@ class Group {
   final String status;
   final bool isOwner;
 
+  bool get isArchived => status == 'archived';
+
   factory Group.fromJson(Map<String, dynamic> json) {
     return Group(
       id: json['id'] as String,
@@ -32,6 +34,21 @@ class Group {
       isOwner: json['is_owner'] as bool? ?? false,
     );
   }
+}
+
+/// Egy csoporttag.
+class GroupMember {
+  const GroupMember({
+    required this.userId,
+    required this.displayName,
+    required this.role,
+  });
+
+  final String userId;
+  final String displayName;
+  final String role;
+
+  bool get isOwner => role == 'owner';
 }
 
 class GroupRepository {
@@ -48,7 +65,11 @@ class GroupRepository {
     return '${block(4)}-${block(4)}';
   }
 
-  /// A felhasználó csoportjai (ahol aktív tag).
+  /// A felhasználó AKTÍV csoportjai.
+  ///
+  /// A `groups!inner` belső join + a `groups.status` szűrő kell ahhoz,
+  /// hogy az ARCHIVÁLT csoport ne jelenjen meg. A sima beágyazott
+  /// `groups(...)` külső join lenne, és nem szűrne.
   Future<List<Group>> myGroups() async {
     final user = _client.auth.currentUser;
     if (user == null) return const [];
@@ -57,11 +78,35 @@ class GroupRepository {
         .from('group_members')
         .select(
           'group_id, role, '
-          'groups(id, name, description, invite_code, status, created_by)',
+          'groups!inner(id, name, description, invite_code, status, created_by)',
         )
         .eq('user_id', user.id)
-        .eq('status', 'active');
+        .eq('status', 'active')
+        .eq('groups.status', 'active');
 
+    return _toGroups(res, user.id);
+  }
+
+  /// A felhasználó ARCHIVÁLT csoportjai — csak az owner látja,
+  /// hogy vissza tudja állítani.
+  Future<List<Group>> myArchivedGroups() async {
+    final user = _client.auth.currentUser;
+    if (user == null) return const [];
+
+    final res = await _client
+        .from('group_members')
+        .select(
+          'group_id, role, '
+          'groups!inner(id, name, description, invite_code, status, created_by)',
+        )
+        .eq('user_id', user.id)
+        .eq('role', 'owner')
+        .eq('groups.status', 'archived');
+
+    return _toGroups(res, user.id);
+  }
+
+  List<Group> _toGroups(dynamic res, String userId) {
     final rows = (res as List).cast<Map<String, dynamic>>();
     return rows.map((r) {
       final g = (r['groups'] as Map?) ?? const {};
@@ -71,7 +116,7 @@ class GroupRepository {
         description: g['description'] as String?,
         inviteCode: g['invite_code'] as String? ?? '',
         status: g['status'] as String? ?? 'active',
-        isOwner: g['created_by'] == user.id,
+        isOwner: g['created_by'] == userId,
       );
     }).toList();
   }
@@ -100,6 +145,69 @@ class GroupRepository {
   /// Csatlakozás meghívó kóddal.
   Future<void> joinGroup(String inviteCode) async {
     await _client.rpc('join_group', params: {'p_invite_code': inviteCode});
+  }
+
+  /// Egy csoport aktív tagjai.
+  Future<List<GroupMember>> members(String groupId) async {
+    final res = await _client
+        .from('group_members')
+        .select(
+          'user_id, role, status, joined_at, '
+          'users(display_name, email)',
+        )
+        .eq('group_id', groupId)
+        .eq('status', 'active')
+        .order('joined_at');
+
+    final rows = (res as List).cast<Map<String, dynamic>>();
+    return rows.map((r) {
+      final u = (r['users'] as Map?) ?? const {};
+      return GroupMember(
+        userId: r['user_id'] as String,
+        displayName: (u['display_name'] as String?) ?? '—',
+        role: (r['role'] as String?) ?? 'member',
+      );
+    }).toList();
+  }
+
+  /// Kilépés a csoportból.
+  ///
+  /// A megfigyelések megmaradnak a csoportban (a `group_id` a megfigyelésen
+  /// van, nem a tagságon) — csak a hozzáférés szűnik meg.
+  Future<void> leaveGroup(String groupId) async {
+    final user = _client.auth.currentUser;
+    if (user == null) throw Exception('Nincs bejelentkezett felhasználó');
+
+    await _client
+        .from('group_members')
+        .delete()
+        .eq('group_id', groupId)
+        .eq('user_id', user.id);
+  }
+
+  /// A csoport archiválása — csak az owner.
+  Future<void> archiveGroup(String groupId) async {
+    await _client
+        .from('groups')
+        .update({'status': 'archived'})
+        .eq('id', groupId);
+  }
+
+  /// Archivált csoport visszaállítása — csak az owner.
+  Future<void> restoreGroup(String groupId) async {
+    await _client
+        .from('groups')
+        .update({'status': 'active'})
+        .eq('id', groupId);
+  }
+
+  /// Tag eltávolítása — csak az owner.
+  Future<void> removeMember(String groupId, String userId) async {
+    await _client
+        .from('group_members')
+        .delete()
+        .eq('group_id', groupId)
+        .eq('user_id', userId);
   }
 
   /// Egy csoport megfigyelései.

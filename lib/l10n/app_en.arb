@@ -57,6 +57,20 @@
   "groupVisibilityPublic": "Public too",
   "groupVisibilityGroupOnly": "Group only",
 
+  "groupMembersTitle": "Members",
+  "groupMemberOwner": "Group owner",
+  "groupRemoveMember": "Remove member",
+  "groupRemoveMemberBody": "Remove {name} from the group?",
+  "groupMemberRemoved": "Member removed.",
+  "groupLeave": "Leave group",
+  "groupLeaveBody": "Your observations stay in the group, but you will no longer see them.",
+  "groupArchive": "Archive group",
+  "groupArchiveBody": "An archived group is hidden from everyone. Are you sure?",
+  "groupArchived": "Archived",
+  "groupArchivedSection": "Archived groups",
+  "groupRestore": "Restore",
+  "groupRestored": "Group restored.",
+
 
   "homeGreeting": "Hi, {email}!",
   "homeNewObservation": "New observation",

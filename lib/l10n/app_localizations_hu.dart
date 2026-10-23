@@ -171,6 +171,49 @@ class AppLocalizationsHu extends AppLocalizations {
   String get groupVisibilityGroupOnly => 'Csak a csoport';
 
   @override
+  String get groupMembersTitle => 'Tagok';
+
+  @override
+  String get groupMemberOwner => 'Csoportgazda';
+
+  @override
+  String get groupRemoveMember => 'Tag eltávolítása';
+
+  @override
+  String groupRemoveMemberBody(String name) {
+    return 'Biztosan eltávolítod $name tagot a csoportból?';
+  }
+
+  @override
+  String get groupMemberRemoved => 'Tag eltávolítva.';
+
+  @override
+  String get groupLeave => 'Kilépés a csoportból';
+
+  @override
+  String get groupLeaveBody =>
+      'A megfigyeléseid megmaradnak a csoportban, de te többé nem látod őket.';
+
+  @override
+  String get groupArchive => 'Csoport archiválása';
+
+  @override
+  String get groupArchiveBody =>
+      'Az archivált csoportot senki nem látja többé. Biztos vagy benne?';
+
+  @override
+  String get groupArchived => 'Archiválva';
+
+  @override
+  String get groupArchivedSection => 'Archivált csoportok';
+
+  @override
+  String get groupRestore => 'Visszaállítás';
+
+  @override
+  String get groupRestored => 'A csoport visszaállítva.';
+
+  @override
   String homeGreeting(String email) {
     return 'Üdv, $email!';
   }

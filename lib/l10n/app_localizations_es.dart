@@ -172,6 +172,49 @@ class AppLocalizationsEs extends AppLocalizations {
   String get groupVisibilityGroupOnly => 'Solo el grupo';
 
   @override
+  String get groupMembersTitle => 'Miembros';
+
+  @override
+  String get groupMemberOwner => 'Propietario del grupo';
+
+  @override
+  String get groupRemoveMember => 'Eliminar miembro';
+
+  @override
+  String groupRemoveMemberBody(String name) {
+    return '¿Eliminar a $name del grupo?';
+  }
+
+  @override
+  String get groupMemberRemoved => 'Miembro eliminado.';
+
+  @override
+  String get groupLeave => 'Salir del grupo';
+
+  @override
+  String get groupLeaveBody =>
+      'Tus observaciones permanecen en el grupo, pero ya no las verás.';
+
+  @override
+  String get groupArchive => 'Archivar grupo';
+
+  @override
+  String get groupArchiveBody =>
+      'Un grupo archivado queda oculto para todos. ¿Seguro?';
+
+  @override
+  String get groupArchived => 'Archivado';
+
+  @override
+  String get groupArchivedSection => 'Grupos archivados';
+
+  @override
+  String get groupRestore => 'Restaurar';
+
+  @override
+  String get groupRestored => 'Grupo restaurado.';
+
+  @override
   String homeGreeting(String email) {
     return '¡Hola, $email!';
   }

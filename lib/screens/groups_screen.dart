@@ -6,7 +6,7 @@ import '../features/groups/group_repository.dart';
 import '../l10n/app_localizations.dart';
 import 'group_detail_screen.dart';
 
-/// A felhasználó csoportjai.
+/// A felhasználó csoportjai — az aktívak és (ownernek) az archiváltak.
 class GroupsScreen extends ConsumerStatefulWidget {
   const GroupsScreen({super.key});
 
@@ -16,6 +16,7 @@ class GroupsScreen extends ConsumerStatefulWidget {
 
 class _GroupsScreenState extends ConsumerState<GroupsScreen> {
   List<Group> _groups = const [];
+  List<Group> _archived = const [];
   bool _loading = true;
 
   @override
@@ -26,12 +27,38 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
 
   Future<void> _load() async {
     setState(() => _loading = true);
-    final groups = await ref.read(groupRepositoryProvider).myGroups();
-    if (!mounted) return;
-    setState(() {
-      _groups = groups;
-      _loading = false;
-    });
+    try {
+      final repo = ref.read(groupRepositoryProvider);
+      final groups = await repo.myGroups();
+      final archived = await repo.myArchivedGroups();
+      if (!mounted) return;
+      setState(() {
+        _groups = groups;
+        _archived = archived;
+        _loading = false;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _loading = false);
+    }
+  }
+
+  Future<void> _restore(Group g) async {
+    final l = AppLocalizations.of(context);
+    try {
+      await ref.read(groupRepositoryProvider).restoreGroup(g.id);
+      if (!mounted) return;
+      await _load();
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l.groupRestored)),
+      );
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l.loginError(''))),
+      );
+    }
   }
 
   Future<void> _create() async {
@@ -147,6 +174,7 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
+    final hasAny = _groups.isNotEmpty || _archived.isNotEmpty;
 
     return Scaffold(
       appBar: AppBar(
@@ -165,7 +193,7 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
-          : _groups.isEmpty
+          : !hasAny
               ? Center(
                   child: Padding(
                     padding: const EdgeInsets.all(24),
@@ -185,29 +213,59 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                     ),
                   ),
                 )
-              : ListView.separated(
-                  itemCount: _groups.length,
-                  separatorBuilder: (_, __) => const Divider(height: 1),
-                  itemBuilder: (context, i) {
-                    final g = _groups[i];
-                    return ListTile(
-                      leading: Icon(
-                        g.isOwner ? Icons.workspace_premium : Icons.group,
-                        color: g.isOwner ? const Color(0xFF1F3864) : null,
-                      ),
-                      title: Text(g.name),
-                      subtitle: g.description != null
-                          ? Text(g.description!)
-                          : null,
-                      trailing: const Icon(Icons.chevron_right),
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => GroupDetailScreen(group: g),
+              : ListView(
+                  children: [
+                    // ── Aktív csoportok ──────────────────────────────
+                    ..._groups.map((g) => _groupTile(g, l)),
+
+                    // ── Archivált (csak owner) ───────────────────────
+                    if (_archived.isNotEmpty) ...[
+                      const Divider(),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
+                        child: Text(
+                          l.groupArchivedSection,
+                          style: Theme.of(context).textTheme.titleSmall,
                         ),
                       ),
-                    );
-                  },
+                      ..._archived.map((g) => _groupTile(g, l)),
+                    ],
+                    const SizedBox(height: 80),
+                  ],
                 ),
+    );
+  }
+
+  Widget _groupTile(Group g, AppLocalizations l) {
+    final archived = g.isArchived;
+
+    return ListTile(
+      leading: Icon(
+        archived
+            ? Icons.archive_outlined
+            : (g.isOwner ? Icons.workspace_premium : Icons.group),
+        color: archived
+            ? Colors.grey
+            : (g.isOwner ? const Color(0xFF1F3864) : null),
+      ),
+      title: Text(g.name),
+      subtitle: archived
+          ? Text(l.groupArchived)
+          : (g.description != null ? Text(g.description!) : null),
+      trailing: archived
+          ? IconButton(
+              icon: const Icon(Icons.restore),
+              tooltip: l.groupRestore,
+              onPressed: () => _restore(g),
+            )
+          : const Icon(Icons.chevron_right),
+      onTap: archived
+          ? null
+          : () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => GroupDetailScreen(group: g),
+                ),
+              ),
     );
   }
 }

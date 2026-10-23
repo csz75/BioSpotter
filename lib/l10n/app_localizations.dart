@@ -408,6 +408,84 @@ abstract class AppLocalizations {
   /// **'Csak a csoport'**
   String get groupVisibilityGroupOnly;
 
+  /// No description provided for @groupMembersTitle.
+  ///
+  /// In hu, this message translates to:
+  /// **'Tagok'**
+  String get groupMembersTitle;
+
+  /// No description provided for @groupMemberOwner.
+  ///
+  /// In hu, this message translates to:
+  /// **'Csoportgazda'**
+  String get groupMemberOwner;
+
+  /// No description provided for @groupRemoveMember.
+  ///
+  /// In hu, this message translates to:
+  /// **'Tag eltávolítása'**
+  String get groupRemoveMember;
+
+  /// No description provided for @groupRemoveMemberBody.
+  ///
+  /// In hu, this message translates to:
+  /// **'Biztosan eltávolítod {name} tagot a csoportból?'**
+  String groupRemoveMemberBody(String name);
+
+  /// No description provided for @groupMemberRemoved.
+  ///
+  /// In hu, this message translates to:
+  /// **'Tag eltávolítva.'**
+  String get groupMemberRemoved;
+
+  /// No description provided for @groupLeave.
+  ///
+  /// In hu, this message translates to:
+  /// **'Kilépés a csoportból'**
+  String get groupLeave;
+
+  /// No description provided for @groupLeaveBody.
+  ///
+  /// In hu, this message translates to:
+  /// **'A megfigyeléseid megmaradnak a csoportban, de te többé nem látod őket.'**
+  String get groupLeaveBody;
+
+  /// No description provided for @groupArchive.
+  ///
+  /// In hu, this message translates to:
+  /// **'Csoport archiválása'**
+  String get groupArchive;
+
+  /// No description provided for @groupArchiveBody.
+  ///
+  /// In hu, this message translates to:
+  /// **'Az archivált csoportot senki nem látja többé. Biztos vagy benne?'**
+  String get groupArchiveBody;
+
+  /// No description provided for @groupArchived.
+  ///
+  /// In hu, this message translates to:
+  /// **'Archiválva'**
+  String get groupArchived;
+
+  /// No description provided for @groupArchivedSection.
+  ///
+  /// In hu, this message translates to:
+  /// **'Archivált csoportok'**
+  String get groupArchivedSection;
+
+  /// No description provided for @groupRestore.
+  ///
+  /// In hu, this message translates to:
+  /// **'Visszaállítás'**
+  String get groupRestore;
+
+  /// No description provided for @groupRestored.
+  ///
+  /// In hu, this message translates to:
+  /// **'A csoport visszaállítva.'**
+  String get groupRestored;
+
   /// No description provided for @homeGreeting.
   ///
   /// In hu, this message translates to:

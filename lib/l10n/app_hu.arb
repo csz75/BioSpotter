@@ -70,7 +70,22 @@
   "groupVisibilityPublic": "Nyilvános is",
   "groupVisibilityGroupOnly": "Csak a csoport",
 
-
+  "groupMembersTitle": "Tagok",
+  "groupMemberOwner": "Csoportgazda",
+  "groupRemoveMember": "Tag eltávolítása",
+  "groupRemoveMemberBody": "Biztosan eltávolítod {name} tagot a csoportból?",
+  "groupMemberRemoved": "Tag eltávolítva.",
+  "groupLeave": "Kilépés a csoportból",
+  "groupLeaveBody": "A megfigyeléseid megmaradnak a csoportban, de te többé nem látod őket.",
+  "groupArchive": "Csoport archiválása",
+  "groupArchiveBody": "Az archivált csoportot senki nem látja többé. Biztos vagy benne?",
+  "groupArchived": "Archiválva",
+  "groupArchivedSection": "Archivált csoportok",
+  "groupRestore": "Visszaállítás",
+  "groupRestored": "A csoport visszaállítva.",
+  "@groupRemoveMemberBody": {
+    "placeholders": { "name": { "type": "String" } }
+  },
 
 
   "loginError": "Hiba történt: {error}",
