@@ -129,6 +129,28 @@
     "placeholders": { "days": { "type": "int" } }
   },
 
+  "moderatorTitle": "Moderátor",
+  "moderatorSubtitle": "Kitűzések és bejelentések kezelése",
+  "moderatorTabBounties": "Kitűzések",
+  "moderatorTabReports": "Bejelentések",
+  "moderatorNoBounties": "Nincs jóváhagyásra váró kitűzés.",
+  "moderatorNoReports": "Nincs bejelentett megfigyelés.",
+  "moderatorApprove": "Jóváhagyás",
+  "moderatorReject": "Elutasítás",
+  "moderatorRejectBounty": "Kitűzés elutasítása",
+  "moderatorRejectBountyBody": "Biztosan elutasítod a(z) „{title}” kitűzést?",
+  "moderatorBountyApproved": "A kitűzés jóváhagyva és nyilvános.",
+  "moderatorBountyRejected": "A kitűzés elutasítva.",
+  "moderatorObsPublish": "Közzététel",
+  "moderatorObsReject": "Eltávolítás",
+  "moderatorObsPublished": "A megfigyelés közzétéve.",
+  "moderatorObsRejected": "A megfigyelés elutasítva.",
+  "moderatorReportReason": "Bejelentés oka",
+  "moderatorNoReason": "nincs megadva",
+  "@moderatorRejectBountyBody": {
+    "placeholders": { "title": { "type": "String" } }
+  },
+
 
   "loginError": "Hiba történt: {error}",
   "@loginError": {

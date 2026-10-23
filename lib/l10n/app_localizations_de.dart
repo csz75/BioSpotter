@@ -333,6 +333,62 @@ class AppLocalizationsDe extends AppLocalizations {
       'Die Prämie wird nach Moderatorfreigabe öffentlich. Nur Premium-Abonnenten können Prämien erstellen.';
 
   @override
+  String get moderatorTitle => 'Moderator';
+
+  @override
+  String get moderatorSubtitle => 'Prämien und Meldungen verwalten';
+
+  @override
+  String get moderatorTabBounties => 'Prämien';
+
+  @override
+  String get moderatorTabReports => 'Meldungen';
+
+  @override
+  String get moderatorNoBounties => 'Keine Prämie wartet auf Freigabe.';
+
+  @override
+  String get moderatorNoReports => 'Keine gemeldeten Beobachtungen.';
+
+  @override
+  String get moderatorApprove => 'Freigeben';
+
+  @override
+  String get moderatorReject => 'Ablehnen';
+
+  @override
+  String get moderatorRejectBounty => 'Prämie ablehnen';
+
+  @override
+  String moderatorRejectBountyBody(String title) {
+    return 'Prämie „$title” ablehnen?';
+  }
+
+  @override
+  String get moderatorBountyApproved => 'Prämie freigegeben und öffentlich.';
+
+  @override
+  String get moderatorBountyRejected => 'Prämie abgelehnt.';
+
+  @override
+  String get moderatorObsPublish => 'Veröffentlichen';
+
+  @override
+  String get moderatorObsReject => 'Entfernen';
+
+  @override
+  String get moderatorObsPublished => 'Beobachtung veröffentlicht.';
+
+  @override
+  String get moderatorObsRejected => 'Beobachtung abgelehnt.';
+
+  @override
+  String get moderatorReportReason => 'Meldegrund';
+
+  @override
+  String get moderatorNoReason => 'nicht angegeben';
+
+  @override
   String homeGreeting(String email) {
     return 'Hallo, $email!';
   }

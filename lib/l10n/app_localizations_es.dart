@@ -332,6 +332,62 @@ class AppLocalizationsEs extends AppLocalizations {
       'La recompensa se hace pública tras la aprobación. Solo los suscriptores premium pueden crearlas.';
 
   @override
+  String get moderatorTitle => 'Moderador';
+
+  @override
+  String get moderatorSubtitle => 'Gestionar recompensas y denuncias';
+
+  @override
+  String get moderatorTabBounties => 'Recompensas';
+
+  @override
+  String get moderatorTabReports => 'Denuncias';
+
+  @override
+  String get moderatorNoBounties => 'Ninguna recompensa pendiente.';
+
+  @override
+  String get moderatorNoReports => 'Ninguna observación denunciada.';
+
+  @override
+  String get moderatorApprove => 'Aprobar';
+
+  @override
+  String get moderatorReject => 'Rechazar';
+
+  @override
+  String get moderatorRejectBounty => 'Rechazar recompensa';
+
+  @override
+  String moderatorRejectBountyBody(String title) {
+    return '¿Rechazar la recompensa «$title»?';
+  }
+
+  @override
+  String get moderatorBountyApproved => 'Recompensa aprobada y pública.';
+
+  @override
+  String get moderatorBountyRejected => 'Recompensa rechazada.';
+
+  @override
+  String get moderatorObsPublish => 'Publicar';
+
+  @override
+  String get moderatorObsReject => 'Eliminar';
+
+  @override
+  String get moderatorObsPublished => 'Observación publicada.';
+
+  @override
+  String get moderatorObsRejected => 'Observación rechazada.';
+
+  @override
+  String get moderatorReportReason => 'Motivo de la denuncia';
+
+  @override
+  String get moderatorNoReason => 'no indicado';
+
+  @override
   String homeGreeting(String email) {
     return '¡Hola, $email!';
   }

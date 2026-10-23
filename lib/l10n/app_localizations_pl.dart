@@ -331,6 +331,62 @@ class AppLocalizationsPl extends AppLocalizations {
       'Nagroda staje się publiczna po zatwierdzeniu. Tylko subskrybenci premium mogą je tworzyć.';
 
   @override
+  String get moderatorTitle => 'Moderator';
+
+  @override
+  String get moderatorSubtitle => 'Zarządzaj nagrodami i zgłoszeniami';
+
+  @override
+  String get moderatorTabBounties => 'Nagrody';
+
+  @override
+  String get moderatorTabReports => 'Zgłoszenia';
+
+  @override
+  String get moderatorNoBounties => 'Brak nagród oczekujących.';
+
+  @override
+  String get moderatorNoReports => 'Brak zgłoszonych obserwacji.';
+
+  @override
+  String get moderatorApprove => 'Zatwierdź';
+
+  @override
+  String get moderatorReject => 'Odrzuć';
+
+  @override
+  String get moderatorRejectBounty => 'Odrzuć nagrodę';
+
+  @override
+  String moderatorRejectBountyBody(String title) {
+    return 'Odrzucić nagrodę „$title”?';
+  }
+
+  @override
+  String get moderatorBountyApproved => 'Nagroda zatwierdzona i publiczna.';
+
+  @override
+  String get moderatorBountyRejected => 'Nagroda odrzucona.';
+
+  @override
+  String get moderatorObsPublish => 'Opublikuj';
+
+  @override
+  String get moderatorObsReject => 'Usuń';
+
+  @override
+  String get moderatorObsPublished => 'Obserwacja opublikowana.';
+
+  @override
+  String get moderatorObsRejected => 'Obserwacja odrzucona.';
+
+  @override
+  String get moderatorReportReason => 'Powód zgłoszenia';
+
+  @override
+  String get moderatorNoReason => 'nie podano';
+
+  @override
   String homeGreeting(String email) {
     return 'Cześć, $email!';
   }

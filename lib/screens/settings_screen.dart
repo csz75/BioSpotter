@@ -1,20 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/locale_controller.dart';
+import '../core/providers.dart';
 import '../l10n/app_localizations.dart';
 import '../legal/legal_texts.dart';
 import 'delete_account_screen.dart';
 import 'legal_screen.dart';
+import 'moderator_screen.dart';
 
-
-class SettingsScreen extends StatefulWidget {
+class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
 
   @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
+  ConsumerState<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class _SettingsScreenState extends ConsumerState<SettingsScreen> {
+  bool _isModerator = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkModerator();
+  }
+
+  Future<void> _checkModerator() async {
+    final isMod = await ref.read(moderatorRepositoryProvider).isModerator();
+    if (mounted) setState(() => _isModerator = isMod);
+  }
+
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
@@ -85,6 +100,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
           ),
+
+          // ── Moderátor — CSAK moderátor szerepnél látszik ───────────
+          if (_isModerator) ...[
+            const Divider(),
+            ListTile(
+              leading: const Icon(
+                Icons.shield_outlined,
+                color: Color(0xFF1F3864),
+              ),
+              title: Text(l.moderatorTitle),
+              subtitle: Text(l.moderatorSubtitle),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => const ModeratorScreen(),
+                ),
+              ),
+            ),
+          ],
 
           const Divider(),
 

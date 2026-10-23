@@ -13,6 +13,9 @@ import '../features/groups/group_repository.dart';
 
 import '../features/bounties/bounty_repository.dart';
 
+import '../features/moderator/moderator_repository.dart';
+
+
 final supabaseClientProvider = Provider<SupabaseClient>(
   (ref) => Supabase.instance.client,
 );
@@ -57,5 +60,10 @@ final groupRepositoryProvider = Provider<GroupRepository>(
 final bountyRepositoryProvider = Provider<BountyRepository>(
   (ref) => BountyRepository(ref.watch(supabaseClientProvider)),
 );
+
+final moderatorRepositoryProvider = Provider<ModeratorRepository>(
+  (ref) => ModeratorRepository(ref.watch(supabaseClientProvider)),
+);
+
 
 

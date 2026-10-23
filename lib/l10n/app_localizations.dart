@@ -714,6 +714,114 @@ abstract class AppLocalizations {
   /// **'A kitűzés moderátor jóváhagyása után válik nyilvánossá. Kitűzést csak prémium előfizetők hozhatnak létre.'**
   String get bountyApprovalNote;
 
+  /// No description provided for @moderatorTitle.
+  ///
+  /// In hu, this message translates to:
+  /// **'Moderátor'**
+  String get moderatorTitle;
+
+  /// No description provided for @moderatorSubtitle.
+  ///
+  /// In hu, this message translates to:
+  /// **'Kitűzések és bejelentések kezelése'**
+  String get moderatorSubtitle;
+
+  /// No description provided for @moderatorTabBounties.
+  ///
+  /// In hu, this message translates to:
+  /// **'Kitűzések'**
+  String get moderatorTabBounties;
+
+  /// No description provided for @moderatorTabReports.
+  ///
+  /// In hu, this message translates to:
+  /// **'Bejelentések'**
+  String get moderatorTabReports;
+
+  /// No description provided for @moderatorNoBounties.
+  ///
+  /// In hu, this message translates to:
+  /// **'Nincs jóváhagyásra váró kitűzés.'**
+  String get moderatorNoBounties;
+
+  /// No description provided for @moderatorNoReports.
+  ///
+  /// In hu, this message translates to:
+  /// **'Nincs bejelentett megfigyelés.'**
+  String get moderatorNoReports;
+
+  /// No description provided for @moderatorApprove.
+  ///
+  /// In hu, this message translates to:
+  /// **'Jóváhagyás'**
+  String get moderatorApprove;
+
+  /// No description provided for @moderatorReject.
+  ///
+  /// In hu, this message translates to:
+  /// **'Elutasítás'**
+  String get moderatorReject;
+
+  /// No description provided for @moderatorRejectBounty.
+  ///
+  /// In hu, this message translates to:
+  /// **'Kitűzés elutasítása'**
+  String get moderatorRejectBounty;
+
+  /// No description provided for @moderatorRejectBountyBody.
+  ///
+  /// In hu, this message translates to:
+  /// **'Biztosan elutasítod a(z) „{title}” kitűzést?'**
+  String moderatorRejectBountyBody(String title);
+
+  /// No description provided for @moderatorBountyApproved.
+  ///
+  /// In hu, this message translates to:
+  /// **'A kitűzés jóváhagyva és nyilvános.'**
+  String get moderatorBountyApproved;
+
+  /// No description provided for @moderatorBountyRejected.
+  ///
+  /// In hu, this message translates to:
+  /// **'A kitűzés elutasítva.'**
+  String get moderatorBountyRejected;
+
+  /// No description provided for @moderatorObsPublish.
+  ///
+  /// In hu, this message translates to:
+  /// **'Közzététel'**
+  String get moderatorObsPublish;
+
+  /// No description provided for @moderatorObsReject.
+  ///
+  /// In hu, this message translates to:
+  /// **'Eltávolítás'**
+  String get moderatorObsReject;
+
+  /// No description provided for @moderatorObsPublished.
+  ///
+  /// In hu, this message translates to:
+  /// **'A megfigyelés közzétéve.'**
+  String get moderatorObsPublished;
+
+  /// No description provided for @moderatorObsRejected.
+  ///
+  /// In hu, this message translates to:
+  /// **'A megfigyelés elutasítva.'**
+  String get moderatorObsRejected;
+
+  /// No description provided for @moderatorReportReason.
+  ///
+  /// In hu, this message translates to:
+  /// **'Bejelentés oka'**
+  String get moderatorReportReason;
+
+  /// No description provided for @moderatorNoReason.
+  ///
+  /// In hu, this message translates to:
+  /// **'nincs megadva'**
+  String get moderatorNoReason;
+
   /// No description provided for @homeGreeting.
   ///
   /// In hu, this message translates to:

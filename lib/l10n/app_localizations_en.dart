@@ -332,6 +332,62 @@ class AppLocalizationsEn extends AppLocalizations {
       'The bounty becomes public after moderator approval. Only premium subscribers can create bounties.';
 
   @override
+  String get moderatorTitle => 'Moderator';
+
+  @override
+  String get moderatorSubtitle => 'Manage bounties and reports';
+
+  @override
+  String get moderatorTabBounties => 'Bounties';
+
+  @override
+  String get moderatorTabReports => 'Reports';
+
+  @override
+  String get moderatorNoBounties => 'No bounties awaiting approval.';
+
+  @override
+  String get moderatorNoReports => 'No reported observations.';
+
+  @override
+  String get moderatorApprove => 'Approve';
+
+  @override
+  String get moderatorReject => 'Reject';
+
+  @override
+  String get moderatorRejectBounty => 'Reject bounty';
+
+  @override
+  String moderatorRejectBountyBody(String title) {
+    return 'Reject the bounty “$title”?';
+  }
+
+  @override
+  String get moderatorBountyApproved => 'Bounty approved and public.';
+
+  @override
+  String get moderatorBountyRejected => 'Bounty rejected.';
+
+  @override
+  String get moderatorObsPublish => 'Publish';
+
+  @override
+  String get moderatorObsReject => 'Remove';
+
+  @override
+  String get moderatorObsPublished => 'Observation published.';
+
+  @override
+  String get moderatorObsRejected => 'Observation rejected.';
+
+  @override
+  String get moderatorReportReason => 'Report reason';
+
+  @override
+  String get moderatorNoReason => 'not given';
+
+  @override
   String homeGreeting(String email) {
     return 'Hi, $email!';
   }

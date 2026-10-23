@@ -333,6 +333,62 @@ class AppLocalizationsHu extends AppLocalizations {
       'A kitűzés moderátor jóváhagyása után válik nyilvánossá. Kitűzést csak prémium előfizetők hozhatnak létre.';
 
   @override
+  String get moderatorTitle => 'Moderátor';
+
+  @override
+  String get moderatorSubtitle => 'Kitűzések és bejelentések kezelése';
+
+  @override
+  String get moderatorTabBounties => 'Kitűzések';
+
+  @override
+  String get moderatorTabReports => 'Bejelentések';
+
+  @override
+  String get moderatorNoBounties => 'Nincs jóváhagyásra váró kitűzés.';
+
+  @override
+  String get moderatorNoReports => 'Nincs bejelentett megfigyelés.';
+
+  @override
+  String get moderatorApprove => 'Jóváhagyás';
+
+  @override
+  String get moderatorReject => 'Elutasítás';
+
+  @override
+  String get moderatorRejectBounty => 'Kitűzés elutasítása';
+
+  @override
+  String moderatorRejectBountyBody(String title) {
+    return 'Biztosan elutasítod a(z) „$title” kitűzést?';
+  }
+
+  @override
+  String get moderatorBountyApproved => 'A kitűzés jóváhagyva és nyilvános.';
+
+  @override
+  String get moderatorBountyRejected => 'A kitűzés elutasítva.';
+
+  @override
+  String get moderatorObsPublish => 'Közzététel';
+
+  @override
+  String get moderatorObsReject => 'Eltávolítás';
+
+  @override
+  String get moderatorObsPublished => 'A megfigyelés közzétéve.';
+
+  @override
+  String get moderatorObsRejected => 'A megfigyelés elutasítva.';
+
+  @override
+  String get moderatorReportReason => 'Bejelentés oka';
+
+  @override
+  String get moderatorNoReason => 'nincs megadva';
+
+  @override
   String homeGreeting(String email) {
     return 'Üdv, $email!';
   }
