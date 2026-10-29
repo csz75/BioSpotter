@@ -120,6 +120,12 @@ abstract class AppLocalizations {
   /// **'BioSpotter'**
   String get loginTitle;
 
+  /// No description provided for @loginTagline.
+  ///
+  /// In hu, this message translates to:
+  /// **'Fedezd fel a természetet, egy fotóval'**
+  String get loginTagline;
+
   /// No description provided for @loginEmail.
   ///
   /// In hu, this message translates to:
@@ -1553,6 +1559,114 @@ abstract class AppLocalizations {
   /// In hu, this message translates to:
   /// **'Rendszer nyelve'**
   String get settingsSystemLanguage;
+
+  /// No description provided for @settingsAppearance.
+  ///
+  /// In hu, this message translates to:
+  /// **'Megjelenés'**
+  String get settingsAppearance;
+
+  /// No description provided for @settingsThemeSystem.
+  ///
+  /// In hu, this message translates to:
+  /// **'Rendszer'**
+  String get settingsThemeSystem;
+
+  /// No description provided for @settingsThemeLight.
+  ///
+  /// In hu, this message translates to:
+  /// **'Világos'**
+  String get settingsThemeLight;
+
+  /// No description provided for @settingsThemeDark.
+  ///
+  /// In hu, this message translates to:
+  /// **'Sötét'**
+  String get settingsThemeDark;
+
+  /// No description provided for @navHome.
+  ///
+  /// In hu, this message translates to:
+  /// **'Kezdőlap'**
+  String get navHome;
+
+  /// No description provided for @navMap.
+  ///
+  /// In hu, this message translates to:
+  /// **'Térkép'**
+  String get navMap;
+
+  /// No description provided for @navCamera.
+  ///
+  /// In hu, this message translates to:
+  /// **'Kamera'**
+  String get navCamera;
+
+  /// No description provided for @navObservations.
+  ///
+  /// In hu, this message translates to:
+  /// **'Megfigyelések'**
+  String get navObservations;
+
+  /// No description provided for @navProfile.
+  ///
+  /// In hu, this message translates to:
+  /// **'Profil'**
+  String get navProfile;
+
+  /// No description provided for @homeSubtitle.
+  ///
+  /// In hu, this message translates to:
+  /// **'Fedezd fel és azonosítsd a környezeted élővilágát'**
+  String get homeSubtitle;
+
+  /// No description provided for @homeNewObservationHint.
+  ///
+  /// In hu, this message translates to:
+  /// **'Fotózz egy fajt, és azonosítsd'**
+  String get homeNewObservationHint;
+
+  /// No description provided for @homeObservationsLabel.
+  ///
+  /// In hu, this message translates to:
+  /// **'Megfigyelés'**
+  String get homeObservationsLabel;
+
+  /// No description provided for @homeSpeciesLabel.
+  ///
+  /// In hu, this message translates to:
+  /// **'Azonosított faj'**
+  String get homeSpeciesLabel;
+
+  /// No description provided for @homeRecent.
+  ///
+  /// In hu, this message translates to:
+  /// **'Legutóbbi megfigyelések'**
+  String get homeRecent;
+
+  /// No description provided for @homeGroups.
+  ///
+  /// In hu, this message translates to:
+  /// **'Csoportok'**
+  String get homeGroups;
+
+  /// No description provided for @homeGroupsHint.
+  ///
+  /// In hu, this message translates to:
+  /// **'Csatlakozz közösségekhez, kövesd mások észleléseit'**
+  String get homeGroupsHint;
+
+  /// No description provided for @homeBounties.
+  ///
+  /// In hu, this message translates to:
+  /// **'Kitűzések'**
+  String get homeBounties;
+
+  /// No description provided for @homeBountiesHint.
+  ///
+  /// In hu, this message translates to:
+  /// **'Keress ritka fajokat, szerezz pontokat'**
+  String get homeBountiesHint;
 }
 
 class _AppLocalizationsDelegate

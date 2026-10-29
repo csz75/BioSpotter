@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../core/providers.dart';
 import '../l10n/app_localizations.dart';
-import 'home_screen.dart';
-import 'verify_email_screen.dart';
+import 'main_shell.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -53,56 +51,27 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     FocusScope.of(context).unfocus();
     setState(() => _loading = true);
 
-    final l = AppLocalizations.of(context);
-    final email = _email.text.trim();
-
     try {
       final auth = ref.read(authServiceProvider);
-
       if (_isSignUp) {
-        final res = await auth.signUp(
-          email: email,
+        await auth.signUp(
+          email: _email.text.trim(),
           password: _password.text,
           displayName: _name.text.trim(),
         );
-
-        if (!mounted) return;
-
-        // Megerősítés bekapcsolva → nincs session, e-mailt küldtünk.
-        if (res.session == null) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (_) => VerifyEmailScreen(
-                email: email,
-                password: _password.text,
-              ),
-            ),
-          );
-          return;
-        }
-        // Ha a megerősítés ki van kapcsolva, van session → azonnal belépett.
       } else {
         await auth.signIn(
-          email: email,
+          email: _email.text.trim(),
           password: _password.text,
         );
       }
-
       if (!mounted) return;
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
-      );
-    } on AuthException catch (e) {
-      if (!mounted) return;
-      // A nem megerősített e-mail-cím külön üzenetet kap.
-      final msg = e.code == 'email_not_confirmed' || '$e'.contains('not confirmed')
-          ? l.loginEmailNotConfirmed
-          : l.loginError(e.message);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(msg)),
+        MaterialPageRoute(builder: (_) => const MainShell()),
       );
     } catch (e) {
       if (!mounted) return;
+      final l = AppLocalizations.of(context);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(l.loginError('$e'))),
       );
@@ -114,124 +83,184 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
+    final scheme = Theme.of(context).colorScheme;
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () => FocusScope.of(context).unfocus(),
-        child: SafeArea(
-          child: Center(
-            child: SingleChildScrollView(
-              keyboardDismissBehavior:
-                  ScrollViewKeyboardDismissBehavior.onDrag,
-              padding: const EdgeInsets.all(24),
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 420),
-                child: Form(
-                  key: _formKey,
+        child: Column(
+          children: [
+            // ── Fejléc gradiens sáv (logó + szlogen) ─────────────
+            // ── Fejléc sáv (logó + szlogen) ──────────────────────
+            Container(
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Color(0xFFF4EBD9), // a logó háttere
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(28),
+                ),
+              ),
+              child: SafeArea(
+                bottom: false,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 28, 24, 32),
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const Icon(Icons.park, size: 64, color: Color(0xFF2E7D32)),
+                      // A logó — közvetlenül a fejlécre, maszk nélkül
+                      Image.asset(
+                        'assets/icons/app_icon.png',
+                        width: 110,
+                        height: 110,
+                      ),
                       const SizedBox(height: 12),
                       Text(
-                        l.loginTitle,
+                        l.appTitle,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium
+                            ?.copyWith(
+                              color: const Color(0xFF2E5A3A), // sötét zöld
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 0.5,
+                            ),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        l.loginTagline,
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
-                      const SizedBox(height: 32),
-                      if (_isSignUp) ...[
-                        TextFormField(
-                          controller: _name,
-                          focusNode: _nameFocus,
-                          textInputAction: TextInputAction.next,
-                          autocorrect: false,
-                          enableSuggestions: false,
-                          onTap: () => _focus(_nameFocus),
-                          onFieldSubmitted: (_) => _focus(_emailFocus),
-                          decoration: InputDecoration(
-                            labelText: l.loginDisplayName,
-                            border: const OutlineInputBorder(),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                      ],
-                      TextFormField(
-                        controller: _email,
-                        focusNode: _emailFocus,
-                        keyboardType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.next,
-                        autocorrect: false,
-                        enableSuggestions: false,
-                        onTap: () => _focus(_emailFocus),
-                        onFieldSubmitted: (_) => _focus(_passwordFocus),
-                        decoration: InputDecoration(
-                          labelText: l.loginEmail,
-                          border: const OutlineInputBorder(),
-                        ),
-                        validator: (v) {
-                          final s = v?.trim() ?? '';
-                          if (s.isEmpty) return l.loginEmailRequired;
-                          if (!s.contains('@')) return l.loginEmailInvalid;
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 16),
-                      TextFormField(
-                        controller: _password,
-                        focusNode: _passwordFocus,
-                        obscureText: _obscure,
-                        autocorrect: false,
-                        enableSuggestions: false,
-                        textInputAction: TextInputAction.done,
-                        onTap: () => _focus(_passwordFocus),
-                        onFieldSubmitted: (_) => _submit(),
-                        decoration: InputDecoration(
-                          labelText: l.loginPassword,
-                          border: const OutlineInputBorder(),
-                          suffixIcon: IconButton(
-                            icon: Icon(_obscure
-                                ? Icons.visibility_off
-                                : Icons.visibility),
-                            onPressed: () =>
-                                setState(() => _obscure = !_obscure),
-                          ),
-                        ),
-                        validator: (v) {
-                          if ((v ?? '').length < 6) {
-                            return l.loginPasswordTooShort;
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 24),
-                      FilledButton(
-                        onPressed: _loading ? null : _submit,
-                        child: _loading
-                            ? const SizedBox(
-                                height: 20,
-                                width: 20,
-                                child:
-                                    CircularProgressIndicator(strokeWidth: 2),
-                              )
-                            : Text(_isSignUp ? l.loginSignUp : l.loginSignIn),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          FocusScope.of(context).unfocus();
-                          setState(() => _isSignUp = !_isSignUp);
-                        },
-                        child: Text(_isSignUp
-                            ? l.loginSwitchToSignIn
-                            : l.loginSwitchToSignUp),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(
+                              color: const Color(0xFF3E6B4A), // sötét zöld
+                            ),
                       ),
                     ],
                   ),
                 ),
               ),
             ),
-          ),
+
+            // ── Űrlap ────────────────────────────────────────────
+            Expanded(
+              child: SingleChildScrollView(
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
+                padding: const EdgeInsets.fromLTRB(24, 24, 24, 24),
+                child: Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 420),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            _isSignUp ? l.loginSignUp : l.loginSignIn,
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          const SizedBox(height: 20),
+                          if (_isSignUp) ...[
+                            TextFormField(
+                              controller: _name,
+                              focusNode: _nameFocus,
+                              textInputAction: TextInputAction.next,
+                              autocorrect: false,
+                              enableSuggestions: false,
+                              onTap: () => _focus(_nameFocus),
+                              onFieldSubmitted: (_) => _focus(_emailFocus),
+                              decoration: InputDecoration(
+                                labelText: l.loginDisplayName,
+                                prefixIcon:
+                                    const Icon(Icons.person_outline),
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                          ],
+                          TextFormField(
+                            controller: _email,
+                            focusNode: _emailFocus,
+                            keyboardType: TextInputType.emailAddress,
+                            textInputAction: TextInputAction.next,
+                            autocorrect: false,
+                            enableSuggestions: false,
+                            onTap: () => _focus(_emailFocus),
+                            onFieldSubmitted: (_) => _focus(_passwordFocus),
+                            decoration: InputDecoration(
+                              labelText: l.loginEmail,
+                              prefixIcon: const Icon(Icons.email_outlined),
+                            ),
+                            validator: (v) {
+                              final s = v?.trim() ?? '';
+                              if (s.isEmpty) return l.loginEmailRequired;
+                              if (!s.contains('@')) return l.loginEmailInvalid;
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 16),
+                          TextFormField(
+                            controller: _password,
+                            focusNode: _passwordFocus,
+                            obscureText: _obscure,
+                            autocorrect: false,
+                            enableSuggestions: false,
+                            textInputAction: TextInputAction.done,
+                            onTap: () => _focus(_passwordFocus),
+                            onFieldSubmitted: (_) => _submit(),
+                            decoration: InputDecoration(
+                              labelText: l.loginPassword,
+                              prefixIcon: const Icon(Icons.lock_outline),
+                              suffixIcon: IconButton(
+                                icon: Icon(_obscure
+                                    ? Icons.visibility_off
+                                    : Icons.visibility),
+                                onPressed: () =>
+                                    setState(() => _obscure = !_obscure),
+                              ),
+                            ),
+                            validator: (v) {
+                              if ((v ?? '').length < 6) {
+                                return l.loginPasswordTooShort;
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 24),
+                          FilledButton(
+                            onPressed: _loading ? null : _submit,
+                            child: _loading
+                                ? const SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: CircularProgressIndicator(
+                                        strokeWidth: 2),
+                                  )
+                                : Text(
+                                    _isSignUp
+                                        ? l.loginSignUp
+                                        : l.loginSignIn,
+                                  ),
+                          ),
+                          const SizedBox(height: 8),
+                          TextButton(
+                            onPressed: () {
+                              FocusScope.of(context).unfocus();
+                              setState(() => _isSignUp = !_isSignUp);
+                            },
+                            child: Text(_isSignUp
+                                ? l.loginSwitchToSignIn
+                                : l.loginSwitchToSignUp),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

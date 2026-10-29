@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/locale_controller.dart';
 import '../core/providers.dart';
+import '../core/theme/theme_controller.dart';
 import '../l10n/app_localizations.dart';
 import '../legal/legal_texts.dart';
 import 'delete_account_screen.dart';
@@ -67,6 +68,45 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               },
               title: Text('${lang.flag}  ${lang.label}'),
             ),
+          ),
+
+          const SizedBox(height: 16),
+          const Divider(),
+
+          // ── Megjelenés ────────────────────────────────────────────
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+            child: Text(
+              l.settingsAppearance,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ),
+          RadioListTile<ThemeMode>(
+            value: ThemeMode.system,
+            groupValue: themeController.mode,
+            onChanged: (v) {
+              themeController.setMode(v ?? ThemeMode.system);
+              setState(() {});
+            },
+            title: Text(l.settingsThemeSystem),
+          ),
+          RadioListTile<ThemeMode>(
+            value: ThemeMode.light,
+            groupValue: themeController.mode,
+            onChanged: (v) {
+              themeController.setMode(v ?? ThemeMode.light);
+              setState(() {});
+            },
+            title: Text(l.settingsThemeLight),
+          ),
+          RadioListTile<ThemeMode>(
+            value: ThemeMode.dark,
+            groupValue: themeController.mode,
+            onChanged: (v) {
+              themeController.setMode(v ?? ThemeMode.dark);
+              setState(() {});
+            },
+            title: Text(l.settingsThemeDark),
           ),
 
           const SizedBox(height: 16),

@@ -4,6 +4,7 @@
   "appTitle": "BioSpotter",
 
   "loginTitle": "BioSpotter",
+  "loginTagline": "Fedezd fel a természetet, egy fotóval",
   "loginEmail": "Email",
   "loginPassword": "Jelszó",
   "loginDisplayName": "Megjelenített név",
@@ -346,5 +347,24 @@
 
   "settingsTitle": "Beállítások",
   "settingsLanguage": "Nyelv",
-  "settingsSystemLanguage": "Rendszer nyelve"
+  "settingsSystemLanguage": "Rendszer nyelve",
+  "settingsAppearance": "Megjelenés",
+  "settingsThemeSystem": "Rendszer",
+  "settingsThemeLight": "Világos",
+  "settingsThemeDark": "Sötét",
+  "navHome": "Kezdőlap",
+  "navMap": "Térkép",
+  "navCamera": "Kamera",
+  "navObservations": "Megfigyelések",
+  "navProfile": "Profil",
+  "homeSubtitle": "Fedezd fel és azonosítsd a környezeted élővilágát",
+  "homeNewObservationHint": "Fotózz egy fajt, és azonosítsd",
+  "homeObservationsLabel": "Megfigyelés",
+  "homeSpeciesLabel": "Azonosított faj",
+  "homeRecent": "Legutóbbi megfigyelések",
+  "homeGroups": "Csoportok",
+  "homeGroupsHint": "Csatlakozz közösségekhez, kövesd mások észleléseit",
+  "homeBounties": "Kitűzések",
+  "homeBountiesHint": "Keress ritka fajokat, szerezz pontokat"
+
 }

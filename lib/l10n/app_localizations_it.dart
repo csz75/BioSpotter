@@ -15,6 +15,9 @@ class AppLocalizationsIt extends AppLocalizations {
   String get loginTitle => 'BioSpotter';
 
   @override
+  String get loginTagline => 'Scopri la natura, una foto alla volta';
+
+  @override
   String get loginEmail => 'Email';
 
   @override
@@ -803,4 +806,59 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get settingsSystemLanguage => 'Lingua di sistema';
+
+  @override
+  String get settingsAppearance => 'Aspetto';
+
+  @override
+  String get settingsThemeSystem => 'Sistema';
+
+  @override
+  String get settingsThemeLight => 'Chiaro';
+
+  @override
+  String get settingsThemeDark => 'Scuro';
+
+  @override
+  String get navHome => 'Home';
+
+  @override
+  String get navMap => 'Mappa';
+
+  @override
+  String get navCamera => 'Fotocamera';
+
+  @override
+  String get navObservations => 'Osservazioni';
+
+  @override
+  String get navProfile => 'Profilo';
+
+  @override
+  String get homeSubtitle => 'Scopri e identifica la natura intorno a te';
+
+  @override
+  String get homeNewObservationHint => 'Fotografa una specie e identificala';
+
+  @override
+  String get homeObservationsLabel => 'Osservazioni';
+
+  @override
+  String get homeSpeciesLabel => 'Specie identificate';
+
+  @override
+  String get homeRecent => 'Osservazioni recenti';
+
+  @override
+  String get homeGroups => 'Gruppi';
+
+  @override
+  String get homeGroupsHint =>
+      'Unisciti alle comunità e segui gli avvistamenti';
+
+  @override
+  String get homeBounties => 'Ricompense';
+
+  @override
+  String get homeBountiesHint => 'Cerca specie rare e guadagna punti';
 }

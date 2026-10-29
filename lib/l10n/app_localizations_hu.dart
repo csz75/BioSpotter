@@ -15,6 +15,9 @@ class AppLocalizationsHu extends AppLocalizations {
   String get loginTitle => 'BioSpotter';
 
   @override
+  String get loginTagline => 'Fedezd fel a természetet, egy fotóval';
+
+  @override
   String get loginEmail => 'Email';
 
   @override
@@ -799,4 +802,60 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get settingsSystemLanguage => 'Rendszer nyelve';
+
+  @override
+  String get settingsAppearance => 'Megjelenés';
+
+  @override
+  String get settingsThemeSystem => 'Rendszer';
+
+  @override
+  String get settingsThemeLight => 'Világos';
+
+  @override
+  String get settingsThemeDark => 'Sötét';
+
+  @override
+  String get navHome => 'Kezdőlap';
+
+  @override
+  String get navMap => 'Térkép';
+
+  @override
+  String get navCamera => 'Kamera';
+
+  @override
+  String get navObservations => 'Megfigyelések';
+
+  @override
+  String get navProfile => 'Profil';
+
+  @override
+  String get homeSubtitle =>
+      'Fedezd fel és azonosítsd a környezeted élővilágát';
+
+  @override
+  String get homeNewObservationHint => 'Fotózz egy fajt, és azonosítsd';
+
+  @override
+  String get homeObservationsLabel => 'Megfigyelés';
+
+  @override
+  String get homeSpeciesLabel => 'Azonosított faj';
+
+  @override
+  String get homeRecent => 'Legutóbbi megfigyelések';
+
+  @override
+  String get homeGroups => 'Csoportok';
+
+  @override
+  String get homeGroupsHint =>
+      'Csatlakozz közösségekhez, kövesd mások észleléseit';
+
+  @override
+  String get homeBounties => 'Kitűzések';
+
+  @override
+  String get homeBountiesHint => 'Keress ritka fajokat, szerezz pontokat';
 }

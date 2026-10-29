@@ -243,4 +243,22 @@ class ObservationRepository {
   String photoUrl(String storagePath) {
     return _client.storage.from('photos').getPublicUrl(storagePath);
   }
+  
+    /// A bejelentkezett felhasználó megjelenített neve (public.users).
+  Future<String?> fetchDisplayName() async {
+    final user = _client.auth.currentUser;
+    if (user == null) return null;
+    try {
+      final res = await _client
+          .from('users')
+          .select('display_name')
+          .eq('id', user.id)
+          .maybeSingle();
+      final name = (res?['display_name'] as String?)?.trim();
+      return (name == null || name.isEmpty) ? null : name;
+    } catch (_) {
+      return null;
+    }
+  }
+
 }

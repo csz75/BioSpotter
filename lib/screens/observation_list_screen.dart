@@ -109,47 +109,20 @@ class _ObservationListScreenState
                 ],
               );
             }
-            return ListView.separated(
+            return ListView.builder(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 88),
               itemCount: items.length,
-              separatorBuilder: (_, __) => const Divider(height: 1),
               itemBuilder: (context, i) {
                 final o = items[i];
-                final when = o.observedAt != null
-                    ? o.observedAt!.toLocal().toString().substring(0, 16)
-                    : '';
-                final name = o.hasSpecies
-                    ? o.displayNameFor(lang)
-                    : l.observationsUnknownSpecies;
-
-                // A listában a miniatűrt használjuk, ha van; egyébként a nagy fotót.
-                final listPath = o.listPhotoPath;
-
-                return ListTile(
-                  leading: listPath != null
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(6),
-                          child: Image.network(
-                            ref
-                                .read(observationRepositoryProvider)
-                                .photoUrl(listPath),
-                            width: 56,
-                            height: 56,
-                            fit: BoxFit.cover,
-                            errorBuilder: (_, __, ___) => const SizedBox(
-                              width: 56,
-                              height: 56,
-                              child: Icon(Icons.broken_image),
-                            ),
-                          ),
-                        )
-                      : const Icon(Icons.park),
-                  title: Text(name),
-                  subtitle: Text(
-                    '${o.latitude.toStringAsFixed(4)}, '
-                    '${o.longitude.toStringAsFixed(4)}'
-                    '${when.isNotEmpty ? ' · $when' : ''}',
-                  ),
-                  trailing: const Icon(Icons.chevron_right),
+                return _ObservationCard(
+                  observation: o,
+                  lang: lang,
+                  photoUrl: o.photoPath != null
+                      ? ref
+                          .read(observationRepositoryProvider)
+                          .photoUrl(o.photoPath!)
+                      : null,
                   onTap: () => _showDetail(context, o, l, lang),
                 );
               },
@@ -184,9 +157,9 @@ class _ObservationListScreenState
         maxChildSize: 0.95,
         expand: false,
         builder: (ctx, scrollController) => Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+          decoration: BoxDecoration(
+            color: Theme.of(ctx).colorScheme.surface,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
           ),
           child: ListView(
             controller: scrollController,
@@ -198,7 +171,8 @@ class _ObservationListScreenState
                   height: 4,
                   margin: const EdgeInsets.only(bottom: 12),
                   decoration: BoxDecoration(
-                    color: Colors.black26,
+                    color: Theme.of(ctx).colorScheme.onSurfaceVariant
+                        .withValues(alpha: 0.4),
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -671,6 +645,146 @@ class _FullImageScreen extends StatelessWidget {
               child: Icon(Icons.broken_image, color: Colors.white, size: 64),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+/// Egy megfigyelés kártyája a listában.
+class _ObservationCard extends StatelessWidget {
+  const _ObservationCard({
+    required this.observation,
+    required this.lang,
+    required this.onTap,
+    this.photoUrl,
+  });
+
+  final Observation observation;
+  final String lang;
+  final VoidCallback onTap;
+  final String? photoUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final scheme = Theme.of(context).colorScheme;
+
+    final name = observation.hasSpecies
+        ? observation.displayNameFor(lang)
+        : l.observationsUnknownSpecies;
+    final when = observation.observedAt != null
+        ? observation.observedAt!.toLocal().toString().substring(0, 16)
+        : '';
+
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
+        child: Row(
+          children: [
+            // Fotó
+            SizedBox(
+              width: 96,
+              height: 96,
+              child: photoUrl != null
+                  ? Image.network(
+                      photoUrl!,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => Container(
+                        color: scheme.surfaceContainerHighest,
+                        child: Icon(Icons.broken_image,
+                            color: scheme.onSurfaceVariant),
+                      ),
+                    )
+                  : Container(
+                      color: scheme.surfaceContainerHighest,
+                      child: Icon(Icons.park,
+                          size: 36, color: scheme.onSurfaceVariant),
+                    ),
+            ),
+
+            // Szöveg
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                    if (observation.scientificName != null &&
+                        observation.scientificName != name) ...[
+                      const SizedBox(height: 2),
+                      Text(
+                        observation.scientificName!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall
+                            ?.copyWith(
+                              fontStyle: FontStyle.italic,
+                              color: scheme.onSurfaceVariant,
+                            ),
+                      ),
+                    ],
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Icon(Icons.place_outlined,
+                            size: 14, color: scheme.onSurfaceVariant),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            '${observation.latitude.toStringAsFixed(4)}, '
+                            '${observation.longitude.toStringAsFixed(4)}',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(color: scheme.onSurfaceVariant),
+                          ),
+                        ),
+                      ],
+                    ),
+                    if (when.isNotEmpty) ...[
+                      const SizedBox(height: 2),
+                      Row(
+                        children: [
+                          Icon(Icons.schedule,
+                              size: 14, color: scheme.onSurfaceVariant),
+                          const SizedBox(width: 4),
+                          Text(
+                            when,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(color: scheme.onSurfaceVariant),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: Icon(Icons.chevron_right,
+                  color: scheme.onSurfaceVariant),
+            ),
+          ],
         ),
       ),
     );

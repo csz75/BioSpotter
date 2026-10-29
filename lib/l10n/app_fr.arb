@@ -4,6 +4,7 @@
   "appTitle": "BioSpotter",
 
   "loginTitle": "BioSpotter",
+  "loginTagline": "Découvrez la nature, une photo à la fois",
   "loginEmail": "E-mail",
   "loginPassword": "Mot de passe",
   "loginDisplayName": "Nom affiché",
@@ -263,5 +264,24 @@
 
   "settingsTitle": "Réglages",
   "settingsLanguage": "Langue",
-  "settingsSystemLanguage": "Langue du système"
+  "settingsSystemLanguage": "Langue du système",
+  "settingsAppearance": "Apparence",
+  "settingsThemeSystem": "Système",
+  "settingsThemeLight": "Clair",
+  "settingsThemeDark": "Sombre",
+  "navHome": "Accueil",
+  "navMap": "Carte",
+  "navCamera": "Caméra",
+  "navObservations": "Observations",
+  "navProfile": "Profil",
+  "homeSubtitle": "Découvrez et identifiez la nature qui vous entoure",
+  "homeNewObservationHint": "Photographiez une espèce et identifiez-la",
+  "homeObservationsLabel": "Observations",
+  "homeSpeciesLabel": "Espèces identifiées",
+  "homeRecent": "Observations récentes",
+  "homeGroups": "Groupes",
+  "homeGroupsHint": "Rejoignez des communautés et suivez les observations",
+  "homeBounties": "Récompenses",
+  "homeBountiesHint": "Cherchez des espèces rares et gagnez des points"
+
 }
