@@ -562,6 +562,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get premiumTestNote => 'Developer mode — no payment for now.';
 
   @override
+  String get premiumScreenTitle => 'Premium subscription';
+
+  @override
   String get premiumTestTitle => 'Enable premium?';
 
   @override
@@ -576,6 +579,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get premiumDeactivate => 'Reset to free (test)';
+
+  @override
+  String get premiumManage => 'Manage';
 
   @override
   String get premiumDeactivated => 'Reset to free.';

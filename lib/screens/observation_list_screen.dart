@@ -8,6 +8,7 @@ import '../features/identification/species_suggestion.dart';
 import '../features/observations/observation.dart';
 import '../l10n/app_localizations.dart';
 import 'species_search_screen.dart';
+import 'search_screen.dart';
 
 class ObservationListScreen extends ConsumerStatefulWidget {
   const ObservationListScreen({super.key});
@@ -79,6 +80,13 @@ class _ObservationListScreenState
       appBar: AppBar(
         title: Text(l.observationsTitle),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            tooltip: l.searchTitle,
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const SearchScreen()),
+            ),
+          ),
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () => _reload(),

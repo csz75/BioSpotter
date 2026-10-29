@@ -564,6 +564,9 @@ class AppLocalizationsHu extends AppLocalizations {
   String get premiumTestNote => 'Fejlesztői mód — egyelőre fizetés nélkül.';
 
   @override
+  String get premiumScreenTitle => 'Prémium előfizetés';
+
+  @override
   String get premiumTestTitle => 'Prémium bekapcsolása?';
 
   @override
@@ -578,6 +581,9 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get premiumDeactivate => 'Visszaállítás ingyenesre (teszt)';
+
+  @override
+  String get premiumManage => 'Kezelés';
 
   @override
   String get premiumDeactivated => 'Visszaállítva ingyenesre.';

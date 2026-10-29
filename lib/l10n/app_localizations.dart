@@ -1128,6 +1128,12 @@ abstract class AppLocalizations {
   /// **'Fejlesztői mód — egyelőre fizetés nélkül.'**
   String get premiumTestNote;
 
+  /// No description provided for @premiumScreenTitle.
+  ///
+  /// In hu, this message translates to:
+  /// **'Prémium előfizetés'**
+  String get premiumScreenTitle;
+
   /// No description provided for @premiumTestTitle.
   ///
   /// In hu, this message translates to:
@@ -1157,6 +1163,12 @@ abstract class AppLocalizations {
   /// In hu, this message translates to:
   /// **'Visszaállítás ingyenesre (teszt)'**
   String get premiumDeactivate;
+
+  /// No description provided for @premiumManage.
+  ///
+  /// In hu, this message translates to:
+  /// **'Kezelés'**
+  String get premiumManage;
 
   /// No description provided for @premiumDeactivated.
   ///

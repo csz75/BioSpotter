@@ -28,7 +28,6 @@ class _MapScreenState extends ConsumerState<MapScreen> {
 
   List<Observation> _community = const [];
   bool _loadingCommunity = false;
-  bool? _isPremium;
 
   /// Megjelenjenek-e a közösségi (mások) megfigyelései is.
   bool _showCommunity = false;
@@ -45,7 +44,6 @@ class _MapScreenState extends ConsumerState<MapScreen> {
   void initState() {
     super.initState();
     _mineFuture = ref.read(observationRepositoryProvider).fetchMine();
-    _checkPremium();
   }
 
   @override
@@ -56,12 +54,6 @@ class _MapScreenState extends ConsumerState<MapScreen> {
   }
 
   // ── Betöltések ──────────────────────────────────────────────────────
-
-  Future<void> _checkPremium() async {
-    final premium = await ref.read(searchRepositoryProvider).isPremium();
-    if (!mounted) return;
-    setState(() => _isPremium = premium);
-  }
 
   /// A közösségi pontok betöltése — a keresőszöveggel szűrve.
   Future<void> _loadCommunity() async {
@@ -140,6 +132,9 @@ class _MapScreenState extends ConsumerState<MapScreen> {
     final l = AppLocalizations.of(context);
     final lang = _langCode(context);
 
+    // A prémium állapot közös providerből — friss aktiválás után is helyes.
+    final isPremium = ref.watch(premiumProvider).valueOrNull ?? false;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(l.mapTitle),
@@ -165,7 +160,6 @@ class _MapScreenState extends ConsumerState<MapScreen> {
               decoration: InputDecoration(
                 hintText: l.mapSearchHint,
                 prefixIcon: const Icon(Icons.search),
-                border: const OutlineInputBorder(),
                 isDense: true,
                 suffixIcon: _searchController.text.isNotEmpty
                     ? IconButton(
@@ -199,10 +193,9 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                     _nameFilter(_valid(snapshot.data ?? const []));
 
                 // A közösségi réteget már a szerver szűrte.
-                final communityFiltered =
-                    (_showCommunity && _isPremium == true)
-                        ? _valid(_community)
-                        : <Observation>[];
+                final communityFiltered = (_showCommunity && isPremium)
+                    ? _valid(_community)
+                    : <Observation>[];
 
                 final all = [...mineFiltered, ...communityFiltered];
                 final center = all.isNotEmpty
@@ -320,7 +313,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                     Positioned(
                       top: 12,
                       right: 12,
-                      child: _isPremium == true
+                      child: isPremium
                           ? Card(
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(

@@ -9,6 +9,7 @@ import '../features/observations/observation.dart';
 import '../features/search/observation_filter.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/observation_detail_sheet.dart';
+import 'premium_screen.dart';
 
 /// Megfigyelés-keresés — két mód:
 ///  • Saját      — a bejelentkezett felhasználó megfigyelései (kliens-oldali szűrés)
@@ -37,7 +38,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
   List<Observation> _community = const [];
   bool _loadingCommunity = false;
   String? _errorCommunity;
-  bool? _isPremium;
 
   /// A közösségi fül szerveroldali újratöltésének késleltetése.
   Timer? _debounce;
@@ -49,11 +49,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
     _tabs.addListener(() {
       if (!_tabs.indexIsChanging) {
         setState(() {});
-        if (_tabs.index == 1 && _isPremium == true) _loadCommunity();
+        // A közösségi fül aktiválásakor betöltünk (a prémiumot a
+        // loadCommunity úgyis ellenőrzi a szerveren).
+        if (_tabs.index == 1 && _community.isEmpty) _loadCommunity();
       }
     });
     _loadMine();
-    _checkPremium();
   }
 
   @override
@@ -86,12 +87,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
         _loadingMine = false;
       });
     }
-  }
-
-  Future<void> _checkPremium() async {
-    final premium = await ref.read(searchRepositoryProvider).isPremium();
-    if (!mounted) return;
-    setState(() => _isPremium = premium);
   }
 
   Future<void> _loadCommunity() async {
@@ -183,8 +178,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
       return;
     }
 
-    await _checkPremium();
-    if (!mounted) return;
+    // A közös prémium állapot érvénytelenítése — minden képernyő frissül.
+    ref.invalidate(premiumProvider);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(AppLocalizations.of(context).premiumActivated)),
     );
@@ -201,7 +196,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
       return;
     }
 
-    await _checkPremium();
+    ref.invalidate(premiumProvider);
     if (!mounted) return;
     setState(() => _community = const []);
     ScaffoldMessenger.of(context).showSnackBar(
@@ -214,6 +209,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
+
+    // A prémium állapot közös providerből — friss aktiválás után is helyes.
+    final isPremium = ref.watch(premiumProvider).valueOrNull ?? false;
 
     return Scaffold(
       appBar: AppBar(
@@ -238,9 +236,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
-                    (_isPremium == true)
-                        ? Icons.public
-                        : Icons.lock_outline,
+                    isPremium ? Icons.public : Icons.lock_outline,
                     size: 16,
                   ),
                   const SizedBox(width: 6),
@@ -265,7 +261,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
               decoration: InputDecoration(
                 hintText: l.searchFieldHint,
                 prefixIcon: const Icon(Icons.search),
-                border: const OutlineInputBorder(),
                 suffixIcon: _controller.text.isNotEmpty
                     ? IconButton(
                         icon: const Icon(Icons.clear),
@@ -361,7 +356,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
               controller: _tabs,
               children: [
                 _mineTab(l),
-                _communityTab(l),
+                _communityTab(l, isPremium),
               ],
             ),
           ),
@@ -392,7 +387,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
         label: Text(label),
         selected: _filter.identifiedOnly == value,
         onSelected: (_) => _onFilterChanged(() {
-          _filter = _filter.identifiedOnly == value
+          _filter.identifiedOnly == value
               ? _filter.copyWith(clearIdentified: true)
               : _filter.copyWith(identifiedOnly: value);
         }),
@@ -454,11 +449,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
 
   // ── Közösségi fül ───────────────────────────────────────────────────
 
-  Widget _communityTab(AppLocalizations l) {
-    if (_isPremium == null) {
-      return const Center(child: CircularProgressIndicator());
-    }
-    if (_isPremium == false) {
+  Widget _communityTab(AppLocalizations l, bool isPremium) {
+    if (!isPremium) {
       return _premiumPaywall(l);
     }
 
@@ -468,12 +460,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
       children: [
         // Prémium jelzés + visszaállítás (fejlesztői teszt)
         Container(
-          color: const Color(0xFFE8EEF7),
+          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.08),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           child: Row(
             children: [
-              const Icon(Icons.workspace_premium,
-                  size: 16, color: Color(0xFF1F3864)),
+              Icon(Icons.workspace_premium,
+                  size: 16, color: Theme.of(context).colorScheme.primary),
               const SizedBox(width: 6),
               Expanded(
                 child: Text(
@@ -482,8 +474,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                 ),
               ),
               TextButton(
-                onPressed: _disableTestPremium,
-                child: Text(l.premiumDeactivate),
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const PremiumScreen()),
+                ),
+                child: Text(l.premiumManage),
               ),
             ],
           ),
@@ -551,7 +545,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 420),
           child: Card(
-            elevation: 2,
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
@@ -608,7 +601,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [
-          const Icon(Icons.check_circle, size: 18, color: Color(0xFF2E7D32)),
+          const Icon(Icons.check_circle, size: 18, color: Color(0xFF3A6B4A)),
           const SizedBox(width: 8),
           Expanded(child: Text(text)),
         ],

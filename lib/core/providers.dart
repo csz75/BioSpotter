@@ -15,6 +15,8 @@ import '../features/bounties/bounty_repository.dart';
 
 import '../features/moderator/moderator_repository.dart';
 
+import '../features/search/search_repository.dart';
+
 
 final supabaseClientProvider = Provider<SupabaseClient>(
   (ref) => Supabase.instance.client,
@@ -64,6 +66,12 @@ final bountyRepositoryProvider = Provider<BountyRepository>(
 final moderatorRepositoryProvider = Provider<ModeratorRepository>(
   (ref) => ModeratorRepository(ref.watch(supabaseClientProvider)),
 );
+
+/// A bejelentkezett felhasználó prémium állapota — közös minden képernyőn.
+final premiumProvider = FutureProvider<bool>((ref) async {
+  return ref.watch(searchRepositoryProvider).isPremium();
+});
+
 
 
 

@@ -10,6 +10,8 @@ import 'delete_account_screen.dart';
 import 'legal_screen.dart';
 import 'moderator_screen.dart';
 
+import 'premium_screen.dart';
+
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
 
@@ -107,6 +109,23 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               setState(() {});
             },
             title: Text(l.settingsThemeDark),
+          ),
+
+          const SizedBox(height: 16),
+          const Divider(),
+
+          // ── Prémium ───────────────────────────────────────────────
+          ListTile(
+            leading: const Icon(
+              Icons.workspace_premium,
+              color: Color(0xFFB8863B),
+            ),
+            title: Text(l.premiumScreenTitle),
+            subtitle: Text(l.premiumSubtitle),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const PremiumScreen()),
+            ),
           ),
 
           const SizedBox(height: 16),

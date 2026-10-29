@@ -567,6 +567,9 @@ class AppLocalizationsIt extends AppLocalizations {
       'Modalità sviluppatore — per ora senza pagamento.';
 
   @override
+  String get premiumScreenTitle => 'Abbonamento Premium';
+
+  @override
   String get premiumTestTitle => 'Attivare Premium?';
 
   @override
@@ -581,6 +584,9 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get premiumDeactivate => 'Ripristina a gratuito (test)';
+
+  @override
+  String get premiumManage => 'Gestisci';
 
   @override
   String get premiumDeactivated => 'Ripristinato a gratuito.';

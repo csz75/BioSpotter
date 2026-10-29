@@ -562,6 +562,9 @@ class AppLocalizationsPl extends AppLocalizations {
   String get premiumTestNote => 'Tryb deweloperski — na razie bez płatności.';
 
   @override
+  String get premiumScreenTitle => 'Subskrypcja Premium';
+
+  @override
   String get premiumTestTitle => 'Aktywować Premium?';
 
   @override
@@ -576,6 +579,9 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get premiumDeactivate => 'Przywróć darmowy (test)';
+
+  @override
+  String get premiumManage => 'Zarządzaj';
 
   @override
   String get premiumDeactivated => 'Przywrócono darmowy.';
