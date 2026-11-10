@@ -15,7 +15,7 @@
 <p>Átirányítás…</p>
 
 <script>
-  // A Supabase a hash-ben (?hiba esetén) vagy a query stringben adja át az adatokat.
+  // A Supabase a hash-ben (hiba esetén) vagy a query stringben adja át az adatokat.
   const hash  = window.location.hash.replace(/^#/, '');
   const query = window.location.search.replace(/^\?/, '');
   const params = new URLSearchParams(hash || query);
@@ -27,9 +27,9 @@
     params.has('token_hash');
 
   const TARGETS = {
-    success: '[biospotter.com](https://biospotter.com/success)',
-    expired: '[biospotter.com](https://biospotter.com/expired)',
-    neither: '[biospotter.com](https://biospotter.com/neither)'
+    success: 'https://biospotter.com/success',
+    expired: 'https://biospotter.com/expired',
+    neither: 'https://biospotter.com/neither'
   };
 
   let state = 'neither';
