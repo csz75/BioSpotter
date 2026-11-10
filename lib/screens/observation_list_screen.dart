@@ -242,7 +242,9 @@ class _ObservationListScreenState
                 o.longitude.toStringAsFixed(5),
               )),
               if (o.observedAt != null)
-                Text(l.observationsDateTime(o.observedAt!.toLocal().toString())),
+                Text(l.observationsDateTime(
+                  o.observedAt!.toLocal().toString().substring(0, 16),
+                )),
 
               // ── Moderációs állapot ─────────────────────────────────
               if (!o.isPublished) ...[
