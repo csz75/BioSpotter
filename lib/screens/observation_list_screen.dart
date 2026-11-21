@@ -496,9 +496,9 @@ class _ObservationListScreenState
           final maxHeight = MediaQuery.of(ctx).size.height * 0.85;
           return Container(
             constraints: BoxConstraints(maxHeight: maxHeight),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+            decoration: BoxDecoration(
+              color: Theme.of(ctx).colorScheme.surface,
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
             ),
             child: SafeArea(
               child: Column(

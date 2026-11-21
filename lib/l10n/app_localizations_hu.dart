@@ -57,6 +57,83 @@ class AppLocalizationsHu extends AppLocalizations {
   }
 
   @override
+  String get loginForgotPassword => 'Elfelejtetted a jelszavad?';
+
+  @override
+  String get forgotPasswordTitle => 'Jelszó visszaállítása';
+
+  @override
+  String get forgotPasswordHeading => 'Elfelejtetted a jelszavad?';
+
+  @override
+  String get forgotPasswordBody =>
+      'Add meg az e-mail-címed, és küldünk egy 8 jegyű kódot, amivel új jelszót állíthatsz be.';
+
+  @override
+  String get forgotPasswordSendButton => 'Kód küldése';
+
+  @override
+  String forgotPasswordSent(String email) {
+    return 'Elküldtük a kódot erre a címre: $email';
+  }
+
+  @override
+  String get forgotPasswordBack => 'Vissza a belépéshez';
+
+  @override
+  String get resetPasswordTitle => 'Új jelszó megadása';
+
+  @override
+  String get resetPasswordHeading => 'Add meg a kódot és az új jelszavad';
+
+  @override
+  String resetPasswordBody(String email) {
+    return 'Elküldtük a kódot ide: $email. Add meg lent, az új jelszavaddal együtt.';
+  }
+
+  @override
+  String get resetPasswordCodeLabel => '8 jegyű kód';
+
+  @override
+  String get resetPasswordCodeRequired => 'Add meg a kapott kódot';
+
+  @override
+  String get resetPasswordNewPasswordLabel => 'Új jelszó';
+
+  @override
+  String get resetPasswordConfirmLabel => 'Új jelszó megerősítése';
+
+  @override
+  String get resetPasswordMismatch => 'A két jelszó nem egyezik';
+
+  @override
+  String get resetPasswordSubmit => 'Jelszó visszaállítása';
+
+  @override
+  String get resetPasswordSuccess => 'A jelszavad megváltozott.';
+
+  @override
+  String get resetPasswordResend => 'Kód újraküldése';
+
+  @override
+  String get resetPasswordResent => 'Új kódot küldtünk.';
+
+  @override
+  String get changePasswordTitle => 'Jelszó módosítása';
+
+  @override
+  String get changePasswordNewLabel => 'Új jelszó';
+
+  @override
+  String get changePasswordConfirmLabel => 'Új jelszó megerősítése';
+
+  @override
+  String get changePasswordSubmit => 'Mentés';
+
+  @override
+  String get changePasswordSuccess => 'A jelszó megváltozott.';
+
+  @override
   String get verifyEmailTitle => 'E-mail megerősítése';
 
   @override

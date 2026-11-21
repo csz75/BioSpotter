@@ -6,6 +6,7 @@ import '../core/providers.dart';
 import '../core/theme/theme_controller.dart';
 import '../l10n/app_localizations.dart';
 import '../legal/legal_texts.dart';
+import 'change_password_screen.dart';
 import 'delete_account_screen.dart';
 import 'legal_screen.dart';
 import 'moderator_screen.dart';
@@ -125,6 +126,20 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             trailing: const Icon(Icons.chevron_right),
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(builder: (_) => const PremiumScreen()),
+            ),
+          ),
+
+          const SizedBox(height: 16),
+          const Divider(),
+
+          // ── Fiók ─────────────────────────────────────────────────
+          ListTile(
+            leading: const Icon(Icons.password_outlined),
+            title: Text(l.changePasswordTitle),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const ChangePasswordScreen(),
+              ),
             ),
           ),
 

@@ -4,7 +4,9 @@ import 'package:flutter/services.dart';
 
 import '../core/providers.dart';
 import '../l10n/app_localizations.dart';
+import 'forgot_password_screen.dart';
 import 'main_shell.dart';
+import 'verify_email_screen.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -54,11 +56,27 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     try {
       final auth = ref.read(authServiceProvider);
       if (_isSignUp) {
-        await auth.signUp(
+        final res = await auth.signUp(
           email: _email.text.trim(),
           password: _password.text,
           displayName: _name.text.trim(),
         );
+
+        // Email megerősítés ellenőrzése — ha még nincs megerősítve,
+        // a megerősítő képernyőre megyünk, nem a főképernyőre.
+        final user = res.user;
+        if (user != null && user.emailConfirmedAt == null) {
+          if (!mounted) return;
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (_) => VerifyEmailScreen(
+                email: _email.text.trim(),
+                password: _password.text,
+              ),
+            ),
+          );
+          return;
+        }
       } else {
         await auth.signIn(
           email: _email.text.trim(),
@@ -92,7 +110,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         onTap: () => FocusScope.of(context).unfocus(),
         child: Column(
           children: [
-            // ── Fejléc gradiens sáv (logó + szlogen) ─────────────
             // ── Fejléc sáv (logó + szlogen) ──────────────────────
             Container(
               width: double.infinity,
@@ -227,7 +244,24 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               return null;
                             },
                           ),
-                          const SizedBox(height: 24),
+                          if (!_isSignUp) ...[
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: TextButton(
+                                onPressed: () {
+                                  FocusScope.of(context).unfocus();
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (_) =>
+                                          const ForgotPasswordScreen(),
+                                    ),
+                                  );
+                                },
+                                child: Text(l.loginForgotPassword),
+                              ),
+                            ),
+                          ],
+                          const SizedBox(height: 8),
                           FilledButton(
                             onPressed: _loading ? null : _submit,
                             child: _loading

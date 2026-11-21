@@ -58,6 +58,84 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get loginForgotPassword => '¿Olvidaste tu contraseña?';
+
+  @override
+  String get forgotPasswordTitle => 'Restablecer contraseña';
+
+  @override
+  String get forgotPasswordHeading => '¿Olvidaste tu contraseña?';
+
+  @override
+  String get forgotPasswordBody =>
+      'Introduce tu correo electrónico y te enviaremos un código de 8 dígitos para establecer una nueva contraseña.';
+
+  @override
+  String get forgotPasswordSendButton => 'Enviar código';
+
+  @override
+  String forgotPasswordSent(String email) {
+    return 'Enviamos un código a $email';
+  }
+
+  @override
+  String get forgotPasswordBack => 'Volver al inicio de sesión';
+
+  @override
+  String get resetPasswordTitle => 'Establecer nueva contraseña';
+
+  @override
+  String get resetPasswordHeading =>
+      'Introduce el código y tu nueva contraseña';
+
+  @override
+  String resetPasswordBody(String email) {
+    return 'Enviamos un código a $email. Introdúcelo abajo junto con tu nueva contraseña.';
+  }
+
+  @override
+  String get resetPasswordCodeLabel => 'Código de 8 dígitos';
+
+  @override
+  String get resetPasswordCodeRequired => 'Introduce el código recibido';
+
+  @override
+  String get resetPasswordNewPasswordLabel => 'Nueva contraseña';
+
+  @override
+  String get resetPasswordConfirmLabel => 'Confirmar nueva contraseña';
+
+  @override
+  String get resetPasswordMismatch => 'Las contraseñas no coinciden';
+
+  @override
+  String get resetPasswordSubmit => 'Restablecer contraseña';
+
+  @override
+  String get resetPasswordSuccess => 'Tu contraseña ha sido cambiada.';
+
+  @override
+  String get resetPasswordResend => 'Reenviar código';
+
+  @override
+  String get resetPasswordResent => 'Se envió un nuevo código.';
+
+  @override
+  String get changePasswordTitle => 'Cambiar contraseña';
+
+  @override
+  String get changePasswordNewLabel => 'Nueva contraseña';
+
+  @override
+  String get changePasswordConfirmLabel => 'Confirmar nueva contraseña';
+
+  @override
+  String get changePasswordSubmit => 'Guardar';
+
+  @override
+  String get changePasswordSuccess => 'Contraseña cambiada.';
+
+  @override
   String get verifyEmailTitle => 'Verificar correo';
 
   @override

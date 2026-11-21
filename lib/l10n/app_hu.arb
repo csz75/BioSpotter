@@ -22,6 +22,40 @@
       "error": { "type": "String" }
     }
   },
+  "loginForgotPassword": "Elfelejtetted a jelszavad?",
+
+  "forgotPasswordTitle": "Jelszó visszaállítása",
+  "forgotPasswordHeading": "Elfelejtetted a jelszavad?",
+  "forgotPasswordBody": "Add meg az e-mail-címed, és küldünk egy 8 jegyű kódot, amivel új jelszót állíthatsz be.",
+  "forgotPasswordSendButton": "Kód küldése",
+  "forgotPasswordSent": "Elküldtük a kódot erre a címre: {email}",
+  "forgotPasswordBack": "Vissza a belépéshez",
+  "@forgotPasswordSent": {
+    "placeholders": { "email": { "type": "String" } }
+  },
+
+  "resetPasswordTitle": "Új jelszó megadása",
+  "resetPasswordHeading": "Add meg a kódot és az új jelszavad",
+  "resetPasswordBody": "Elküldtük a kódot ide: {email}. Add meg lent, az új jelszavaddal együtt.",
+  "resetPasswordCodeLabel": "8 jegyű kód",
+  "resetPasswordCodeRequired": "Add meg a kapott kódot",
+  "resetPasswordNewPasswordLabel": "Új jelszó",
+  "resetPasswordConfirmLabel": "Új jelszó megerősítése",
+  "resetPasswordMismatch": "A két jelszó nem egyezik",
+  "resetPasswordSubmit": "Jelszó visszaállítása",
+  "resetPasswordSuccess": "A jelszavad megváltozott.",
+  "resetPasswordResend": "Kód újraküldése",
+  "resetPasswordResent": "Új kódot küldtünk.",
+  "@resetPasswordBody": {
+    "placeholders": { "email": { "type": "String" } }
+  },
+
+  "changePasswordTitle": "Jelszó módosítása",
+  "changePasswordNewLabel": "Új jelszó",
+  "changePasswordConfirmLabel": "Új jelszó megerősítése",
+  "changePasswordSubmit": "Mentés",
+  "changePasswordSuccess": "A jelszó megváltozott.",
+
   "verifyEmailTitle": "E-mail megerősítése",
   "verifyEmailHeading": "Erősítsd meg az e-mail-címed",
   "verifyEmailBody": "Elküldtük a megerősítő levelet ide: {email}. A levélben lévő linkre kattintva aktiválódik a fiókod.",

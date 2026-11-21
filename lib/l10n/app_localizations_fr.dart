@@ -58,6 +58,84 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get loginForgotPassword => 'Mot de passe oublié ?';
+
+  @override
+  String get forgotPasswordTitle => 'Réinitialiser le mot de passe';
+
+  @override
+  String get forgotPasswordHeading => 'Mot de passe oublié ?';
+
+  @override
+  String get forgotPasswordBody =>
+      'Saisis ton adresse e-mail, nous t\'enverrons un code à 8 chiffres pour définir un nouveau mot de passe.';
+
+  @override
+  String get forgotPasswordSendButton => 'Envoyer le code';
+
+  @override
+  String forgotPasswordSent(String email) {
+    return 'Nous avons envoyé un code à $email';
+  }
+
+  @override
+  String get forgotPasswordBack => 'Retour à la connexion';
+
+  @override
+  String get resetPasswordTitle => 'Définir un nouveau mot de passe';
+
+  @override
+  String get resetPasswordHeading =>
+      'Saisis le code et ton nouveau mot de passe';
+
+  @override
+  String resetPasswordBody(String email) {
+    return 'Nous avons envoyé un code à $email. Saisis-le ci-dessous avec ton nouveau mot de passe.';
+  }
+
+  @override
+  String get resetPasswordCodeLabel => 'Code à 8 chiffres';
+
+  @override
+  String get resetPasswordCodeRequired => 'Saisis le code reçu';
+
+  @override
+  String get resetPasswordNewPasswordLabel => 'Nouveau mot de passe';
+
+  @override
+  String get resetPasswordConfirmLabel => 'Confirmer le nouveau mot de passe';
+
+  @override
+  String get resetPasswordMismatch => 'Les mots de passe ne correspondent pas';
+
+  @override
+  String get resetPasswordSubmit => 'Réinitialiser le mot de passe';
+
+  @override
+  String get resetPasswordSuccess => 'Ton mot de passe a été modifié.';
+
+  @override
+  String get resetPasswordResend => 'Renvoyer le code';
+
+  @override
+  String get resetPasswordResent => 'Un nouveau code a été envoyé.';
+
+  @override
+  String get changePasswordTitle => 'Modifier le mot de passe';
+
+  @override
+  String get changePasswordNewLabel => 'Nouveau mot de passe';
+
+  @override
+  String get changePasswordConfirmLabel => 'Confirmer le nouveau mot de passe';
+
+  @override
+  String get changePasswordSubmit => 'Enregistrer';
+
+  @override
+  String get changePasswordSuccess => 'Mot de passe modifié.';
+
+  @override
   String get verifyEmailTitle => 'Vérifier l\'e-mail';
 
   @override

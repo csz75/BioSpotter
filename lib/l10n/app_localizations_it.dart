@@ -58,6 +58,83 @@ class AppLocalizationsIt extends AppLocalizations {
   }
 
   @override
+  String get loginForgotPassword => 'Hai dimenticato la password?';
+
+  @override
+  String get forgotPasswordTitle => 'Reimposta password';
+
+  @override
+  String get forgotPasswordHeading => 'Hai dimenticato la password?';
+
+  @override
+  String get forgotPasswordBody =>
+      'Inserisci il tuo indirizzo e-mail e ti invieremo un codice a 8 cifre per impostare una nuova password.';
+
+  @override
+  String get forgotPasswordSendButton => 'Invia codice';
+
+  @override
+  String forgotPasswordSent(String email) {
+    return 'Abbiamo inviato un codice a $email';
+  }
+
+  @override
+  String get forgotPasswordBack => 'Torna al login';
+
+  @override
+  String get resetPasswordTitle => 'Imposta nuova password';
+
+  @override
+  String get resetPasswordHeading => 'Inserisci il codice e la nuova password';
+
+  @override
+  String resetPasswordBody(String email) {
+    return 'Abbiamo inviato un codice a $email. Inseriscilo qui sotto insieme alla nuova password.';
+  }
+
+  @override
+  String get resetPasswordCodeLabel => 'Codice a 8 cifre';
+
+  @override
+  String get resetPasswordCodeRequired => 'Inserisci il codice ricevuto';
+
+  @override
+  String get resetPasswordNewPasswordLabel => 'Nuova password';
+
+  @override
+  String get resetPasswordConfirmLabel => 'Conferma nuova password';
+
+  @override
+  String get resetPasswordMismatch => 'Le password non coincidono';
+
+  @override
+  String get resetPasswordSubmit => 'Reimposta password';
+
+  @override
+  String get resetPasswordSuccess => 'La tua password è stata modificata.';
+
+  @override
+  String get resetPasswordResend => 'Invia di nuovo il codice';
+
+  @override
+  String get resetPasswordResent => 'È stato inviato un nuovo codice.';
+
+  @override
+  String get changePasswordTitle => 'Modifica password';
+
+  @override
+  String get changePasswordNewLabel => 'Nuova password';
+
+  @override
+  String get changePasswordConfirmLabel => 'Conferma nuova password';
+
+  @override
+  String get changePasswordSubmit => 'Salva';
+
+  @override
+  String get changePasswordSuccess => 'Password modificata.';
+
+  @override
   String get verifyEmailTitle => 'Verifica e-mail';
 
   @override

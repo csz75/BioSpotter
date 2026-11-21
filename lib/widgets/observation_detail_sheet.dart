@@ -134,9 +134,9 @@ class _DetailBodyState extends ConsumerState<_DetailBody> {
         : l.observationsUnknownSpecies;
 
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      decoration: BoxDecoration(
+        color: Theme.of(ctx).colorScheme.surface,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
       ),
       child: ListView(
         controller: widget.scrollController,

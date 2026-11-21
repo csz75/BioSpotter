@@ -59,6 +59,7 @@ class SearchRepository {
       params: {
         'p_text': filter.text.trim().isEmpty ? null : filter.text.trim(),
         'p_group': filter.group,
+        'p_identified': filter.identifiedOnly,
         'p_from': filter.from?.toUtc().toIso8601String(),
         'p_to': filter.to?.toUtc().toIso8601String(),
         'p_lat': lat,

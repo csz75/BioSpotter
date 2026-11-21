@@ -21,7 +21,8 @@ class ObservationRepository {
           'id, user_id, species_id, observed_at, latitude, longitude, '
           'moderation_status, '
           'photos(storage_path, thumbnail_path), '
-          'species(scientific_name, common_name_hu, vernacular_names)',
+          'species(scientific_name, common_name_hu, vernacular_names, '
+          'taxonomy_json)',
         )
         .eq('user_id', user.id)
         .order('observed_at', ascending: false);

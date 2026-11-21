@@ -50,4 +50,29 @@ class AuthService {
   }
 
   Future<void> signOut() => _client.auth.signOut();
+
+  /// Elküldi a jelszó-visszaállító e-mailt (6 jegyű kóddal).
+  Future<void> resetPasswordForEmail(String email) {
+    return _client.auth.resetPasswordForEmail(
+      email,
+      redirectTo: '[csz75.github.io](https://csz75.github.io/BioSpotter/)',
+    );
+  }
+
+  /// Ellenőrzi az e-mailben kapott visszaállító kódot, és munkamenetet nyit.
+  Future<AuthResponse> verifyPasswordResetCode({
+    required String email,
+    required String code,
+  }) {
+    return _client.auth.verifyOTP(
+      type: OtpType.recovery,
+      token: code,
+      email: email,
+    );
+  }
+
+  /// Új jelszót állít be a (már ellenőrzött vagy bejelentkezett) felhasználónak.
+  Future<void> updatePassword(String newPassword) async {
+    await _client.auth.updateUser(UserAttributes(password: newPassword));
+  }
 }

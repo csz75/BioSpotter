@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../l10n/app_localizations.dart';
+import 'login_screen.dart';
 import 'observation_list_screen.dart';
 
 /// Fiók törlése — valójában anonimizálás.
@@ -43,13 +44,16 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
         return;
       }
 
-      // Siker: kijelentkeztetés.
+      // Siker: kijelentkeztetés, és vissza a bejelentkező képernyőre.
       await Supabase.instance.client.auth.signOut();
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(l.deleteAccountDone)),
       );
-      Navigator.of(context).popUntil((r) => r.isFirst);
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => const LoginScreen()),
+        (route) => false,
+      );
     } catch (e) {
       if (!mounted) return;
       setState(() => _busy = false);

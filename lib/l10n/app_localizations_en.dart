@@ -45,7 +45,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loginEmailInvalid => 'Invalid email address';
 
   @override
-  String get loginPasswordTooShort => 'Password must be at least 6 characters';
+  String get loginPasswordTooShort => 'Password must be at least 8 characters';
 
   @override
   String get loginEmailNotConfirmed =>
@@ -55,6 +55,83 @@ class AppLocalizationsEn extends AppLocalizations {
   String loginError(String error) {
     return 'Something went wrong: $error';
   }
+
+  @override
+  String get loginForgotPassword => 'Forgot your password?';
+
+  @override
+  String get forgotPasswordTitle => 'Reset password';
+
+  @override
+  String get forgotPasswordHeading => 'Forgot your password?';
+
+  @override
+  String get forgotPasswordBody =>
+      'Enter your email address and we\'ll send you a 6-digit code to set a new password.';
+
+  @override
+  String get forgotPasswordSendButton => 'Send code';
+
+  @override
+  String forgotPasswordSent(String email) {
+    return 'We sent a code to $email';
+  }
+
+  @override
+  String get forgotPasswordBack => 'Back to sign in';
+
+  @override
+  String get resetPasswordTitle => 'Set new password';
+
+  @override
+  String get resetPasswordHeading => 'Enter the code and your new password';
+
+  @override
+  String resetPasswordBody(String email) {
+    return 'We sent a code to $email. Enter it below along with your new password.';
+  }
+
+  @override
+  String get resetPasswordCodeLabel => '8-digit code';
+
+  @override
+  String get resetPasswordCodeRequired => 'Enter the code you received';
+
+  @override
+  String get resetPasswordNewPasswordLabel => 'New password';
+
+  @override
+  String get resetPasswordConfirmLabel => 'Confirm new password';
+
+  @override
+  String get resetPasswordMismatch => 'The passwords don\'t match';
+
+  @override
+  String get resetPasswordSubmit => 'Reset password';
+
+  @override
+  String get resetPasswordSuccess => 'Your password has been changed.';
+
+  @override
+  String get resetPasswordResend => 'Resend code';
+
+  @override
+  String get resetPasswordResent => 'A new code has been sent.';
+
+  @override
+  String get changePasswordTitle => 'Change password';
+
+  @override
+  String get changePasswordNewLabel => 'New password';
+
+  @override
+  String get changePasswordConfirmLabel => 'Confirm new password';
+
+  @override
+  String get changePasswordSubmit => 'Save';
+
+  @override
+  String get changePasswordSuccess => 'Password changed.';
 
   @override
   String get verifyEmailTitle => 'Verify email';

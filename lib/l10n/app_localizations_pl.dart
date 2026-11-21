@@ -45,7 +45,7 @@ class AppLocalizationsPl extends AppLocalizations {
   String get loginEmailInvalid => 'Nieprawidłowy adres e-mail';
 
   @override
-  String get loginPasswordTooShort => 'Hasło musi mieć co najmniej 6 znaków';
+  String get loginPasswordTooShort => 'Hasło musi mieć co najmniej 8 znaków';
 
   @override
   String get loginEmailNotConfirmed =>
@@ -55,6 +55,83 @@ class AppLocalizationsPl extends AppLocalizations {
   String loginError(String error) {
     return 'Wystąpił błąd: $error';
   }
+
+  @override
+  String get loginForgotPassword => 'Nie pamiętasz hasła?';
+
+  @override
+  String get forgotPasswordTitle => 'Resetowanie hasła';
+
+  @override
+  String get forgotPasswordHeading => 'Nie pamiętasz hasła?';
+
+  @override
+  String get forgotPasswordBody =>
+      'Podaj swój adres e-mail, a wyślemy Ci 8-cyfrowy kod do ustawienia nowego hasła.';
+
+  @override
+  String get forgotPasswordSendButton => 'Wyślij kod';
+
+  @override
+  String forgotPasswordSent(String email) {
+    return 'Wysłaliśmy kod na adres $email';
+  }
+
+  @override
+  String get forgotPasswordBack => 'Powrót do logowania';
+
+  @override
+  String get resetPasswordTitle => 'Ustaw nowe hasło';
+
+  @override
+  String get resetPasswordHeading => 'Podaj kod i nowe hasło';
+
+  @override
+  String resetPasswordBody(String email) {
+    return 'Wysłaliśmy kod na adres $email. Podaj go poniżej razem z nowym hasłem.';
+  }
+
+  @override
+  String get resetPasswordCodeLabel => '6-cyfrowy kod';
+
+  @override
+  String get resetPasswordCodeRequired => 'Podaj otrzymany kod';
+
+  @override
+  String get resetPasswordNewPasswordLabel => 'Nowe hasło';
+
+  @override
+  String get resetPasswordConfirmLabel => 'Potwierdź nowe hasło';
+
+  @override
+  String get resetPasswordMismatch => 'Hasła się nie zgadzają';
+
+  @override
+  String get resetPasswordSubmit => 'Zresetuj hasło';
+
+  @override
+  String get resetPasswordSuccess => 'Twoje hasło zostało zmienione.';
+
+  @override
+  String get resetPasswordResend => 'Wyślij kod ponownie';
+
+  @override
+  String get resetPasswordResent => 'Wysłano nowy kod.';
+
+  @override
+  String get changePasswordTitle => 'Zmień hasło';
+
+  @override
+  String get changePasswordNewLabel => 'Nowe hasło';
+
+  @override
+  String get changePasswordConfirmLabel => 'Potwierdź nowe hasło';
+
+  @override
+  String get changePasswordSubmit => 'Zapisz';
+
+  @override
+  String get changePasswordSuccess => 'Hasło zmienione.';
 
   @override
   String get verifyEmailTitle => 'Weryfikacja e-mail';

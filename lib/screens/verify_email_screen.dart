@@ -7,6 +7,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../core/providers.dart';
 import '../l10n/app_localizations.dart';
 import 'home_screen.dart';
+import 'main_shell.dart';
+
 
 /// „Erősítsd meg az e-mail-címed" — regisztráció után.
 ///
@@ -69,7 +71,7 @@ class _VerifyEmailScreenState extends ConsumerState<VerifyEmailScreen> {
       if (!mounted) return;
       _poll?.cancel();
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
+        MaterialPageRoute(builder: (_) => const MainShell()),
       );
     } on AuthException catch (e) {
       // Ha még nincs megerősítve, várunk tovább (csendes módban).

@@ -198,6 +198,150 @@ abstract class AppLocalizations {
   /// **'Hiba történt: {error}'**
   String loginError(String error);
 
+  /// No description provided for @loginForgotPassword.
+  ///
+  /// In hu, this message translates to:
+  /// **'Elfelejtetted a jelszavad?'**
+  String get loginForgotPassword;
+
+  /// No description provided for @forgotPasswordTitle.
+  ///
+  /// In hu, this message translates to:
+  /// **'Jelszó visszaállítása'**
+  String get forgotPasswordTitle;
+
+  /// No description provided for @forgotPasswordHeading.
+  ///
+  /// In hu, this message translates to:
+  /// **'Elfelejtetted a jelszavad?'**
+  String get forgotPasswordHeading;
+
+  /// No description provided for @forgotPasswordBody.
+  ///
+  /// In hu, this message translates to:
+  /// **'Add meg az e-mail-címed, és küldünk egy 8 jegyű kódot, amivel új jelszót állíthatsz be.'**
+  String get forgotPasswordBody;
+
+  /// No description provided for @forgotPasswordSendButton.
+  ///
+  /// In hu, this message translates to:
+  /// **'Kód küldése'**
+  String get forgotPasswordSendButton;
+
+  /// No description provided for @forgotPasswordSent.
+  ///
+  /// In hu, this message translates to:
+  /// **'Elküldtük a kódot erre a címre: {email}'**
+  String forgotPasswordSent(String email);
+
+  /// No description provided for @forgotPasswordBack.
+  ///
+  /// In hu, this message translates to:
+  /// **'Vissza a belépéshez'**
+  String get forgotPasswordBack;
+
+  /// No description provided for @resetPasswordTitle.
+  ///
+  /// In hu, this message translates to:
+  /// **'Új jelszó megadása'**
+  String get resetPasswordTitle;
+
+  /// No description provided for @resetPasswordHeading.
+  ///
+  /// In hu, this message translates to:
+  /// **'Add meg a kódot és az új jelszavad'**
+  String get resetPasswordHeading;
+
+  /// No description provided for @resetPasswordBody.
+  ///
+  /// In hu, this message translates to:
+  /// **'Elküldtük a kódot ide: {email}. Add meg lent, az új jelszavaddal együtt.'**
+  String resetPasswordBody(String email);
+
+  /// No description provided for @resetPasswordCodeLabel.
+  ///
+  /// In hu, this message translates to:
+  /// **'8 jegyű kód'**
+  String get resetPasswordCodeLabel;
+
+  /// No description provided for @resetPasswordCodeRequired.
+  ///
+  /// In hu, this message translates to:
+  /// **'Add meg a kapott kódot'**
+  String get resetPasswordCodeRequired;
+
+  /// No description provided for @resetPasswordNewPasswordLabel.
+  ///
+  /// In hu, this message translates to:
+  /// **'Új jelszó'**
+  String get resetPasswordNewPasswordLabel;
+
+  /// No description provided for @resetPasswordConfirmLabel.
+  ///
+  /// In hu, this message translates to:
+  /// **'Új jelszó megerősítése'**
+  String get resetPasswordConfirmLabel;
+
+  /// No description provided for @resetPasswordMismatch.
+  ///
+  /// In hu, this message translates to:
+  /// **'A két jelszó nem egyezik'**
+  String get resetPasswordMismatch;
+
+  /// No description provided for @resetPasswordSubmit.
+  ///
+  /// In hu, this message translates to:
+  /// **'Jelszó visszaállítása'**
+  String get resetPasswordSubmit;
+
+  /// No description provided for @resetPasswordSuccess.
+  ///
+  /// In hu, this message translates to:
+  /// **'A jelszavad megváltozott.'**
+  String get resetPasswordSuccess;
+
+  /// No description provided for @resetPasswordResend.
+  ///
+  /// In hu, this message translates to:
+  /// **'Kód újraküldése'**
+  String get resetPasswordResend;
+
+  /// No description provided for @resetPasswordResent.
+  ///
+  /// In hu, this message translates to:
+  /// **'Új kódot küldtünk.'**
+  String get resetPasswordResent;
+
+  /// No description provided for @changePasswordTitle.
+  ///
+  /// In hu, this message translates to:
+  /// **'Jelszó módosítása'**
+  String get changePasswordTitle;
+
+  /// No description provided for @changePasswordNewLabel.
+  ///
+  /// In hu, this message translates to:
+  /// **'Új jelszó'**
+  String get changePasswordNewLabel;
+
+  /// No description provided for @changePasswordConfirmLabel.
+  ///
+  /// In hu, this message translates to:
+  /// **'Új jelszó megerősítése'**
+  String get changePasswordConfirmLabel;
+
+  /// No description provided for @changePasswordSubmit.
+  ///
+  /// In hu, this message translates to:
+  /// **'Mentés'**
+  String get changePasswordSubmit;
+
+  /// No description provided for @changePasswordSuccess.
+  ///
+  /// In hu, this message translates to:
+  /// **'A jelszó megváltozott.'**
+  String get changePasswordSuccess;
+
   /// No description provided for @verifyEmailTitle.
   ///
   /// In hu, this message translates to:
