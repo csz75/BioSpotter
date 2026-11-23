@@ -5,6 +5,7 @@ import '../core/providers.dart';
 import '../features/groups/group_repository.dart';
 import '../l10n/app_localizations.dart';
 import 'group_detail_screen.dart';
+import 'premium_screen.dart';
 
 /// A felhasználó csoportjai — az aktívak és (ownernek) az archiváltak.
 class GroupsScreen extends ConsumerStatefulWidget {
@@ -63,6 +64,17 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
 
   Future<void> _create() async {
     final l = AppLocalizations.of(context);
+
+    // Csoport létrehozásához prémium előfizetés kell (a csatlakozás marad ingyenes).
+    final isPremium = await ref.read(premiumProvider.future);
+    if (!mounted) return;
+    if (!isPremium) {
+      await Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => const PremiumScreen()),
+      );
+      return;
+    }
+
     final nameCtrl = TextEditingController();
     final descCtrl = TextEditingController();
 

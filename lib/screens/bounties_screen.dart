@@ -7,6 +7,7 @@ import '../features/bounties/bounty_repository.dart';
 import '../l10n/app_localizations.dart';
 import 'bounty_create_screen.dart';
 import 'bounty_detail_screen.dart';
+import 'premium_screen.dart';
 
 /// A nyitott kitűzések listája.
 class BountiesScreen extends ConsumerStatefulWidget {
@@ -83,6 +84,15 @@ class _BountiesScreenState extends ConsumerState<BountiesScreen>
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
+          // Kitűzés létrehozásához prémium előfizetés kell (a beküldés marad ingyenes).
+          final isPremium = await ref.read(premiumProvider.future);
+          if (!mounted) return;
+          if (!isPremium) {
+            await Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const PremiumScreen()),
+            );
+            return;
+          }
           await Navigator.of(context).push(
             MaterialPageRoute(builder: (_) => const BountyCreateScreen()),
           );
