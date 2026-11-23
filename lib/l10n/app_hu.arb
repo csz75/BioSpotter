@@ -155,11 +155,32 @@
   "bountyFieldWinners": "Nyertesek száma",
   "bountyPickSpecies": "Faj kiválasztása (opcionális)",
   "bountyPickExpiry": "Határidő kiválasztása",
+  "bountyPickArea": "Terület kiválasztása (opcionális)",
+  "bountyAreaSelected": "{radius} km sugarú terület",
+  "@bountyAreaSelected": {
+    "placeholders": { "radius": { "type": "String" } }
+  },
+  "bountyAreaPickerTitle": "Terület kiválasztása",
+  "bountyAreaPickerHint": "Koppints a térképre a középpont kijelöléséhez",
+  "bountyAreaPickerRadius": "Sugár: {km} km",
+  "@bountyAreaPickerRadius": {
+    "placeholders": { "km": { "type": "String" } }
+  },
+  "bountyAreaPickerUseLocation": "Saját helyzetem",
+  "bountyAreaPickerConfirm": "Megerősítés",
+  "bountyAreaPickerClear": "Törlés",
+  "bountyAreaPickerNoCenter": "Előbb jelölj ki egy középpontot a térképen.",
   "bountyCreateButton": "Kitűzés létrehozása",
   "bountyCreated": "A kitűzés létrejött — moderátor jóváhagyására vár.",
   "bountyTitleRequired": "A cím megadása kötelező.",
   "bountyPointsRequired": "A jutalom több mint 0 pont kell legyen.",
   "bountyApprovalNote": "A kitűzés moderátor jóváhagyása után válik nyilvánossá. Kitűzést csak prémium előfizetők hozhatnak létre.",
+  "bountyFilterActiveOnly": "Csak aktív (nem lejárt)",
+  "bountyFilterNearbyKm": "{km} km-en belül",
+  "@bountyFilterNearbyKm": {
+    "placeholders": { "km": { "type": "String" } }
+  },
+  "bountyFilterNoneFound": "Nincs a szűrőknek megfelelő kitűzés.",
   "@bountyDaysLeft": {
     "placeholders": { "days": { "type": "int" } }
   },

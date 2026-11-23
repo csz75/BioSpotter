@@ -397,6 +397,39 @@ class AppLocalizationsDe extends AppLocalizations {
   String get bountyPickExpiry => 'Frist wählen';
 
   @override
+  String get bountyPickArea => 'Gebiet auswählen (optional)';
+
+  @override
+  String bountyAreaSelected(String radius) {
+    return 'Gebiet mit $radius km Radius';
+  }
+
+  @override
+  String get bountyAreaPickerTitle => 'Gebiet auswählen';
+
+  @override
+  String get bountyAreaPickerHint =>
+      'Tippe auf die Karte, um den Mittelpunkt festzulegen';
+
+  @override
+  String bountyAreaPickerRadius(String km) {
+    return 'Radius: $km km';
+  }
+
+  @override
+  String get bountyAreaPickerUseLocation => 'Meinen Standort verwenden';
+
+  @override
+  String get bountyAreaPickerConfirm => 'Bestätigen';
+
+  @override
+  String get bountyAreaPickerClear => 'Entfernen';
+
+  @override
+  String get bountyAreaPickerNoCenter =>
+      'Wähle zuerst einen Mittelpunkt auf der Karte.';
+
+  @override
   String get bountyCreateButton => 'Prämie erstellen';
 
   @override
@@ -411,6 +444,18 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get bountyApprovalNote =>
       'Die Prämie wird nach Moderatorfreigabe öffentlich. Nur Premium-Abonnenten können Prämien erstellen.';
+
+  @override
+  String get bountyFilterActiveOnly => 'Nur aktive (nicht abgelaufen)';
+
+  @override
+  String bountyFilterNearbyKm(String km) {
+    return 'Innerhalb von $km km';
+  }
+
+  @override
+  String get bountyFilterNoneFound =>
+      'Keine Ausschreibungen entsprechen den Filtern.';
 
   @override
   String get moderatorTitle => 'Moderator';

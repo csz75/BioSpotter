@@ -395,6 +395,39 @@ class AppLocalizationsPl extends AppLocalizations {
   String get bountyPickExpiry => 'Wybierz termin';
 
   @override
+  String get bountyPickArea => 'Wybierz obszar (opcjonalnie)';
+
+  @override
+  String bountyAreaSelected(String radius) {
+    return 'Obszar o promieniu $radius km';
+  }
+
+  @override
+  String get bountyAreaPickerTitle => 'Wybierz obszar';
+
+  @override
+  String get bountyAreaPickerHint =>
+      'Dotknij mapy, aby ustawić punkt centralny';
+
+  @override
+  String bountyAreaPickerRadius(String km) {
+    return 'Promień: $km km';
+  }
+
+  @override
+  String get bountyAreaPickerUseLocation => 'Użyj mojej lokalizacji';
+
+  @override
+  String get bountyAreaPickerConfirm => 'Potwierdź';
+
+  @override
+  String get bountyAreaPickerClear => 'Usuń';
+
+  @override
+  String get bountyAreaPickerNoCenter =>
+      'Najpierw wybierz punkt centralny na mapie.';
+
+  @override
   String get bountyCreateButton => 'Utwórz nagrodę';
 
   @override
@@ -409,6 +442,17 @@ class AppLocalizationsPl extends AppLocalizations {
   @override
   String get bountyApprovalNote =>
       'Nagroda staje się publiczna po zatwierdzeniu. Tylko subskrybenci premium mogą je tworzyć.';
+
+  @override
+  String get bountyFilterActiveOnly => 'Tylko aktywne (nie wygasłe)';
+
+  @override
+  String bountyFilterNearbyKm(String km) {
+    return 'W promieniu $km km';
+  }
+
+  @override
+  String get bountyFilterNoneFound => 'Żadna nagroda nie spełnia filtrów.';
 
   @override
   String get moderatorTitle => 'Moderator';

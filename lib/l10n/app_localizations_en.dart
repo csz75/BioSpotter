@@ -396,6 +396,38 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bountyPickExpiry => 'Pick a deadline';
 
   @override
+  String get bountyPickArea => 'Select area (optional)';
+
+  @override
+  String bountyAreaSelected(String radius) {
+    return '$radius km radius area';
+  }
+
+  @override
+  String get bountyAreaPickerTitle => 'Select area';
+
+  @override
+  String get bountyAreaPickerHint => 'Tap the map to set the center point';
+
+  @override
+  String bountyAreaPickerRadius(String km) {
+    return 'Radius: $km km';
+  }
+
+  @override
+  String get bountyAreaPickerUseLocation => 'Use my location';
+
+  @override
+  String get bountyAreaPickerConfirm => 'Confirm';
+
+  @override
+  String get bountyAreaPickerClear => 'Clear';
+
+  @override
+  String get bountyAreaPickerNoCenter =>
+      'Pick a center point on the map first.';
+
+  @override
   String get bountyCreateButton => 'Create bounty';
 
   @override
@@ -410,6 +442,17 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get bountyApprovalNote =>
       'The bounty becomes public after moderator approval. Only premium subscribers can create bounties.';
+
+  @override
+  String get bountyFilterActiveOnly => 'Active only (not expired)';
+
+  @override
+  String bountyFilterNearbyKm(String km) {
+    return 'Within $km km';
+  }
+
+  @override
+  String get bountyFilterNoneFound => 'No bounties match the filters.';
 
   @override
   String get moderatorTitle => 'Moderator';

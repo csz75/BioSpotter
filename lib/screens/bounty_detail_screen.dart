@@ -307,6 +307,9 @@ class _BountyDetailScreenState extends ConsumerState<BountyDetailScreen> {
   }
 
   Widget _banner(IconData icon, String text, Color color) {
+    // A háttér mindig világos pasztell (mindkét témában) — a szöveg
+    // és az ikon ezért fix sötét színű, hogy sötét módban is olvasható legyen.
+    const foreground = Colors.black87;
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -315,9 +318,9 @@ class _BountyDetailScreenState extends ConsumerState<BountyDetailScreen> {
       ),
       child: Row(
         children: [
-          Icon(icon, size: 18),
+          Icon(icon, size: 18, color: foreground),
           const SizedBox(width: 8),
-          Expanded(child: Text(text)),
+          Expanded(child: Text(text, style: const TextStyle(color: foreground))),
         ],
       ),
     );

@@ -834,6 +834,60 @@ abstract class AppLocalizations {
   /// **'Határidő kiválasztása'**
   String get bountyPickExpiry;
 
+  /// No description provided for @bountyPickArea.
+  ///
+  /// In hu, this message translates to:
+  /// **'Terület kiválasztása (opcionális)'**
+  String get bountyPickArea;
+
+  /// No description provided for @bountyAreaSelected.
+  ///
+  /// In hu, this message translates to:
+  /// **'{radius} km sugarú terület'**
+  String bountyAreaSelected(String radius);
+
+  /// No description provided for @bountyAreaPickerTitle.
+  ///
+  /// In hu, this message translates to:
+  /// **'Terület kiválasztása'**
+  String get bountyAreaPickerTitle;
+
+  /// No description provided for @bountyAreaPickerHint.
+  ///
+  /// In hu, this message translates to:
+  /// **'Koppints a térképre a középpont kijelöléséhez'**
+  String get bountyAreaPickerHint;
+
+  /// No description provided for @bountyAreaPickerRadius.
+  ///
+  /// In hu, this message translates to:
+  /// **'Sugár: {km} km'**
+  String bountyAreaPickerRadius(String km);
+
+  /// No description provided for @bountyAreaPickerUseLocation.
+  ///
+  /// In hu, this message translates to:
+  /// **'Saját helyzetem'**
+  String get bountyAreaPickerUseLocation;
+
+  /// No description provided for @bountyAreaPickerConfirm.
+  ///
+  /// In hu, this message translates to:
+  /// **'Megerősítés'**
+  String get bountyAreaPickerConfirm;
+
+  /// No description provided for @bountyAreaPickerClear.
+  ///
+  /// In hu, this message translates to:
+  /// **'Törlés'**
+  String get bountyAreaPickerClear;
+
+  /// No description provided for @bountyAreaPickerNoCenter.
+  ///
+  /// In hu, this message translates to:
+  /// **'Előbb jelölj ki egy középpontot a térképen.'**
+  String get bountyAreaPickerNoCenter;
+
   /// No description provided for @bountyCreateButton.
   ///
   /// In hu, this message translates to:
@@ -863,6 +917,24 @@ abstract class AppLocalizations {
   /// In hu, this message translates to:
   /// **'A kitűzés moderátor jóváhagyása után válik nyilvánossá. Kitűzést csak prémium előfizetők hozhatnak létre.'**
   String get bountyApprovalNote;
+
+  /// No description provided for @bountyFilterActiveOnly.
+  ///
+  /// In hu, this message translates to:
+  /// **'Csak aktív (nem lejárt)'**
+  String get bountyFilterActiveOnly;
+
+  /// No description provided for @bountyFilterNearbyKm.
+  ///
+  /// In hu, this message translates to:
+  /// **'{km} km-en belül'**
+  String bountyFilterNearbyKm(String km);
+
+  /// No description provided for @bountyFilterNoneFound.
+  ///
+  /// In hu, this message translates to:
+  /// **'Nincs a szűrőknek megfelelő kitűzés.'**
+  String get bountyFilterNoneFound;
 
   /// No description provided for @moderatorTitle.
   ///

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../core/locale_controller.dart';
 import '../core/providers.dart';
@@ -23,6 +24,15 @@ class _BountiesScreenState extends ConsumerState<BountiesScreen>
   List<Bounty> _open = const [];
   List<Bounty> _mine = const [];
   bool _loading = true;
+
+  /// Csak az aktív (nem lejárt) határidejű kitűzéseket mutassa.
+  bool _activeOnly = false;
+
+  /// A "Közelemben" szűrő sugara km-ben (null = kikapcsolva).
+  static const _nearbyOptions = [10.0, 25.0, 50.0, 100.0];
+  double? _nearbyKm;
+  Position? _myPosition;
+  bool _locating = false;
 
   @override
   void initState() {
@@ -61,6 +71,89 @@ class _BountiesScreenState extends ConsumerState<BountiesScreen>
   String _langCode() {
     return localeController.locale?.languageCode ??
         Localizations.localeOf(context).languageCode;
+  }
+
+  /// A jelenlegi helyzet lekérése a "Közelemben" szűrőhöz.
+  /// Visszatérés: sikerült-e.
+  Future<bool> _determinePosition() async {
+    final l = AppLocalizations.of(context);
+    setState(() => _locating = true);
+    try {
+      if (!await Geolocator.isLocationServiceEnabled()) {
+        _showLocationError(l.locationServiceDisabled);
+        return false;
+      }
+      var permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+      }
+      if (permission == LocationPermission.denied) {
+        _showLocationError(l.locationPermissionDenied);
+        return false;
+      }
+      if (permission == LocationPermission.deniedForever) {
+        _showLocationError(l.locationPermissionDeniedForever);
+        return false;
+      }
+      final pos = await Geolocator.getCurrentPosition(
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.medium,
+          timeLimit: Duration(seconds: 10),
+        ),
+      );
+      if (!mounted) return false;
+      setState(() => _myPosition = pos);
+      return true;
+    } catch (_) {
+      _showLocationError(l.locationUnavailable);
+      return false;
+    } finally {
+      if (mounted) setState(() => _locating = false);
+    }
+  }
+
+  void _showLocationError(String message) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  /// A "Közelemben" chip kiválasztása/kikapcsolása.
+  Future<void> _toggleNearby(double km) async {
+    if (_nearbyKm == km) {
+      setState(() => _nearbyKm = null);
+      return;
+    }
+    if (_myPosition == null) {
+      final ok = await _determinePosition();
+      if (!ok) return;
+    }
+    if (!mounted) return;
+    setState(() => _nearbyKm = km);
+  }
+
+  /// A szűrők alkalmazása a listára.
+  List<Bounty> _applyFilters(List<Bounty> items) {
+    var result = items;
+    if (_activeOnly) {
+      result = result.where((b) => !b.isExpired).toList();
+    }
+    final km = _nearbyKm;
+    final pos = _myPosition;
+    if (km != null && pos != null) {
+      result = result.where((b) {
+        if (!b.hasArea) return false;
+        final distanceKm = Geolocator.distanceBetween(
+              pos.latitude,
+              pos.longitude,
+              b.latitude!,
+              b.longitude!,
+            ) /
+            1000;
+        return distanceKm <= km;
+      }).toList();
+    }
+    return result;
   }
 
   @override
@@ -103,11 +196,53 @@ class _BountiesScreenState extends ConsumerState<BountiesScreen>
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
-          : TabBarView(
-              controller: _tabs,
+          : Column(
               children: [
-                _list(_open, lang, l, emptyText: l.bountyEmpty),
-                _list(_mine, lang, l, emptyText: l.bountyMineEmpty),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        FilterChip(
+                          label: Text(l.bountyFilterActiveOnly),
+                          selected: _activeOnly,
+                          onSelected: (v) => setState(() => _activeOnly = v),
+                        ),
+                        const SizedBox(width: 8),
+                        ..._nearbyOptions.map((km) => Padding(
+                              padding: const EdgeInsets.only(right: 6),
+                              child: FilterChip(
+                                avatar: _locating && _nearbyKm != km
+                                    ? null
+                                    : const Icon(Icons.near_me, size: 16),
+                                label: Text(
+                                  l.bountyFilterNearbyKm('${km.round()}'),
+                                ),
+                                selected: _nearbyKm == km,
+                                onSelected: (_) => _toggleNearby(km),
+                              ),
+                            )),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Expanded(
+                  child: TabBarView(
+                    controller: _tabs,
+                    children: [
+                      _list(_applyFilters(_open), lang, l,
+                          emptyText: _activeOnly || _nearbyKm != null
+                              ? l.bountyFilterNoneFound
+                              : l.bountyEmpty),
+                      _list(_applyFilters(_mine), lang, l,
+                          emptyText: _activeOnly || _nearbyKm != null
+                              ? l.bountyFilterNoneFound
+                              : l.bountyMineEmpty),
+                    ],
+                  ),
+                ),
               ],
             ),
     );

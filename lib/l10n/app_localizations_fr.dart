@@ -399,6 +399,39 @@ class AppLocalizationsFr extends AppLocalizations {
   String get bountyPickExpiry => 'Choisir une échéance';
 
   @override
+  String get bountyPickArea => 'Choisir une zone (optionnel)';
+
+  @override
+  String bountyAreaSelected(String radius) {
+    return 'Zone d\'un rayon de $radius km';
+  }
+
+  @override
+  String get bountyAreaPickerTitle => 'Choisir une zone';
+
+  @override
+  String get bountyAreaPickerHint =>
+      'Touche la carte pour définir le point central';
+
+  @override
+  String bountyAreaPickerRadius(String km) {
+    return 'Rayon : $km km';
+  }
+
+  @override
+  String get bountyAreaPickerUseLocation => 'Utiliser ma position';
+
+  @override
+  String get bountyAreaPickerConfirm => 'Confirmer';
+
+  @override
+  String get bountyAreaPickerClear => 'Effacer';
+
+  @override
+  String get bountyAreaPickerNoCenter =>
+      'Choisis d\'abord un point central sur la carte.';
+
+  @override
   String get bountyCreateButton => 'Créer la récompense';
 
   @override
@@ -413,6 +446,18 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get bountyApprovalNote =>
       'La récompense devient publique après approbation. Seuls les abonnés premium peuvent en créer.';
+
+  @override
+  String get bountyFilterActiveOnly => 'Actives uniquement (non expirées)';
+
+  @override
+  String bountyFilterNearbyKm(String km) {
+    return 'Dans un rayon de $km km';
+  }
+
+  @override
+  String get bountyFilterNoneFound =>
+      'Aucune récompense ne correspond aux filtres.';
 
   @override
   String get moderatorTitle => 'Modérateur';

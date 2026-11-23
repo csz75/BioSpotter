@@ -396,6 +396,39 @@ class AppLocalizationsHu extends AppLocalizations {
   String get bountyPickExpiry => 'Határidő kiválasztása';
 
   @override
+  String get bountyPickArea => 'Terület kiválasztása (opcionális)';
+
+  @override
+  String bountyAreaSelected(String radius) {
+    return '$radius km sugarú terület';
+  }
+
+  @override
+  String get bountyAreaPickerTitle => 'Terület kiválasztása';
+
+  @override
+  String get bountyAreaPickerHint =>
+      'Koppints a térképre a középpont kijelöléséhez';
+
+  @override
+  String bountyAreaPickerRadius(String km) {
+    return 'Sugár: $km km';
+  }
+
+  @override
+  String get bountyAreaPickerUseLocation => 'Saját helyzetem';
+
+  @override
+  String get bountyAreaPickerConfirm => 'Megerősítés';
+
+  @override
+  String get bountyAreaPickerClear => 'Törlés';
+
+  @override
+  String get bountyAreaPickerNoCenter =>
+      'Előbb jelölj ki egy középpontot a térképen.';
+
+  @override
   String get bountyCreateButton => 'Kitűzés létrehozása';
 
   @override
@@ -411,6 +444,17 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get bountyApprovalNote =>
       'A kitűzés moderátor jóváhagyása után válik nyilvánossá. Kitűzést csak prémium előfizetők hozhatnak létre.';
+
+  @override
+  String get bountyFilterActiveOnly => 'Csak aktív (nem lejárt)';
+
+  @override
+  String bountyFilterNearbyKm(String km) {
+    return '$km km-en belül';
+  }
+
+  @override
+  String get bountyFilterNoneFound => 'Nincs a szűrőknek megfelelő kitűzés.';
 
   @override
   String get moderatorTitle => 'Moderátor';

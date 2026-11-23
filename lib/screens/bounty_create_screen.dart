@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/providers.dart';
 import '../features/identification/col_match.dart';
 import '../l10n/app_localizations.dart';
+import 'bounty_area_picker_screen.dart';
 import 'species_search_screen.dart';
 
 /// Új kitűzés létrehozása (prémium).
@@ -23,6 +24,7 @@ class _BountyCreateScreenState extends ConsumerState<BountyCreateScreen> {
   ColMatch? _species;
   int _maxWinners = 3;
   DateTime? _expires;
+  BountyArea? _area;
   bool _busy = false;
 
   @override
@@ -48,6 +50,15 @@ class _BountyCreateScreenState extends ConsumerState<BountyCreateScreen> {
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
     if (d != null) setState(() => _expires = d);
+  }
+
+  Future<void> _pickArea() async {
+    final area = await Navigator.of(context).push<BountyArea>(
+      MaterialPageRoute(
+        builder: (_) => BountyAreaPickerScreen(initial: _area),
+      ),
+    );
+    if (area != null) setState(() => _area = area);
   }
 
   Future<void> _submit() async {
@@ -82,6 +93,9 @@ class _BountyCreateScreenState extends ConsumerState<BountyCreateScreen> {
           rewardPoints: points,
           maxWinners: _maxWinners,
           expiresAt: _expires,
+          latitude: _area?.center.latitude,
+          longitude: _area?.center.longitude,
+          radiusKm: _area?.radiusKm,
         );
     if (!mounted) return;
     setState(() => _busy = false);
@@ -116,12 +130,12 @@ class _BountyCreateScreenState extends ConsumerState<BountyCreateScreen> {
             ),
             child: Row(
               children: [
-                const Icon(Icons.info_outline, size: 18),
+                const Icon(Icons.info_outline, size: 18, color: Colors.black87),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     l.bountyApprovalNote,
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: const TextStyle(color: Colors.black87, fontSize: 12),
                   ),
                 ),
               ],
@@ -206,6 +220,26 @@ class _BountyCreateScreenState extends ConsumerState<BountyCreateScreen> {
             ),
             onPressed: _pickExpiry,
           ),
+          const SizedBox(height: 16),
+
+          // Terület (opcionális)
+          OutlinedButton.icon(
+            icon: const Icon(Icons.map_outlined),
+            label: Text(
+              _area == null
+                  ? l.bountyPickArea
+                  : l.bountyAreaSelected('${_area!.radiusKm.round()}'),
+            ),
+            onPressed: _pickArea,
+          ),
+          if (_area != null)
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: () => setState(() => _area = null),
+                child: Text(l.bountyAreaPickerClear),
+              ),
+            ),
           const SizedBox(height: 24),
 
           FilledButton.icon(

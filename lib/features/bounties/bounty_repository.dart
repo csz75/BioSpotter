@@ -17,6 +17,9 @@ class Bounty {
     this.createdAt,
     this.acceptedCount = 0,
     this.isMine = false,
+    this.latitude,
+    this.longitude,
+    this.radiusKm,
   });
 
   final String id;
@@ -33,6 +36,16 @@ class Bounty {
   final DateTime? createdAt;
   final int acceptedCount;
   final bool isMine;
+
+  /// A kitűzéshez rendelt körzét középpontja (opcionális).
+  final double? latitude;
+  final double? longitude;
+
+  /// A körzét sugara km-ben (opcionális).
+  final double? radiusKm;
+
+  /// Van-e megadva terület ehhez a kitűzéshez.
+  bool get hasArea => latitude != null && longitude != null && radiusKm != null;
 
   bool get isOpen => status == 'open';
   bool get isPendingApproval => status == 'pending_approval';
@@ -74,6 +87,9 @@ class Bounty {
           : null,
       acceptedCount: accepted,
       isMine: myUserId != null && json['creator_id'] == myUserId,
+      latitude: (json['latitude'] as num?)?.toDouble(),
+      longitude: (json['longitude'] as num?)?.toDouble(),
+      radiusKm: (json['radius_km'] as num?)?.toDouble(),
     );
   }
 }
@@ -135,10 +151,11 @@ class BountyRepository {
   Future<List<Bounty>> openBounties() async {
     final user = _client.auth.currentUser;
     final res = await _client
-        .from('bounties')
+        .from('bounties_with_coords')
         .select(
           'id, creator_id, title, description, species_id, '
           'reward_points, max_winners, status, expires_at, created_at, '
+          'latitude, longitude, radius_km, '
           'species(scientific_name, common_name_hu), '
           'bounty_claims(id, status)',
         )
@@ -159,10 +176,11 @@ class BountyRepository {
     if (user == null) return const [];
 
     final res = await _client
-        .from('bounties')
+        .from('bounties_with_coords')
         .select(
           'id, creator_id, title, description, species_id, '
           'reward_points, max_winners, status, expires_at, created_at, '
+          'latitude, longitude, radius_km, '
           'species(scientific_name, common_name_hu), '
           'bounty_claims(id, status)',
         )
@@ -177,7 +195,7 @@ class BountyRepository {
         .toList();
   }
 
-  /// Kitűzés létrehozása. Terület nélkül (az „A" modell).
+  /// Kitűzés létrehozása. A terület (kör alakú körzet) opcionális.
   /// Visszatérés: null = siker, egyébként a hibaüzenet.
   Future<String?> createBounty({
     required String title,
@@ -186,15 +204,23 @@ class BountyRepository {
     required int rewardPoints,
     required int maxWinners,
     DateTime? expiresAt,
+    double? latitude,
+    double? longitude,
+    double? radiusKm,
   }) async {
+    // A PostGIS geography mező WKT formátumot vár: POINT(lon lat).
+    final region = (latitude != null && longitude != null)
+        ? 'SRID=4326;POINT($longitude $latitude)'
+        : null;
+
     try {
       await _client.rpc('create_bounty', params: {
         'p_title': title,
         'p_description': description,
         'p_species_id': speciesId,
         'p_reward_points': rewardPoints,
-        'p_region': null,
-        'p_radius_km': null,
+        'p_region': region,
+        'p_radius_km': region != null ? radiusKm : null,
         'p_expires_at': expiresAt?.toUtc().toIso8601String(),
         'p_max_winners': maxWinners,
         'p_group_id': null,
