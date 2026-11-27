@@ -1848,6 +1848,12 @@ abstract class AppLocalizations {
   /// **'Fedezd fel és azonosítsd a környezeted élővilágát'**
   String get homeSubtitle;
 
+  /// No description provided for @homeTotalObservations.
+  ///
+  /// In hu, this message translates to:
+  /// **'Összesen {count} megfigyelés'**
+  String homeTotalObservations(String count);
+
   /// No description provided for @homeNewObservationHint.
   ///
   /// In hu, this message translates to:

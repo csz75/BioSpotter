@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
@@ -62,6 +64,9 @@ class _BountiesScreenState extends ConsumerState<BountiesScreen>
         _mine = mine;
         _loading = false;
       });
+      // A lista megnyit\u00e1sa jelzi, hogy a felhaszn\u00e1l\u00f3 l\u00e1tta a kit\u0171z\u00e9seket \u2014
+      // ett\u0151l kezdve \u00faj badge csak a mostant\u00f3l l\u00e9trej\u00f6v\u0151 kit\u0171z\u00e9sekre jelenik meg.
+      unawaited(repo.markBountiesChecked());
     } catch (_) {
       if (!mounted) return;
       setState(() => _loading = false);

@@ -316,6 +316,7 @@
   "navObservations": "Obserwacje",
   "navProfile": "Profil",
   "homeSubtitle": "Odkrywaj i identyfikuj przyrodę wokół siebie",
+  "homeTotalObservations": "Łącznie {count} obserwacji",
   "homeNewObservationHint": "Sfotografuj gatunek i zidentyfikuj go",
   "homeObservationsLabel": "Obserwacje",
   "homeSpeciesLabel": "Zidentyfikowane gatunki",

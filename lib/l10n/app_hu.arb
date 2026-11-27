@@ -415,6 +415,10 @@
   "navObservations": "Megfigyelések",
   "navProfile": "Profil",
   "homeSubtitle": "Fedezd fel és azonosítsd a környezeted élővilágát",
+  "homeTotalObservations": "Összesen {count} megfigyelés",
+  "@homeTotalObservations": {
+    "placeholders": { "count": { "type": "String" } }
+  },
   "homeNewObservationHint": "Fotózz egy fajt, és azonosítsd",
   "homeObservationsLabel": "Megfigyelés",
   "homeSpeciesLabel": "Azonosított faj",

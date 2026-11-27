@@ -1,3 +1,4 @@
+import 'package:geolocator/geolocator.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// Egy kitűzés (bounty).
@@ -305,5 +306,73 @@ class BountyRepository {
   /// A Storage-ban tárolt kép URL-je.
   String photoUrl(String storagePath) {
     return _client.storage.from('photos').getPublicUrl(storagePath);
+  }
+
+  // ── Új a közelemben — badge a kezdőképernyőn ────────────────────────
+
+  /// Mikor nézte meg utoljára a felhasználó a kitűzéseket (eszközök között
+  /// szinkronban, a `users` táblában tárolva).
+  Future<DateTime?> lastBountyCheck() async {
+    final user = _client.auth.currentUser;
+    if (user == null) return null;
+
+    final row = await _client
+        .from('users')
+        .select('last_bounty_check_at')
+        .eq('id', user.id)
+        .maybeSingle();
+
+    final raw = row?['last_bounty_check_at'] as String?;
+    return raw != null ? DateTime.tryParse(raw) : null;
+  }
+
+  /// Megjelöli, hogy a felhasználó most nézte meg a kitűzéseket.
+  Future<void> markBountiesChecked() async {
+    final user = _client.auth.currentUser;
+    if (user == null) return;
+
+    await _client.from('users').update({
+      'last_bounty_check_at': DateTime.now().toUtc().toIso8601String(),
+    }).eq('id', user.id);
+  }
+
+  /// Az új, hozzád közeli (nyitott, területtel rendelkező) kitűzések száma
+  /// a legutóbbi ellenőrzés óta — a legutóbbi megfigyelésed helyéhez képest.
+  Future<int> countNewNearby({double radiusKm = 25}) async {
+    final user = _client.auth.currentUser;
+    if (user == null) return 0;
+
+    // Referenciapont: a legutóbbi megfigyelésed helye.
+    final obsRow = await _client
+        .from('observations_with_coords')
+        .select('latitude, longitude')
+        .eq('user_id', user.id)
+        .order('observed_at', ascending: false)
+        .limit(1)
+        .maybeSingle();
+    if (obsRow == null) return 0;
+
+    final refLat = (obsRow['latitude'] as num?)?.toDouble();
+    final refLng = (obsRow['longitude'] as num?)?.toDouble();
+    if (refLat == null || refLng == null) return 0;
+
+    final lastCheck = await lastBountyCheck();
+    final open = await openBounties();
+
+    return open.where((b) {
+      if (!b.hasArea) return false;
+      if (lastCheck != null &&
+          !(b.createdAt?.isAfter(lastCheck) ?? false)) {
+        return false;
+      }
+      final distanceKm = Geolocator.distanceBetween(
+            refLat,
+            refLng,
+            b.latitude!,
+            b.longitude!,
+          ) /
+          1000;
+      return distanceKm <= radiusKm;
+    }).length;
   }
 }

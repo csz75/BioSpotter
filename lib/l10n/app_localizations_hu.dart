@@ -962,6 +962,11 @@ class AppLocalizationsHu extends AppLocalizations {
       'Fedezd fel és azonosítsd a környezeted élővilágát';
 
   @override
+  String homeTotalObservations(String count) {
+    return 'Összesen $count megfigyelés';
+  }
+
+  @override
   String get homeNewObservationHint => 'Fotózz egy fajt, és azonosítsd';
 
   @override

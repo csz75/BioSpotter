@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import '../core/locale_controller.dart';
 import '../core/providers.dart';
@@ -20,12 +21,16 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   late Future<List<Observation>> _future;
   String? _displayName;
+  int? _totalObservations;
+  int _newNearbyBounties = 0;
 
   @override
   void initState() {
     super.initState();
     _future = ref.read(observationRepositoryProvider).fetchMine();
     _loadName();
+    _loadTotalCount();
+    _loadNewBounties();
   }
 
   Future<void> _loadName() async {
@@ -34,10 +39,30 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     if (mounted) setState(() => _displayName = name);
   }
 
+  Future<void> _loadTotalCount() async {
+    try {
+      final count = await ref.read(observationRepositoryProvider).totalCount();
+      if (mounted) setState(() => _totalObservations = count);
+    } catch (_) {
+      // Csendben figyelmen kívül hagyjuk — a KPI nem kritikus adat.
+    }
+  }
+
+  Future<void> _loadNewBounties() async {
+    try {
+      final count = await ref.read(bountyRepositoryProvider).countNewNearby();
+      if (mounted) setState(() => _newNearbyBounties = count);
+    } catch (_) {
+      // Csendben figyelmen kívül hagyjuk — a badge nem kritikus adat.
+    }
+  }
+
   Future<void> _reload() async {
     final fresh = ref.read(observationRepositoryProvider).fetchMine();
     setState(() => _future = fresh);
     _loadName();
+    _loadTotalCount();
+    _loadNewBounties();
     try {
       await fresh;
     } catch (_) {}
@@ -101,11 +126,28 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         Row(
           children: [
             Expanded(
-              child: Text(
-                l.appTitle,
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.w700,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l.appTitle,
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
+                  ),
+                  if (_totalObservations != null)
+                    Text(
+                      l.homeTotalObservations(
+                        NumberFormat.decimalPattern(_langCode())
+                            .format(_totalObservations),
+                      ),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurfaceVariant,
+                          ),
                     ),
+                ],
               ),
             ),
             IconButton(
@@ -184,9 +226,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           icon: Icons.emoji_events_outlined,
           title: l.homeBounties,
           subtitle: l.homeBountiesHint,
-          onTap: () => Navigator.of(context).push(
-            MaterialPageRoute(builder: (_) => const BountiesScreen()),
-          ),
+          badgeCount: _newNearbyBounties,
+          onTap: () async {
+            await Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const BountiesScreen()),
+            );
+            if (mounted) _loadNewBounties();
+          },
         ),
         const SizedBox(height: 24),
 
@@ -335,12 +381,14 @@ class _SectionCard extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.onTap,
+    this.badgeCount = 0,
   });
 
   final IconData icon;
   final String title;
   final String subtitle;
   final VoidCallback onTap;
+  final int badgeCount;
 
   @override
   Widget build(BuildContext context) {
@@ -385,6 +433,24 @@ class _SectionCard extends StatelessWidget {
                   ],
                 ),
               ),
+              if (badgeCount > 0)
+                Container(
+                  margin: const EdgeInsets.only(right: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: scheme.error,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    '$badgeCount',
+                    style: TextStyle(
+                      color: scheme.onError,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
               Icon(Icons.chevron_right, color: scheme.onSurfaceVariant),
             ],
           ),

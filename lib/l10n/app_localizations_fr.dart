@@ -965,6 +965,11 @@ class AppLocalizationsFr extends AppLocalizations {
       'Découvrez et identifiez la nature qui vous entoure';
 
   @override
+  String homeTotalObservations(String count) {
+    return 'Total des observations : $count';
+  }
+
+  @override
   String get homeNewObservationHint =>
       'Photographiez une espèce et identifiez-la';
 

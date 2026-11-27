@@ -966,6 +966,11 @@ class AppLocalizationsIt extends AppLocalizations {
   String get homeSubtitle => 'Scopri e identifica la natura intorno a te';
 
   @override
+  String homeTotalObservations(String count) {
+    return 'Totale osservazioni: $count';
+  }
+
+  @override
   String get homeNewObservationHint => 'Fotografa una specie e identificala';
 
   @override

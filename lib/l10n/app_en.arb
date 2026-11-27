@@ -315,6 +315,7 @@
   "navObservations": "Observations",
   "navProfile": "Profile",
   "homeSubtitle": "Discover and identify the wildlife around you",
+  "homeTotalObservations": "Total observations: {count}",
   "homeNewObservationHint": "Photograph a species and identify it",
   "homeObservationsLabel": "Observations",
   "homeSpeciesLabel": "Species identified",

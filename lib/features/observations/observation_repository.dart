@@ -32,6 +32,14 @@ class ObservationRepository {
         .toList();
   }
 
+  /// Az ÖSSZES felhasználó megfigyeléseinek száma — közösségi KPI.
+  /// Az RLS a saját táblára korlátozná a lekérdezést, ezért ez egy
+  /// SECURITY DEFINER RPC-n keresztül fut.
+  Future<int> totalCount() async {
+    final res = await _client.rpc('total_observations_count');
+    return (res as num).toInt();
+  }
+
   /// Új megfigyelés.
   ///
   /// [groupId]    — melyik csoporthoz tartozik (null = nincs csoport)
